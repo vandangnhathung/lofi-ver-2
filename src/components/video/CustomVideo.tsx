@@ -6,9 +6,11 @@ interface VideoProps {
 
 const CustomVideo: React.FC<VideoProps> = ({src}) => {
     return (
-        <video src={src} autoPlay loop muted className="w-full h-screen object-cover">
-            Your browser does not support the video tag.
-        </video>
+        <div className="fixed inset-0 z-10">
+            <video src={src} autoPlay loop muted className="object-cover h-full w-full">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     );
 };
 
