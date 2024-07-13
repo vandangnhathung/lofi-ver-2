@@ -1,9 +1,11 @@
-// import React from 'react';
+import React from 'react';
+import exteriorBookCafe from '../assets/videos/book-cafe/Exterior+-+Day.mp4';
+import CustomVideo from '../components/video/CustomVideo';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
     return (
         <div>
-            This is homepage
+            <CustomVideo src={exteriorBookCafe}/>
         </div>
     );
 };
