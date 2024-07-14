@@ -8,14 +8,14 @@ function App() {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 5000);
     }, [])
 
     return (
         <>
-            {isLoading && (<Loading></Loading>)}
-
-            <div className="relative">
+            {/*{isLoading && (<Loading></Loading>)}*/}
+            <Loading></Loading>
+            <div className="relative bg-red-500">
                 <HomePage></HomePage>
             </div>
         </>
