@@ -1,7 +1,7 @@
 import React from 'react';
-import universe from '../assets/videos/Universe.mp4';
 import CustomVideo from '../components/CustomVideo/CustomVideo';
 import musics from "../assets/data/musics.json";
+import ExteriorDay from "../assets/videos/ExteriorDay.mp4";
 import MenuBar from "../components/MenuBar/MenuBar";
 
 const HomePage: React.FC = () => {
@@ -9,8 +9,10 @@ const HomePage: React.FC = () => {
 
     return (
         <>
-            <CustomVideo src={universe}/>
-            <MenuBar/>
+            <div className={`relative w-screen h-screen`}>
+                <CustomVideo src={ExteriorDay}/>
+                <MenuBar/>
+            </div>
         </>
     );
 };

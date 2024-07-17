@@ -5,8 +5,8 @@ function App() {
 
     return (
         <>
-            <Loading></Loading>
-            <div className="relative bg-red-500">
+            {/*<Loading></Loading>*/}
+            <div className="relative">
                 <HomePage></HomePage>
             </div>
         </>
