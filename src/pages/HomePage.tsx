@@ -9,6 +9,7 @@ const HomePage: React.FC = () => {
 
     return (
         <>
+            {/* decide height of the website */}
             <div className={`relative w-screen h-screen`}>
                 <CustomVideo src={ExteriorDay}/>
                 <MenuBar/>
