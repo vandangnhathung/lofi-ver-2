@@ -1,4 +1,5 @@
 import React from 'react';
+import musics from "@/assets/data/musics.json";
 import MenuButton from "../MenuButton/MenuButton";
 import {CirclePause, CirclePlay, SkipBack, SkipForward} from "lucide-react";
 
