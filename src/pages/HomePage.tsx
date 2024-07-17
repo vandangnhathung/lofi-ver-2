@@ -1,12 +1,17 @@
 import React from 'react';
-import exteriorBookCafe from '../assets/videos/book-cafe/Exterior+-+Day.mp4';
-import CustomVideo from '../components/video/CustomVideo';
+import universe from '../assets/videos/Universe.mp4';
+import CustomVideo from '../components/CustomVideo/CustomVideo';
+import musics from "../assets/data/musics.json";
+import MenuBar from "../components/MenuBar/MenuBar";
 
 const HomePage: React.FC = () => {
+    console.log(musics);
+
     return (
-        <div>
-            <CustomVideo src={exteriorBookCafe}/>
-        </div>
+        <>
+            <CustomVideo src={universe}/>
+            <MenuBar/>
+        </>
     );
 };
 
