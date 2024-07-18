@@ -120,7 +120,7 @@ const Loading: React.FC = () => {
                 <div
                     className="absolute w-[450px] px-2 max-w-full text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
                     <div ref={logoRef} className="opacity-0 w-[250px] scale-[150%] aspect-square">
-                        <img className="w-full h-full object-contain" src="../../../public/logo/logo-lofi.gif" alt=""/>
+                        <img className="w-full h-full object-contain" src="@/@/@/public/logo/logo-lofi.gif" alt=""/>
                     </div>
                     <div ref={logoTextRef}
                          className="-translate-y-[120%] opacity-0  absolute bottom-[20%] left-0 w-full">

@@ -1,7 +1,7 @@
 import React from 'react';
-import CustomVideo from '../components/CustomVideo/CustomVideo';
-import ExteriorDay from "../assets/videos/ExteriorDay.mp4";
-import MenuBar from "../components/MenuBar/MenuBar";
+import CustomVideo from '@/components/CustomVideo/CustomVideo';
+import ExteriorDay from "@/assets/videos/ExteriorDay.mp4";
+import MenuBar from "@/components/MenuBar/MenuBar";
 
 const HomePage: React.FC = () => {
     return (

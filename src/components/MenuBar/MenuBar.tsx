@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayMusicButtons from "../PlayMusic/PlayMusicButtons";
+import PlayMusicButtons from "@/components/PlayerMusic/PlayMusicButtons";
 
 const MenuBar = () => {
     return (
