@@ -35,10 +35,20 @@ const PlayMusicButtons: React.FC = () => {
         setIsPlay(true);
     };
 
+    const handlePrevSong = () => {
+        let prevIndex = musicIndex - 1;
+        if (prevIndex < 0) {
+            prevIndex = musics.length - 1;
+        }
+        setMusicIndex(prevIndex);
+        setCurrentMusicObject(musics[prevIndex]);
+        setIsPlay(true);
+    }
+
     console.log(`/assets/musics/${currentMusicObject.path}`);
     return (
         <>
-            <MenuButton IconComponent={SkipBack}/>
+            <MenuButton onClick={handlePrevSong} IconComponent={SkipBack}/>
             <MenuButton onClick={handlePlaySong} IconComponent={isPlay ? CirclePause : CirclePlay}/>
             <MenuButton onClick={handleNextSong} IconComponent={SkipForward}/>
             <audio ref={audioRef} loop src={`/assets/musics/${currentMusicObject.path}`}/>
