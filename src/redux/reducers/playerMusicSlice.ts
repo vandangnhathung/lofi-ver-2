@@ -1,13 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import musics from "@/assets/data/musics.json";
+import {PlayerMusicState, Song} from "@/components/PlayerMusic/Type";
 
 const RANDOM_MUSIC_INDEX = Math.floor(Math.random() * musics.length);
 
-export interface PlayerMusicState {
-    musicIndex: number;
-    currentSong: any;
-    isPlay: boolean;
-}
+
 
 const initialState: PlayerMusicState = {
     musicIndex: RANDOM_MUSIC_INDEX,
@@ -19,7 +16,7 @@ const playerMusicSlice = createSlice({
     name: "playerMusic",
     initialState,
     reducers: {
-        setCurrentSong: (state, action: PayloadAction<any>) => {
+        setCurrentSong: (state, action: PayloadAction<Song>) => {
             state.currentSong = action.payload;
         },
         setIsPlay: (state, action: PayloadAction<boolean>) => {
@@ -27,6 +24,7 @@ const playerMusicSlice = createSlice({
         },
         setMusicIndex: (state, action: PayloadAction<number>) => {
             state.musicIndex = action.payload;
+            state.currentSong = musics[state.musicIndex];
         },
         playSong: (state, action: PayloadAction<HTMLAudioElement>) => {
             if (!state.isPlay) {
@@ -59,7 +57,6 @@ const playerMusicSlice = createSlice({
 });
 
 export const {
-    setCurrentSong,
     playSong,
     setIsPlay,
     setMusicIndex,
