@@ -4,6 +4,7 @@ import ExteriorDay from "@/assets/videos/ExteriorDay.mp4";
 import MenuBar from "@/components/MenuBar/MenuBar";
 
 const HomePage: React.FC = () => {
+
     return (
         <>
             {/* decide height of the website */}

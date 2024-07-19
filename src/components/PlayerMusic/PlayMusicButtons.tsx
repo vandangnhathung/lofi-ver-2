@@ -2,9 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import musics from "@/assets/data/musics.json";
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {CirclePause, CirclePlay, SkipBack, SkipForward} from "lucide-react";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/redux/store";
+import {setIsPlay} from "@/redux/reducers/playerMusicSlice";
 
 const PlayMusicButtons: React.FC = () => {
-    const [isPlay, setIsPlay] = useState<boolean>(false);
+    const isPlay = useSelector((state: RootState) => state.playerMusic.isPlay);
+    const dispatch = useDispatch();
     const audioRef = useRef<HTMLAudioElement>(null);
     const [musicIndex, setMusicIndex] = useState<number>(Math.floor(Math.random() * musics.length));
     const [currentMusicObject, setCurrentMusicObject] = useState(musics[musicIndex]);
@@ -18,10 +22,10 @@ const PlayMusicButtons: React.FC = () => {
     const handlePlaySong = () => {
         if (!isPlay) {
             audioRef.current?.play();
-            setIsPlay(true);
+            dispatch(setIsPlay(true));
         } else {
             audioRef.current?.pause();
-            setIsPlay(false);
+            dispatch(setIsPlay(false));
         }
     };
 
@@ -32,7 +36,7 @@ const PlayMusicButtons: React.FC = () => {
         }
         setMusicIndex(nextIndex);
         setCurrentMusicObject(musics[nextIndex]);
-        setIsPlay(true);
+        dispatch(setIsPlay(true));
     };
 
     const handlePrevSong = () => {
@@ -42,10 +46,9 @@ const PlayMusicButtons: React.FC = () => {
         }
         setMusicIndex(prevIndex);
         setCurrentMusicObject(musics[prevIndex]);
-        setIsPlay(true);
+        dispatch(setIsPlay(true));
     }
 
-    console.log(`/assets/musics/${currentMusicObject.path}`);
     return (
         <>
             <MenuButton onClick={handlePrevSong} IconComponent={SkipBack}/>
