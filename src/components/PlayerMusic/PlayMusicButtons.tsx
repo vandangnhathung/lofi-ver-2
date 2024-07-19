@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import musics from "@/assets/data/musics.json";
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {CirclePause, CirclePlay, SkipBack, SkipForward} from "lucide-react";
@@ -10,11 +10,8 @@ const PlayMusicButtons: React.FC = () => {
     const [currentMusicObject, setCurrentMusicObject] = useState(musics[musicIndex]);
 
     useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.src = `/assets/musics/${currentMusicObject.path}`;
-            if (isPlay) {
-                audioRef.current.play();
-            }
+        if (isPlay) {
+            audioRef.current?.play();
         }
     }, [currentMusicObject, isPlay]);
 
@@ -44,7 +41,7 @@ const PlayMusicButtons: React.FC = () => {
             <MenuButton IconComponent={SkipBack}/>
             <MenuButton onClick={handlePlaySong} IconComponent={isPlay ? CirclePause : CirclePlay}/>
             <MenuButton onClick={handleNextSong} IconComponent={SkipForward}/>
-            <audio ref={audioRef} loop/>
+            <audio ref={audioRef} loop src={`/assets/musics/${currentMusicObject.path}`}/>
         </>
     );
 };
