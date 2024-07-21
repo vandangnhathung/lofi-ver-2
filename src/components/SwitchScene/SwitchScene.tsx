@@ -5,6 +5,7 @@ import scenes from "@/assets/data/scenes.json";
 import "@/components/SwitchScene/SwitchScene.scss";
 // Temporarily
 import "@/components/Panel/Panel.scss";
+import SliderCustom from "@/components/SliderCustom/SliderCustom";
 
 
 const SwitchScene = () => {
@@ -27,7 +28,7 @@ const SwitchScene = () => {
                                 {/*<span className="icon"><ChevronLeft className={w-5 aspect-square}/></span>*/}
                                 <span className="">Scenes</span>
                             </div>
-                            <ul className="switch-scene__list">
+                            <SliderCustom className="switch-scene__list">
                                 {scenes.map((scene, index) => (
                                     <li key={index} className="switch-scene__list-item">
                                         <img
@@ -35,7 +36,7 @@ const SwitchScene = () => {
                                             alt={`Scene ${index + 1}`}/>
                                     </li>
                                 ))}
-                            </ul>
+                            </SliderCustom>
                         </div>
                     </div>
                 </div>
