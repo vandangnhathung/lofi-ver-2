@@ -1,0 +1,42 @@
+.switch-scene {
+  &__title {
+  }
+
+  &__list {
+    --ss-list-gap: 1rem;
+    --ss-list-item-width: var(--panel-width) / 2;
+    display: flex;
+    overflow-x: auto;
+    list-style: none;
+
+    // Hide scrollbar CSS
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    // --------------------
+
+    &-item {
+      flex-shrink: 0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      width: calc(var(--ss-list-item-width) - var(--ss-list-gap) / 2);
+      aspect-ratio: 347/195;
+      cursor: pointer;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:not(:last-child) {
+        margin-right: var(--ss-list-gap);
+      }
+    }
+  }
+}

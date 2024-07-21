@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
 import scenes from "@/assets/data/scenes.json";
+import "@/components/SwitchScene/SwitchScene.scss";
+// Temporarily
+import "@/components/Panel/Panel.scss";
+
 
 const SwitchScene = () => {
     const [openPanel, setOpenPanel] = useState(false);
@@ -15,20 +19,23 @@ const SwitchScene = () => {
             <MenuButton onClick={handleSwitchScene} IconComponent={Images}/>
 
             {openPanel && (
-                <div className="absolute bottom-lofi-panel-position text-white">
-                    <div className="max-w-[750px] bg-black p-3 pt-2 rounded-xl">
-                        <div
-                            className="title transition-all hover:text-primary py-2 items-center inline-flex gap-x-2 cursor-pointer">
-                            <span className="switch-scene">Scenes</span>
-                        </div>
-                        <div className="content flex flex-nowrap overflow-x-auto gap-x-4">
-                            {scenes.map((scene, index) => (
-                                <div key={index} className="scene flex-shrink-0 w-1/2 rounded-md">
-                                    <img className="icon w-full h-full object-cover"
-                                         src={`/assets/images/thumbnails/${scene.path}`}
-                                         alt={`Scene ${index + 1}`}/>
-                                </div>
-                            ))}
+                <div className="panel absolute bottom-lofi-panel-position text-white">
+                    <div className="panel-inner bg-black rounded-xl">
+                        <div className="switch-scene">
+                            <div
+                                className="switch-scene__title transition-all hover:text-primary py-2 items-center inline-flex gap-x-2 cursor-pointer">
+                                {/*<span className="icon"><ChevronLeft className={w-5 aspect-square}/></span>*/}
+                                <span className="">Scenes</span>
+                            </div>
+                            <ul className="switch-scene__list">
+                                {scenes.map((scene, index) => (
+                                    <li key={index} className="switch-scene__list-item">
+                                        <img
+                                            src={`/assets/images/thumbnails/${scene.path}`}
+                                            alt={`Scene ${index + 1}`}/>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>

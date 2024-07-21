@@ -1,0 +1,10 @@
+.panel {
+  --panel-width: 750px;
+  --panel-padding: 12px;
+
+  &-inner {
+    max-width: calc(var(--panel-width) + 2 * var(--panel-padding));
+    padding: var(--panel-padding);
+    padding-top: 8px;
+  }
+}
