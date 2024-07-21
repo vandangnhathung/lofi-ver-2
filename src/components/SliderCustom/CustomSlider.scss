@@ -1,0 +1,71 @@
+.slick {
+  &-slider {
+    --s-arrow-size: 40px;
+  }
+
+  &-slide > div {
+    cursor: pointer;
+    margin: 0 10px;
+  }
+
+  &-custom__arrow-icon {
+    height: var(--s-arrow-size);
+    aspect-ratio: 1;
+    position: absolute;
+    z-index: 2;
+  }
+
+  &-arrow {
+    --layer-width: 35px;
+
+    &[class*="slick"] {
+      z-index: 99;
+      width: var(--layer-width);
+      height: 100%;
+    }
+
+    &[class*="slick"]:before {
+      content: none;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 101%;
+      top: -1%;
+      left: 0;
+      z-index: 1;
+      transition: all 0.5s ease;
+      opacity: 0.8;
+    }
+
+    &:hover:after {
+      opacity: 1;
+    }
+
+    &[class*="slick-prev"] {
+      left: 0;
+
+      .slick-custom__arrow-icon {
+        right: 0;
+      }
+
+      &:after {
+        background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
+      }
+    }
+
+    &[class*="slick-next"] {
+      right: 0;
+
+      .slick-custom__arrow-icon {
+        left: 0;
+      }
+
+      &:after {
+        background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
+      }
+    }
+  }
+}

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
 import scenes from "@/assets/data/scenes.json";
-import "@/components/SwitchScene/SwitchScene.scss";
 // Temporarily
 import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
@@ -24,14 +23,15 @@ const SwitchScene = () => {
                     <div className="panel-inner bg-black rounded-xl">
                         <div className="switch-scene">
                             <div
-                                className="switch-scene__title transition-all hover:text-primary py-2 items-center inline-flex gap-x-2 cursor-pointer">
+                                className="switch-scene__title transition-all hover:text-primary py-2 pl-[10px] items-center inline-flex gap-x-2 cursor-pointer">
                                 {/*<span className="icon"><ChevronLeft className={w-5 aspect-square}/></span>*/}
                                 <span className="">Scenes</span>
                             </div>
-                            <SliderCustom className="switch-scene__list">
+                            <SliderCustom className="">
                                 {scenes.map((scene, index) => (
-                                    <li key={index} className="switch-scene__list-item">
+                                    <li key={index} className="!block rounded-md overflow-hidden">
                                         <img
+                                            className={`aspect-[350/210] object-cover`}
                                             src={`/assets/images/thumbnails/${scene.path}`}
                                             alt={`Scene ${index + 1}`}/>
                                     </li>
