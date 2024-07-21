@@ -97,7 +97,7 @@ const Loading: React.FC = () => {
 
 
     return (
-        <div ref={animationWrapper} className="fixed w-screen bg-white h-screen z-20 text-white pointer-events-none">
+        <div ref={animationWrapper} className="fixed w-screen bg-white h-screen z-50 text-white pointer-events-none">
             {/* scene 1 */}
             <div className="scene1 absolute inset-0 z10">
                 <div ref={circleWrapperRef} className="h-full translate-y-[60%]">
@@ -120,7 +120,7 @@ const Loading: React.FC = () => {
                 <div
                     className="absolute w-[450px] px-2 max-w-full text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
                     <div ref={logoRef} className="opacity-0 w-[250px] scale-[150%] aspect-square">
-                        <img className="w-full h-full object-contain" src="@/@/@/public/logo/logo-lofi.gif" alt=""/>
+                        <img className="w-full h-full object-contain" src="/logo/logo-lofi.gif" alt=""/>
                     </div>
                     <div ref={logoTextRef}
                          className="-translate-y-[120%] opacity-0  absolute bottom-[20%] left-0 w-full">

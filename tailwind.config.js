@@ -8,7 +8,10 @@ export default {
         extend: {
             spacing: {
                 "gap-container": '10px',
-            }
+                "lofi-menu-height": "var(--lofi-menu-height)",
+                "lofi-panel-position": "var(--lofi-panel-position)",
+            },
+            height: {}
         },
     },
     plugins: [],

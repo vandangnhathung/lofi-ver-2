@@ -1,6 +1,7 @@
 import HomePage from "./pages/HomePage";
 import React from "react";
 import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
+import Loading from "@/components/Loading/Loading";
 
 function App() {
     return (
