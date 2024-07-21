@@ -6,6 +6,9 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                "primary": "#ffb70b",
+            },
             spacing: {
                 "gap-container": '10px',
                 "lofi-menu-height": "var(--lofi-menu-height)",
