@@ -1,14 +1,14 @@
 import HomePage from "./pages/HomePage";
-import Loading from "./components/Loading/Loading";
-import ReactAudioPlayer from "react-audio-player";
+import React from "react";
+import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
 
 function App() {
-
     return (
         <>
+            <AudioPlayer/>
             {/*<Loading></Loading>*/}
             <div className="relative">
-                <HomePage></HomePage>
+                <HomePage/>
             </div>
         </>
     )

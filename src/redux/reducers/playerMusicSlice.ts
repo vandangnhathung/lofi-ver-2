@@ -5,7 +5,6 @@ import {PlayerMusicState, Song} from "@/components/PlayerMusic/Type";
 const RANDOM_MUSIC_INDEX = Math.floor(Math.random() * musics.length);
 
 
-
 const initialState: PlayerMusicState = {
     musicIndex: RANDOM_MUSIC_INDEX,
     currentSong: musics[RANDOM_MUSIC_INDEX],
@@ -22,19 +21,17 @@ const playerMusicSlice = createSlice({
         setIsPlay: (state, action: PayloadAction<boolean>) => {
             state.isPlay = action.payload;
         },
+        play: (state) => {
+            state.isPlay = true;
+        },
+        pause: (state) => {
+            state.isPlay = false;
+        },
         setMusicIndex: (state, action: PayloadAction<number>) => {
             state.musicIndex = action.payload;
             state.currentSong = musics[state.musicIndex];
         },
-        playSong: (state, action: PayloadAction<HTMLAudioElement>) => {
-            if (!state.isPlay) {
-                action.payload.play();
-                state.isPlay = true;
-            } else {
-                action.payload.pause();
-                state.isPlay = false;
-            }
-        },
+
         playNextSong: (state) => {
             let nextIndex = state.musicIndex + 1;
             if (nextIndex >= musics.length) {
@@ -57,7 +54,8 @@ const playerMusicSlice = createSlice({
 });
 
 export const {
-    playSong,
+    play,
+    pause,
     setIsPlay,
     setMusicIndex,
     playNextSong,
