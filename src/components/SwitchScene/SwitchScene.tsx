@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
 import scenes from "@/assets/data/scenes.json";
@@ -6,20 +6,25 @@ import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/redux/store";
+import {setOpenPanelScene} from "@/redux/reducers/panelSlice";
 
 const SwitchScene = () => {
-    const [openPanel, setOpenPanel] = useState(false);
+    // const [openPanel, setOpenPanelScene] = useState(false);
+    const openPanel = useSelector((state: RootState) => state.panel.panelScene);
+    const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleSwitchScene = () => {
-        setOpenPanel(!openPanel);
+        dispatch(setOpenPanelScene(!openPanel));
     };
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const child = e.target as HTMLElement; // Casting e.target to HTMLElement
             if (!sceneButtonRef.current?.contains(child) && !isChildOfElement(child, 'panel')) {
-                setOpenPanel(false);
+                dispatch(setOpenPanelScene(false));
             }
         };
 
@@ -34,7 +39,7 @@ const SwitchScene = () => {
 
     return (
         <>
-            <MenuButton ref={sceneButtonRef} onClick={handleSwitchScene} IconComponent={Images}/>
+            <MenuButton isActive={openPanel} ref={sceneButtonRef} onClick={handleSwitchScene} IconComponent={Images}/>
 
             <div
                 className={`panel absolute bottom-lofi-panel-position text-white transition-all duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>

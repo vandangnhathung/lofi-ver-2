@@ -1,10 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {combineReducers} from "redux";
 import playerMusicSlice from "@/redux/reducers/playerMusicSlice";
+import panelSlice from "@/redux/reducers/panelSlice";
 
 
 const rootReducer = combineReducers({
     playerMusic: playerMusicSlice,
+    panel: panelSlice,
 });
 
 export const store = configureStore({

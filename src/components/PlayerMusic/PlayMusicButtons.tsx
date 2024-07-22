@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {CirclePause, CirclePlay, SkipBack, SkipForward} from "lucide-react";
 import {useDispatch, useSelector} from "react-redux";

@@ -3,12 +3,14 @@ import {LucideIcon} from "lucide-react";
 
 export interface MenuButtonProps {
     IconComponent: LucideIcon;
+    isActive?: boolean;
     backgroundColor?: string;
     onClick?: () => void;
 }
 
 const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(({
                                                                              IconComponent,
+                                                                             isActive,
                                                                              onClick,
                                                                              backgroundColor = ""
                                                                          }, ref) => {
@@ -22,7 +24,8 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(({
                 onClick={onClick}
                 className={`p-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] transition-all`}
                 style={style}>
-            <IconComponent className={`w-[25px] aspect-square text-white`}/>
+            <IconComponent
+                className={`w-[25px] aspect-square text-white transition-all duration-500 ${isActive ? 'text-primary' : ''}`}/>
         </button>
     );
 });
