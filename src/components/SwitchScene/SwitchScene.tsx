@@ -11,13 +11,12 @@ import {RootState} from "@/redux/store";
 import {setOpenPanelScene} from "@/redux/reducers/panelSlice";
 
 const SwitchScene = () => {
-    // const [openPanel, setOpenPanelScene] = useState(false);
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleSwitchScene = () => {
-        dispatch(setOpenPanelScene(!openPanel));
+        console.log("ok")
     };
 
     useEffect(() => {
@@ -39,7 +38,8 @@ const SwitchScene = () => {
 
     return (
         <>
-            <MenuButton isActive={openPanel} ref={sceneButtonRef} onClick={handleSwitchScene} IconComponent={Images}/>
+            <MenuButton isActive={openPanel} ref={sceneButtonRef}
+                        onClick={() => dispatch(setOpenPanelScene(!openPanel))} IconComponent={Images}/>
 
             <div
                 className={`panel absolute bottom-lofi-panel-position text-white transition-all duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>
@@ -51,7 +51,8 @@ const SwitchScene = () => {
                         </div>
                         <SliderCustom className="">
                             {scenes.map((scene, index) => (
-                                <PanelScene index={index} path={scene.path} key={index}/>
+                                <PanelScene onClick={handleSwitchScene} index={index} thumbnail={scene.thumbnail}
+                                            key={index}/>
                             ))}
                         </SliderCustom>
                     </div>

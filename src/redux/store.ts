@@ -2,11 +2,13 @@ import {configureStore} from "@reduxjs/toolkit";
 import {combineReducers} from "redux";
 import playerMusicSlice from "@/redux/reducers/playerMusicSlice";
 import panelSlice from "@/redux/reducers/panelSlice";
+import sceneSlice from "@/redux/reducers/sceneSlice";
 
 
 const rootReducer = combineReducers({
     playerMusic: playerMusicSlice,
     panel: panelSlice,
+    scene: sceneSlice
 });
 
 export const store = configureStore({

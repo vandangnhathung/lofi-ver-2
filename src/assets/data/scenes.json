@@ -1,18 +1,22 @@
 [
   {
     "title": "book cafe outside",
-    "path": "book-cafe-outside.png"
+    "thumbnail": "book-cafe-outside.png",
+    "src": "ExteriorDay.mp4"
   },
   {
     "title": "book cafe outside",
-    "path": "book-cafe-outside.png"
+    "thumbnail": "book-cafe-outside.png",
+    "src": "InteriorDay.mp4"
   },
   {
     "title": "honolulu",
-    "path": "honolulu.png"
+    "thumbnail": "honolulu.png",
+    "src": "InteriorNight.mp4"
   },
   {
-    "title": "honolulu",
-    "path": "honolulu.png"
+    "title": "traveling",
+    "thumbnail": "honolulu.png",
+    "src": "traveling.mp4"
   }
 ]
