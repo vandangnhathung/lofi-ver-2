@@ -1,4 +1,8 @@
 import React, {useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@/redux/store';
+import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
+import {setLoading, setScene} from '@/redux/reducers/sceneSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
 import scenes from "@/assets/data/scenes.json";
@@ -6,17 +10,16 @@ import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/redux/store";
-import {setOpenPanelScene} from "@/redux/reducers/panelSlice";
+import {Scene} from "@/components/Panel/Type";
 
 const SwitchScene = () => {
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
 
-    const handleSwitchScene = () => {
-        console.log("ok")
+    const handleSwitchScene = (scene: Scene) => {
+        dispatch(setLoading(true));
+        dispatch(setScene(scene));
     };
 
     useEffect(() => {
@@ -51,7 +54,8 @@ const SwitchScene = () => {
                         </div>
                         <SliderCustom className="">
                             {scenes.map((scene, index) => (
-                                <PanelScene onClick={handleSwitchScene} index={index} thumbnail={scene.thumbnail}
+                                <PanelScene onClick={() => handleSwitchScene(scene)} index={index}
+                                            thumbnail={scene.thumbnail}
                                             key={index}/>
                             ))}
                         </SliderCustom>

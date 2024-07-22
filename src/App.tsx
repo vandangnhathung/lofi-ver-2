@@ -9,7 +9,7 @@ function App() {
     return (
         <>
             <AudioPlayer/>
-            {/*<Loading></Loading>*/}
+            <Loading></Loading>
             <div className="relative">
                 <HomePage/>
             </div>
