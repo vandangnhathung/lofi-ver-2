@@ -3,11 +3,7 @@ import Slider from "react-slick";
 import "@/components/SliderCustom/CustomSlider.scss"
 import CustomArrow from "@/components/SliderCustom/CustomArrow";
 import {ChevronLeft, ChevronRight} from "lucide-react";
-
-interface SliderCustomProps {
-    children: ReactNode;
-    className?: string;
-}
+import {SliderCustomProps} from "@/components/SliderCustom/Type";
 
 const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const settings = {

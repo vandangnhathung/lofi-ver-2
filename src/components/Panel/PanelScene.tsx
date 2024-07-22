@@ -1,10 +1,5 @@
 import React from 'react';
-
-interface PanelSceneProps {
-    index: number;
-    thumbnail: string;
-    onClick: () => void;
-}
+import {PanelSceneProps} from "@/components/Panel/Type";
 
 const PanelScene = ({index, thumbnail, onClick}: PanelSceneProps) => {
     return (

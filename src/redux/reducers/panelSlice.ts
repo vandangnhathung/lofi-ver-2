@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 interface panelProps {
@@ -13,7 +13,7 @@ const panelSlice = createSlice({
     name: "panel",
     initialState,
     reducers: {
-        setOpenPanelScene: (state, action) => {
+        setOpenPanelScene: (state, action: PayloadAction<boolean>) => {
             state.panelScene = action.payload;
         }
     },

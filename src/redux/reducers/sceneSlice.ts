@@ -1,12 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import scenes from "@/assets/data/scenes.json";
+import {Scene} from "@/components/Panel/Type";
 
-// Define the structure of a scene
-interface Scene {
-    title: string;
-    thumbnail: string;
-    src: string;
-}
 
 // Define the structure of the slice's state
 interface SceneState {

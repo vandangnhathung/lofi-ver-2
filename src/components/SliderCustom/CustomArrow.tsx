@@ -1,10 +1,5 @@
-import React, {ElementType} from 'react';
-
-interface CustomArrowProps {
-    CustomArrowIcon: ElementType<{ className?: string }>;
-    className?: string;
-    onClick?: () => void;
-}
+import React from 'react';
+import {CustomArrowProps} from "@/components/SliderCustom/Type";
 
 const CustomArrow: React.FC<CustomArrowProps> = ({CustomArrowIcon, className, onClick}) => {
     return (

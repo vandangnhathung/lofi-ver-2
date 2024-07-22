@@ -1,12 +1,6 @@
 import React from 'react';
-import {LucideIcon} from "lucide-react";
+import {MenuButtonProps} from "@/components/MenuButton/Type";
 
-export interface MenuButtonProps {
-    IconComponent: LucideIcon;
-    isActive?: boolean;
-    backgroundColor?: string;
-    onClick?: () => void;
-}
 
 const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(({
                                                                              IconComponent,
