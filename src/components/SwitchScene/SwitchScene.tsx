@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
-import {setLoading, setScene} from '@/redux/reducers/sceneSlice';
+import {setLoadingScene} from '@/redux/reducers/loadingSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
 import scenes from "@/assets/data/scenes.json";
@@ -11,15 +11,19 @@ import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
 import {Scene} from "@/components/Panel/Type";
+import {setScene} from "@/redux/reducers/sceneSlice";
 
 const SwitchScene = () => {
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
+    const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleSwitchScene = (scene: Scene) => {
-        dispatch(setLoading(true));
-        dispatch(setScene(scene));
+        if (!loadingScene) {
+            dispatch(setLoadingScene(true));
+            dispatch(setScene(scene));
+        }
     };
 
     useEffect(() => {

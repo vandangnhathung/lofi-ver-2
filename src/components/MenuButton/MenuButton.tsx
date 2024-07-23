@@ -19,7 +19,7 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(({
                 className={`p-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] transition-all`}
                 style={style}>
             <IconComponent
-                className={`w-[25px] aspect-square text-white transition-all duration-500 ${isActive ? 'text-primary' : ''}`}/>
+                className={`w-[25px] aspect-square transition-all duration-500 ${isActive ? 'text-primary' : 'text-white '}`}/>
         </button>
     );
 });

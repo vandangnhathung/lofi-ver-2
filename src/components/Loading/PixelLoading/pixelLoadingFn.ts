@@ -6,15 +6,16 @@ interface PixelLoadingParams {
     timeline: gsap.core.Timeline;
     animationDuration: number;
     blockRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+    label: string
 }
 
-export const pixelLoadingFn = ({timeline, animationDuration, blockRefs}: PixelLoadingParams) => {
+export const pixelLoadingFn = ({timeline, animationDuration, blockRefs, label}: PixelLoadingParams) => {
     const shuffledBlockRefs = shuffle([...blockRefs.current]);
     shuffledBlockRefs.forEach(block => {
         const randomDelay = parseFloat(block?.dataset.randomDelay || "0");
         timeline.to(block, {
             opacity: 0,
             duration: animationDuration
-        }, `scene4-start+=${randomDelay * 0.1}`);
+        }, `${label}-start+=${randomDelay * 0.1}`);
     });
 };

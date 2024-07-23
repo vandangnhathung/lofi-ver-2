@@ -2,12 +2,12 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {gsap} from "gsap";
-import {setLoading} from '@/redux/reducers/sceneSlice';
+import {setLoading} from '@/redux/reducers/loadingSlice';
 import {pixelLoadingFn} from "@/components/Loading/PixelLoading/pixelLoadingFn";
 import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
 
 const Loading: React.FC = () => {
-    const loading = useSelector((state: RootState) => state.scene.loading);
+    const loading = useSelector((state: RootState) => state.loading.loading);
     const dispatch = useDispatch();
     const quote = "Life is like riding a bicycle. To keep your balance you must keep moving. - Albert Einstein";
 
@@ -52,8 +52,10 @@ const Loading: React.FC = () => {
                 .to(scene2Ref.current, {opacity: 0, duration: animationDuration}, "scene3-start");
 
             // scene 4
-            timeline.addLabel("scene4-start", "-=0.3");
-            pixelLoadingFn({timeline, animationDuration, blockRefs});
+            const label = 'scene4';
+            timeline.addLabel(`${label}-start`, "-=0.3");
+            pixelLoadingFn({timeline, animationDuration, blockRefs, label});
+
         }
     }, [loading, animationDuration, dispatch]);
 
