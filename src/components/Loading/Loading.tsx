@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {gsap} from "gsap";
 import {setLoading} from '@/redux/reducers/sceneSlice';
-import {shuffle} from "@/helpers";
-import {pixelLoading} from "@/components/Loading/pixelLoading";
+import {pixelLoadingFn} from "@/components/Loading/PixelLoading/pixelLoadingFn";
+import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
 
 const Loading: React.FC = () => {
     const loading = useSelector((state: RootState) => state.scene.loading);
@@ -22,28 +22,6 @@ const Loading: React.FC = () => {
     blockRefs.current = [];
 
     const animationDuration = 0.5;
-
-    const addToBlockRefs = (el: HTMLDivElement) => {
-        if (el && !blockRefs.current.includes(el)) {
-            blockRefs.current.push(el);
-        }
-    };
-
-    const getBlocks = (): React.ReactNode => {
-        const {innerWidth, innerHeight} = window;
-        const blockSize = innerWidth * 0.05;
-        const amountOfBlocks = Math.ceil(innerHeight / blockSize);
-
-        const delays = shuffle([...Array(amountOfBlocks)].map((_, i) => i));
-        return delays.map((randomDelay, i) => (
-            <div
-                key={i}
-                ref={addToBlockRefs}
-                data-random-delay={randomDelay.toString()}
-                className="w-full h-[5vw] bg-black"
-            ></div>
-        ));
-    };
 
     useEffect(() => {
         if (loading) {
@@ -75,7 +53,7 @@ const Loading: React.FC = () => {
 
             // scene 4
             timeline.addLabel("scene4-start", "-=0.3");
-            pixelLoading({timeline, animationDuration, blockRefs});
+            pixelLoadingFn({timeline, animationDuration, blockRefs});
         }
     }, [loading, animationDuration, dispatch]);
 
@@ -92,13 +70,7 @@ const Loading: React.FC = () => {
                                 <div ref={circleRef} className="bg-black w-[3vw] h-[3vw] rounded-full"></div>
                             </div>
                         </div>
-                        <div ref={circleWrapperOverlayRef} className="absolute opacity-0 inset-0 flex">
-                            {[...Array(20)].map((_, i) => (
-                                <div key={i} className="w-[5vw] h-full">
-                                    {getBlocks()}
-                                </div>
-                            ))}
-                        </div>
+                        <PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>
                     </div>
                     <div ref={scene2Ref} className="scene2 absolute inset-0 z-20">
                         <div

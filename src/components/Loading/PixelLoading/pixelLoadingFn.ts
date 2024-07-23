@@ -8,7 +8,7 @@ interface PixelLoadingParams {
     blockRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
 }
 
-export const pixelLoading = ({timeline, animationDuration, blockRefs}: PixelLoadingParams) => {
+export const pixelLoadingFn = ({timeline, animationDuration, blockRefs}: PixelLoadingParams) => {
     const shuffledBlockRefs = shuffle([...blockRefs.current]);
     shuffledBlockRefs.forEach(block => {
         const randomDelay = parseFloat(block?.dataset.randomDelay || "0");
