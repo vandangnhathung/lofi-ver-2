@@ -20,9 +20,10 @@ const SwitchSceneButton = () => {
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
     const animation = useSelector((state: RootState) => state.scene.animation);
+    const currentScene = useSelector((state: RootState) => state.scene.activeScene);
 
     const handleSwitchSceneButton = (newScene: SceneProps) => {
-        if (!loadingScene) {
+        if (!loadingScene && newScene !== currentScene) {
             console.log('loadingScene: ', loadingScene, 'animation: ', animation);
             dispatch(setScene(newScene));
             dispatch(setAnimation('out'));

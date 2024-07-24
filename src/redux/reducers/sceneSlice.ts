@@ -5,14 +5,14 @@ import {SceneProps} from "@/components/Panel/Type";
 // Define the structure of the slice's state
 interface SceneState {
     scene: SceneProps;
-    sceneComplete: SceneProps;
+    activeScene: SceneProps;
     animation?: "in" | "out" | 'complete';
 }
 
 // Initialize the state with the first scene from the JSON data
 const initialState: SceneState = {
     scene: scenes[0],
-    sceneComplete: scenes[0],
+    activeScene: scenes[0],
     animation: "in"
 };
 
@@ -28,12 +28,12 @@ const sceneSlice = createSlice({
         setAnimation: (state, action: PayloadAction<"in" | "out" | 'complete'>) => {
             state.animation = action.payload;
         },
-        setSceneComplete: (state, action: PayloadAction<SceneProps>) => {
-            state.sceneComplete = action.payload;
+        setActiveScene: (state, action: PayloadAction<SceneProps>) => {
+            state.activeScene = action.payload;
         },
     },
 });
 
 // Export the actions and reducer
-export const {setScene, setAnimation, setSceneComplete} = sceneSlice.actions;
+export const {setScene, setAnimation, setActiveScene} = sceneSlice.actions;
 export default sceneSlice.reducer;

@@ -7,14 +7,14 @@ import {RootState} from "@/redux/store";
 
 const HomePage: React.FC = () => {
 
-    const sceneComplete = useSelector((state: RootState) => state.scene.sceneComplete);
+    const activeScene = useSelector((state: RootState) => state.scene.activeScene);
 
     return (
         <>
             {/* decide height of the website */}
             <div className={`relative w-screen h-screen z-10`}>
                 <div className={`bg-black absolute inset-0`}></div>
-                <Scene scene={sceneComplete}/>
+                <Scene scene={activeScene}/>
                 <MenuBar/>
             </div>
         </>
