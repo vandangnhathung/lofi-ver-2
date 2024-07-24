@@ -4,10 +4,12 @@ import {gsap} from 'gsap';
 import {useDispatch, useSelector} from "react-redux";
 import {setAnimation, setSceneComplete} from "@/redux/reducers/sceneSlice";
 import {RootState} from "@/redux/store";
+import {setLoading, setLoadingScene} from "@/redux/reducers/loadingSlice";
 
-const PixelLoading = ({status}: { status?: "in" | "out" | 'complete' }) => {
+const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', duration: number }) => {
     console.log("PixelLoading work", status);
     const dispatch = useDispatch();
+    const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const animation = useSelector((state: RootState) => state.scene.animation);
     const scene = useSelector((state: RootState) => state.scene.scene);
     const layerWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -31,25 +33,34 @@ const PixelLoading = ({status}: { status?: "in" | "out" | 'complete' }) => {
                     if (animation === 'out') {
                         dispatch(setSceneComplete(scene));
                         dispatch(setAnimation('in'));
+                        dispatch(setLoading(false)); // Animation complete, hide loading
+                        dispatch(setLoadingScene(false));
                     }
                 }
             }
         );
         const shuffledBlockRefs = shuffle([...blockRefs.current]);
-        const randomPosition = gsap.utils.random(0, (shuffledBlockRefs.length - 1) * 0.00001);
+        const uniqueRandomIndices = gsap.utils.shuffle(Array.from({length: shuffledBlockRefs.length}, (_, i) => i));
 
-        timeline.to(layerWrapperRef.current, {opacity: 1, duration: 0})
-        shuffledBlockRefs.forEach(block => {
-            timeline.to(block, {
+        timeline.to(layerWrapperRef.current, {opacity: 1, duration: 0});
+        shuffledBlockRefs.forEach((block, index) => {
+            const randomPosition = uniqueRandomIndices[index];
+            timeline.fromTo(block, {
+                opacity: status === 'out' ? 0 : 1,
+                backgroundColor: status === 'out' ? "" : "black"
+            }, {
                 opacity: status === 'out' ? 1 : 0,
-                duration: 0.008,
+                duration,
                 backgroundColor: status === 'out' ? "black" : ""
-            }, `+=${randomPosition * 0.00001}`);
+            }, `+=${randomPosition * 0.0001}`);
         });
+
+        console.log(timeline.duration());
     }, [status]);
 
     return (
-        <div ref={layerWrapperRef} className="absolute opacity-0 inset-0 flex z-20 pointer-events-none">
+        <div ref={layerWrapperRef}
+             className={`absolute opacity-0 inset-0 flex z-20 ${loadingScene ? '' : 'pointer-events-none'}`}>
             {[...Array(20)].map((_, i) => (
                 <div key={i} className="w-[5vw] h-full">
                     {[...Array(amountOfBlocks)].map((_, j) => (

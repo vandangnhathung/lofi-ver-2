@@ -1,4 +1,4 @@
-export interface PanelSwitchSceneButton {
+export interface PanelSceneProps {
     index: number;
     thumbnail: string;
     onClick: () => void;

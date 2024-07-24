@@ -26,9 +26,7 @@ const sceneSlice = createSlice({
             state.animation = "in";
         },
         setAnimation: (state, action: PayloadAction<"in" | "out" | 'complete'>) => {
-            console.log("before: ", state.animation);
             state.animation = action.payload;
-            console.log("after: ", state.animation);
         },
         setSceneComplete: (state, action: PayloadAction<SceneProps>) => {
             state.sceneComplete = action.payload;

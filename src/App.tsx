@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import Loading from "@/components/Loading/Loading";
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
@@ -13,11 +14,11 @@ function App() {
     return (
         <>
             <AudioPlayer/>
-            {/*<Loading></Loading>*/}
+            <Loading></Loading>
             {/*<SwitchSceneButtonLoading/>*/}
 
             <div className="relative overflow-hidden">
-                <PixelLoading status={animation}/>
+                <PixelLoading duration={0.00000001} status={animation}/>
                 <HomePage/>
             </div>
         </>

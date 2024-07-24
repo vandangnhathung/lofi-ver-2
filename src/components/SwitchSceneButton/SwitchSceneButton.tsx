@@ -19,12 +19,13 @@ const SwitchSceneButton = () => {
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
+    const animation = useSelector((state: RootState) => state.scene.animation);
 
     const handleSwitchSceneButton = (newScene: SceneProps) => {
         if (!loadingScene) {
-
-            dispatch(setAnimation('out'));
+            console.log('loadingScene: ', loadingScene, 'animation: ', animation);
             dispatch(setScene(newScene));
+            dispatch(setAnimation('out'));
 
             // Set loading scene to true and set the scene state
             dispatch(setLoadingScene(true));

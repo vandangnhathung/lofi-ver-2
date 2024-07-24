@@ -1,9 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {gsap} from "gsap";
-import {setLoading} from '@/redux/reducers/loadingSlice';
-import {pixelLoadingFn} from "@/components/Loading/PixelLoading/pixelLoadingFn";
 import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
 
 const Loading: React.FC = () => {
@@ -22,20 +20,17 @@ const Loading: React.FC = () => {
     blockRefs.current = [];
 
     const animationDuration = 0.5;
+    const [enableLoading, setEnableLoading] = useState(false);
 
     useEffect(() => {
         if (loading) {
             const timeline = gsap.timeline({
                 defaults: {ease: "power2.inOut", duration: animationDuration},
-                onComplete: () => {
-                    dispatch(setLoading(false)); // Animation complete, hide loading
-                }
             });
 
             // scene 1
             timeline.to(circleWrapperRef.current, {y: 0})
                 .to(circleRef.current, {scale: 55, duration: animationDuration})
-                .to(circleRef.current, {opacity: 0, duration: 0})
                 // .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0})
                 .to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
 
@@ -47,15 +42,16 @@ const Loading: React.FC = () => {
                 .to(logoTextRef.current, {opacity: 1, duration: animationDuration + 0.3}, "-=0.5")
                 .to(logoTextRef.current, {y: 0, duration: animationDuration + 0.6, transition: "power2.inOut"}, "-=1");
 
+
             // scene 3
             timeline.addLabel(`scene3-start`, "+=1")
                 .to(scene2Ref.current, {opacity: 0, duration: animationDuration}, "scene3-start");
 
             // scene 4
             const label = 'scene4';
-            timeline.addLabel(`${label}-start`, "-=0.3");
-            // pixelLoadingFn({timeline, animationDuration, blockRefs, label, type: "out"});
-
+            timeline.addLabel(`${label}-start`, "-=0.2")
+                .to(circleRef.current, {opacity: 0, duration: 0})
+                .call(() => setEnableLoading(true), [], `${label}-start`);
         }
     }, [loading, animationDuration, dispatch]);
 
@@ -72,7 +68,7 @@ const Loading: React.FC = () => {
                                 <div ref={circleRef} className="bg-black w-[3vw] h-[3vw] rounded-full"></div>
                             </div>
                         </div>
-                        {/*<PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>*/}
+                        {enableLoading && <PixelLoading duration={0.0001} status={`in`}/>}
                     </div>
                     <div ref={scene2Ref} className="scene2 absolute inset-0 z-20">
                         <div
