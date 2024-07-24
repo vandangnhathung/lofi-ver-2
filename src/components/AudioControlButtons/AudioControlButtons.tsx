@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {pause, play, playNextSong, playPrevSong} from "@/redux/reducers/playerMusicSlice";
 
-const PlayMusicButtons: React.FC = () => {
+const AudioControlButtons: React.FC = () => {
     const isPlay = useSelector((state: RootState) => state.playerMusic.isPlay);
     const dispatch = useDispatch();
 
@@ -26,4 +26,4 @@ const PlayMusicButtons: React.FC = () => {
     );
 };
 
-export default PlayMusicButtons;
+export default AudioControlButtons;

@@ -1,4 +1,4 @@
-// SwitchScene.tsx
+// SwitchSceneButton.tsx
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
@@ -11,20 +11,24 @@ import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
-import {Scene} from "@/components/Panel/Type";
-import {setScene} from "@/redux/reducers/sceneSlice";
+import {SceneProps} from "@/components/Panel/Type";
+import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
 
-const SwitchScene = () => {
+const SwitchSceneButton = () => {
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
 
-    const handleSwitchScene = (scene: Scene) => {
+    const handleSwitchSceneButton = (newScene: SceneProps) => {
         if (!loadingScene) {
+
+            dispatch(setAnimation('out'));
+            dispatch(setScene(newScene));
+
             // Set loading scene to true and set the scene state
             dispatch(setLoadingScene(true));
-            dispatch(setScene(scene));
+
         }
     };
 
@@ -60,7 +64,7 @@ const SwitchScene = () => {
                         </div>
                         <SliderCustom className="">
                             {scenes.map((scene, index) => (
-                                <PanelScene onClick={() => handleSwitchScene(scene)} index={index}
+                                <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
                                             key={index}/>
                             ))}
@@ -72,4 +76,4 @@ const SwitchScene = () => {
     );
 };
 
-export default SwitchScene;
+export default SwitchSceneButton;

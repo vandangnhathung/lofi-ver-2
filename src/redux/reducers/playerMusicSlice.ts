@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import musics from "@/assets/data/musics.json";
-import {PlayerMusicState, Song} from "@/components/PlayerMusic/Type";
+import {PlayerMusicState, Song} from "@/components/AudioControlButtons/Type";
 
 const RANDOM_MUSIC_INDEX = Math.floor(Math.random() * musics.length);
 

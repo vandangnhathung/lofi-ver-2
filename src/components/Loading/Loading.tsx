@@ -13,7 +13,7 @@ const Loading: React.FC = () => {
 
     const circleRef = useRef<HTMLDivElement>(null);
     const circleWrapperRef = useRef<HTMLDivElement>(null);
-    const circleWrapperOverlayRef = useRef<HTMLDivElement>(null);
+    // const circleWrapperOverlayRef = useRef<HTMLDivElement>(null);
     const scene2Ref = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
     const logoTextRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ const Loading: React.FC = () => {
             timeline.to(circleWrapperRef.current, {y: 0})
                 .to(circleRef.current, {scale: 55, duration: animationDuration})
                 .to(circleRef.current, {opacity: 0, duration: 0})
-                .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0})
+                // .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0})
                 .to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
 
             // scene 2
@@ -54,7 +54,7 @@ const Loading: React.FC = () => {
             // scene 4
             const label = 'scene4';
             timeline.addLabel(`${label}-start`, "-=0.3");
-            pixelLoadingFn({timeline, animationDuration, blockRefs, label});
+            // pixelLoadingFn({timeline, animationDuration, blockRefs, label, type: "out"});
 
         }
     }, [loading, animationDuration, dispatch]);
@@ -72,7 +72,7 @@ const Loading: React.FC = () => {
                                 <div ref={circleRef} className="bg-black w-[3vw] h-[3vw] rounded-full"></div>
                             </div>
                         </div>
-                        <PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>
+                        {/*<PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>*/}
                     </div>
                     <div ref={scene2Ref} className="scene2 absolute inset-0 z-20">
                         <div

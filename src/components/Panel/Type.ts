@@ -1,4 +1,4 @@
-export interface PanelSceneProps {
+export interface PanelSwitchSceneButton {
     index: number;
     thumbnail: string;
     onClick: () => void;
@@ -6,8 +6,8 @@ export interface PanelSceneProps {
 
 
 // Define the structure of a scene
-export interface Scene {
-    title: string;
-    thumbnail: string;
-    src: string;
+export interface SceneProps {
+    title?: string;
+    thumbnail?: string;
+    src?: string;
 }

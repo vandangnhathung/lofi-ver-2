@@ -6,13 +6,12 @@ import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
 import {RootState} from "@/redux/store";
 import {pixelLoadingFn} from "@/components/Loading/PixelLoading/pixelLoadingFn";
 
-const SwitchSceneLoading = () => {
+const SwitchSceneButtonLoading = () => {
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
 
     const animationWrapper = useRef<HTMLDivElement>(null);
-    const circleWrapperOverlayRef = useRef<HTMLDivElement>(null);
-    const blockRefs = useRef<Array<HTMLDivElement | null>>([]);
-    blockRefs.current = [];
+    const layerWrapperRef = useRef<HTMLDivElement>(null);
+
 
     const dispatch = useDispatch();
     const animationDuration = 0.5;
@@ -26,7 +25,7 @@ const SwitchSceneLoading = () => {
         // scene 1
         const label1 = 'scene1';
         timeline.addLabel(`${label1}-start`)
-            .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0});
+            .to(layerWrapperRef.current, {opacity: 1, duration: 0});
         pixelLoadingFn({timeline, animationDuration, blockRefs, label: label1, type: "in"});
 
         // timeline.to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
@@ -36,8 +35,6 @@ const SwitchSceneLoading = () => {
         const label2 = 'scene2';
         timeline.addLabel(`scene2-start`, "+=0.2")
         pixelLoadingFn({timeline, animationDuration, blockRefs, label: label2, type: "out"});
-
-
     }, [loadingScene])
 
 
@@ -47,11 +44,11 @@ const SwitchSceneLoading = () => {
             (
                 <div ref={animationWrapper}
                      className="fixed w-screen h-screen z-50 text-white pointer-events-none">
-                    <PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>
+                    <PixelLoading blockRefs={blockRefs} ref={layerWrapperRef}/>
                 </div>
             )
         )
     );
 };
 
-export default SwitchSceneLoading;
+export default SwitchSceneButtonLoading;
