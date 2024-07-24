@@ -4,7 +4,7 @@ interface VideoProps {
     src: string;
 }
 
-const CustomVideo: React.FC<VideoProps> = ({src}) => {
+const Scene: React.FC<VideoProps> = ({src}) => {
     return (
         <div className="absolute inset-0 z-10">
             <video src={src} autoPlay loop muted className="object-cover h-full w-full">
@@ -14,4 +14,4 @@ const CustomVideo: React.FC<VideoProps> = ({src}) => {
     );
 };
 
-export default CustomVideo;
+export default Scene;

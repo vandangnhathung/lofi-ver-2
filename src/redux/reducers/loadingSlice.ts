@@ -1,33 +1,33 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+// redux/reducers/loadingSlice.ts
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-// Define the structure of the slice's state
-interface loadingState {
+interface LoadingState {
     loading: boolean;
     loadingScene: boolean;
+    animationComplete: boolean;
 }
 
-// Initialize the state with the first scene from the JSON data
-const initialState: loadingState = {
+const initialState: LoadingState = {
     loading: true,
-    loadingScene: false
+    loadingScene: false,
+    animationComplete: false,
 };
 
-// Create the slice with actions to switch scenes and set loading scene
 const loadingSlice = createSlice({
-    name: "loading",
+    name: 'loading',
     initialState,
     reducers: {
-
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload;
         },
         setLoadingScene: (state, action: PayloadAction<boolean>) => {
             state.loadingScene = action.payload;
-        }
-
+        },
+        setAnimationComplete: (state, action: PayloadAction<boolean>) => {
+            state.animationComplete = action.payload;
+        },
     },
 });
 
-// Export the actions and reducer
-export const {setLoading, setLoadingScene} = loadingSlice.actions;
+export const {setLoading, setLoadingScene, setAnimationComplete} = loadingSlice.actions;
 export default loadingSlice.reducer;

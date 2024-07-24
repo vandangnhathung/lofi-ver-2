@@ -1,3 +1,4 @@
+// SwitchScene.tsx
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
@@ -21,6 +22,7 @@ const SwitchScene = () => {
 
     const handleSwitchScene = (scene: Scene) => {
         if (!loadingScene) {
+            // Set loading scene to true and set the scene state
             dispatch(setLoadingScene(true));
             dispatch(setScene(scene));
         }

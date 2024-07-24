@@ -24,14 +24,19 @@ const SwitchSceneLoading = () => {
             }
         })
         // scene 1
-        const label = 'scene1';
-        timeline.addLabel(`${label}-start`)
+        const label1 = 'scene1';
+        timeline.addLabel(`${label1}-start`)
             .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0});
-        pixelLoadingFn({timeline, animationDuration, blockRefs, label});
+        pixelLoadingFn({timeline, animationDuration, blockRefs, label: label1, type: "in"});
+
+        // timeline.to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
+
 
         // scene 2
+        const label2 = 'scene2';
         timeline.addLabel(`scene2-start`, "+=0.2")
-            .to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
+        pixelLoadingFn({timeline, animationDuration, blockRefs, label: label2, type: "out"});
+
 
     }, [loadingScene])
 
@@ -41,7 +46,7 @@ const SwitchSceneLoading = () => {
             loadingScene &&
             (
                 <div ref={animationWrapper}
-                     className="fixed w-screen bg-black h-screen z-50 text-white pointer-events-none">
+                     className="fixed w-screen h-screen z-50 text-white pointer-events-none">
                     <PixelLoading blockRefs={blockRefs} ref={circleWrapperOverlayRef}/>
                 </div>
             )

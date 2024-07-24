@@ -8,7 +8,7 @@ const MenuBar = () => {
             <div
                 className={`w-screen max-w-[1440px] p-2 rounded-xl h-lofi-menu-height backdrop-blur-md bg-[rgba(0,0,0,0.6)] flex items-center justify-center gap-3`}>
                 <PlayMusicButtons/>
-                <SwitchScene></SwitchScene>
+                <SwitchScene/>
             </div>
         </div>
     );

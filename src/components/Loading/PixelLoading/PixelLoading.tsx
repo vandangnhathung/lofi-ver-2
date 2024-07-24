@@ -23,7 +23,7 @@ const PixelLoading = forwardRef<HTMLDivElement, PixelLoadingProps>(({blockRefs},
                 key={i}
                 ref={addToBlockRefs}
                 data-random-delay={randomDelay.toString()}
-                className="w-full h-[5vw] bg-black"
+                className="w-full h-[5vw] bg-transparent"
             ></div>
         ));
     };
