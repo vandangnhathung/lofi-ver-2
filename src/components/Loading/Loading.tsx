@@ -68,7 +68,7 @@ const Loading: React.FC = () => {
                                 <div ref={circleRef} className="bg-black w-[3vw] h-[3vw] rounded-full"></div>
                             </div>
                         </div>
-                        {enableLoading && <PixelLoading duration={0.0001} status={`in`}/>}
+                        {enableLoading && <PixelLoading duration={0.005} status={`in`}/>}
                     </div>
                     <div ref={scene2Ref} className="scene2 absolute inset-0 z-20">
                         <div

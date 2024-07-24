@@ -18,7 +18,7 @@ function App() {
             {/*<SwitchSceneButtonLoading/>*/}
 
             <div className="relative overflow-hidden">
-                <PixelLoading duration={0.00000001} status={animation}/>
+                <PixelLoading duration={0.0000001} status={animation}/>
                 <HomePage/>
             </div>
         </>

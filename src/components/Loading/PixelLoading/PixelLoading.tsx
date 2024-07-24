@@ -52,7 +52,7 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', 
                 opacity: status === 'out' ? 1 : 0,
                 duration,
                 backgroundColor: status === 'out' ? "black" : ""
-            }, `+=${randomPosition * 0.0001}`);
+            }, `+=${randomPosition * 0.00004}`);
         });
 
         console.log(timeline.duration());
