@@ -5,7 +5,7 @@ const PanelScene = ({index, thumbnail, onClick}: PanelSceneProps) => {
     return (
         <li onClick={onClick} key={index} className={`!block rounded-md overflow-hidden`}>
             <img
-                className={`object-cover`}
+                className={`object-cover aspect-[315/150] w-full`}
                 src={`/assets/images/thumbnails/${thumbnail}`}
                 alt={`PanelScene ${index + 1}`}/>
         </li>
