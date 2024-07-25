@@ -4,12 +4,7 @@ import IconDayNight from "@/components/ToggleDayNight/IconDayNight"; // Adjust t
 
 const ToggleDayNight = () => {
     const [toggleButton, setToggleButton] = useState(false);
-    const [reRender, setRerender] = useState(false);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setRerender(!reRender);
-    }, [toggleButton])
 
     const handleToggle = () => {
         setToggleButton(!toggleButton); // Toggle the state

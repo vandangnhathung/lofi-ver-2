@@ -18,17 +18,17 @@ export default {
                 switch: {
                     '0%': {left: '4px'},
                     '50%': {left: '4px', width: '35px'},
-                    '100%': {left: '35px', width: '23px'},
+                    '100%': {left: '33px', width: '23px'},
                 },
                 reverseSwitch: {
-                    '0%': {left: '35px'},
+                    '0%': {left: '33px'},
                     '50%': {left: '15px', width: '35px'},
                     '100%': {left: '4px', width: '23px'},
                 },
             },
             animation: {
-                switch: 'switch 1s ease-in-out',
-                reverseSwitch: 'reverseSwitch 1s ease-in-out',
+                switch: 'switch 1s ease-in-out forwards',
+                reverseSwitch: 'reverseSwitch 1s ease-in-out forwards',
             },
         },
     },
