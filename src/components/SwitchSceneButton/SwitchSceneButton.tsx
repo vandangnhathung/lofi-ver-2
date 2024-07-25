@@ -64,7 +64,7 @@ const SwitchSceneButton = () => {
                         onClick={() => dispatch(setOpenPanelScene(!openPanel))} IconComponent={Images}/>
             <div
                 ref={panelRef}
-                className={`panel absolute bottom-lofi-panel-position text-white transition-all ${chosenThemeObject?.scenes.length === 1 ? "w-[380px]" : "w-[770px]"} duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>
+                className={`panel absolute bottom-lofi-panel-position text-white transition-all max-w-full ${chosenThemeObject?.scenes.length === 1 ? "w-[380px]" : "w-[770px]"} duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>
                 <div className="panel-inner bg-black rounded-xl">
                     <div
                         className={`switch-scene transition-all min-h-[169px] ${chosenThemeObject?.scenes.length === 1 && "max-w-[350px]"}`}>

@@ -4,6 +4,7 @@ import Scene from '@/components/Scene/Scene';
 import MenuBar from "@/components/MenuBar/MenuBar";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import ToggleDayNight from "@/components/ToggleDayNight/ToggleDayNight";
 
 const HomePage: React.FC = () => {
 
