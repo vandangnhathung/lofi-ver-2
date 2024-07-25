@@ -11,7 +11,7 @@ import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
-import {SceneProps} from "@/components/Panel/Type";
+import {SceneProps} from "@/components/Scene/Type";
 import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
 
 const SwitchSceneButton = () => {

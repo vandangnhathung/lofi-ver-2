@@ -1,6 +1,6 @@
 // components/Scene/Scene.tsx
 import React from 'react';
-import {SceneProps} from "@/components/Panel/Type";
+import {SceneProps} from "@/components/Scene/Type";
 
 const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
     return (

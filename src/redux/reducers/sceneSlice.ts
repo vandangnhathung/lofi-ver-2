@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import scenes from "@/assets/data/scenes.json";
-import {SceneProps} from "@/components/Panel/Type";
+import {SceneProps} from "@/components/Scene/Type";
 
 // Define the structure of the slice's state
 interface SceneState {
