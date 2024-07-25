@@ -7,14 +7,29 @@ export default {
     theme: {
         extend: {
             colors: {
-                "primary": "#ffb70b",
+                primary: "#ffb70b",
             },
             spacing: {
-                "gap-container": '10px',
-                "lofi-menu-height": "var(--lofi-menu-height)",
-                "lofi-panel-position": "var(--lofi-panel-position)",
+                'gap-container': '10px',
+                'lofi-menu-height': 'var(--lofi-menu-height)',
+                'lofi-panel-position': 'var(--lofi-panel-position)',
             },
-            height: {}
+            keyframes: {
+                switch: {
+                    '0%': {left: '4px'},
+                    '50%': {left: '4px', width: '35px'},
+                    '100%': {left: '35px', width: '23px'},
+                },
+                reverseSwitch: {
+                    '0%': {left: '35px'},
+                    '50%': {left: '15px', width: '35px'},
+                    '100%': {left: '4px', width: '23px'},
+                },
+            },
+            animation: {
+                switch: 'switch 1s ease-in-out',
+                reverseSwitch: 'reverseSwitch 1s ease-in-out',
+            },
         },
     },
     plugins: [],
