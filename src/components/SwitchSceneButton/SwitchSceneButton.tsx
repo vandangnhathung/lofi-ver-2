@@ -4,7 +4,7 @@ import {RootState} from '@/redux/store';
 import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
 import {setLoadingScene} from '@/redux/reducers/loadingSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
-import {Images} from "lucide-react";
+import {ChevronLeft, Images} from "lucide-react";
 import themesData from "@/assets/data/themes.json";
 import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
@@ -50,11 +50,11 @@ const SwitchSceneButton = () => {
     const handleChooseTheme = (theme: ThemeProps) => {
         setIsChosenTheme(true);
         setChosenTheme(theme);
-        console.log("hello", theme);
     }
 
-    // Flatten the scenes from all themes into a single array
-    const scenes = chosenTheme.scenes;
+    const handleBackToThemes = () => {
+        setIsChosenTheme(false);
+    }
 
     return (
         <>
@@ -66,11 +66,14 @@ const SwitchSceneButton = () => {
                 <div className="panel-inner bg-black rounded-xl">
                     <div className="switch-scene">
                         <div
-                            className="switch-scene__title transition-all hover:text-primary py-2 pl-[10px] items-center inline-flex gap-x-2 cursor-pointer">
-                            <span className="">Scenes</span>
+                            className="switch-scene__title py-2 pl-[10px] items-center inline-flex gap-x-2">
+                            {isChosenTheme ? (<button onClick={handleBackToThemes}
+                                                      className="transition-all hover:text-primary items-center inline-flex gap-x-2">
+                                <ChevronLeft className={`w-5 aspect-square`}/> Switch Scene </button>) : (
+                                <span className="">Themes</span>)}
                         </div>
                         <SliderCustom className="">
-                            {isChosenTheme && scenes.map((scene, index) => (
+                            {isChosenTheme && chosenTheme.scenes.map((scene, index) => (
                                 <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
                                             key={index}/>
