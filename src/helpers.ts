@@ -1,12 +1,12 @@
 export const isChildOfElement = (
-    element: HTMLElement | null,
+    child: HTMLElement | null,
     parentClass: string
 ): boolean => {
-    while (element) {
-        if (element.classList.contains(parentClass)) {
+    while (child) {
+        if (child.classList.contains(parentClass)) {
             return true;
         }
-        element = element.parentElement;
+        child = child.parentElement;
     }
     return false;
 };
