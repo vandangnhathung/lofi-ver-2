@@ -13,14 +13,16 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const totalScenes = chosenThemeObject?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;
 
+
     const settings = {
         dots: false,
+        adaptiveHeight: true,
         infinite: isTotalScenesGreaterThanTwo,
         speed: 500,
         slidesToShow: isTotalScenesGreaterThanTwo ? 2 : 1,
         slidesToScroll: isTotalScenesGreaterThanTwo && isChosenTheme ? 2 : 1,
-        prevArrow: isTotalScenesGreaterThanTwo ? <CustomArrow CustomArrowIcon={ChevronLeft}/> : undefined,
-        nextArrow: isTotalScenesGreaterThanTwo ? <CustomArrow CustomArrowIcon={ChevronRight}/> : undefined,
+        prevArrow: totalScenes > 2 ? <CustomArrow CustomArrowIcon={ChevronLeft}/> : undefined,
+        nextArrow: totalScenes > 2 ? <CustomArrow CustomArrowIcon={ChevronRight}/> : undefined,
     };
 
     return (
