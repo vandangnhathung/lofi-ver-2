@@ -14,7 +14,7 @@ const PanelScene = ({index, thumbnail, onClick}: PanelSceneProps) => {
         <li onClick={onClick} key={index} className={`!block rounded-md  h-[169px] w-full overflow-hidden relative`}>
             {isSkeletonLoading ? <SkeletonLoading/> :
                 <img
-                    className={`object-cover aspect-[315/150] w-full`}
+                    className={`object-cover aspect-[315/150] h-full`}
                     src={`/assets/images/thumbnails/${thumbnail}`}
                     alt={`PanelScene ${index + 1}`}/>
             }
