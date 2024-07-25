@@ -4,13 +4,15 @@ import playerMusicSlice from "@/redux/reducers/playerMusicSlice";
 import panelSlice from "@/redux/reducers/panelSlice";
 import sceneSlice from "@/redux/reducers/sceneSlice";
 import loadingSlice from "@/redux/reducers/loadingSlice";
+import themeSlice from "@/redux/reducers/themeSlice";
 
 
 const rootReducer = combineReducers({
     playerMusic: playerMusicSlice,
     panel: panelSlice,
     scene: sceneSlice,
-    loading: loadingSlice
+    loading: loadingSlice,
+    chosenTheme: themeSlice,
 });
 
 export const store = configureStore({

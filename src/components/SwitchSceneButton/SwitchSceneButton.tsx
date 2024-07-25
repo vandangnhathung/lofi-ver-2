@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
@@ -11,11 +11,13 @@ import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {SceneProps, ThemeProps} from "@/components/Scene/Type";
 import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
+import {goBackToThemePanel, setChosenTheme} from '@/redux/reducers/themeSlice';
 
 const SwitchSceneButton = () => {
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const currentScene = useSelector((state: RootState) => state.scene.activeScene);
+    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.chosenTheme);
     const dispatch = useDispatch();
 
     // Refs
@@ -48,15 +50,12 @@ const SwitchSceneButton = () => {
         };
     }, [openPanel]);
 
-    const [isChosenTheme, setIsChosenTheme] = useState(false);
-    const [chosenTheme, setChosenTheme] = useState({} as ThemeProps);
     const handleChooseTheme = (theme: ThemeProps) => {
-        setIsChosenTheme(true);
-        setChosenTheme(theme);
+        dispatch(setChosenTheme(theme));
     }
 
     const handleBackToThemes = () => {
-        setIsChosenTheme(false);
+        dispatch(goBackToThemePanel());
     }
 
     return (
@@ -78,7 +77,7 @@ const SwitchSceneButton = () => {
                         </div>
                         <SliderCustom className="">
                             {/* Show all scenes in a specific theme */}
-                            {isChosenTheme && chosenTheme.scenes.map((scene, index) => (
+                            {isChosenTheme && chosenThemeObject?.scenes.map((scene, index) => (
                                 <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
                                             key={index}/>
