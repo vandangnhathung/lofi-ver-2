@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import scenes from "@/assets/data/scenes.json";
+import themesData from "@/assets/data/themes.json";
 import {SceneProps} from "@/components/Scene/Type";
 
 // Define the structure of the slice's state
@@ -9,10 +9,10 @@ interface SceneState {
     animation?: "in" | "out" | 'complete';
 }
 
-// Initialize the state with the first scene from the JSON data
+
 const initialState: SceneState = {
-    scene: scenes[0],
-    activeScene: scenes[0],
+    scene: themesData[0].scenes[0],
+    activeScene: themesData[0].scenes[0],
     animation: "in"
 };
 

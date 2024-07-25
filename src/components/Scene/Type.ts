@@ -1,6 +1,17 @@
 // Define the structure of a scene
-export interface SceneProps {
-    title?: string;
-    thumbnail?: string;
+export interface SceneButtonProps {
+    label: string;
+    sound?: string;
     src?: string;
+    position: {
+        top: string;
+        left: string;
+    };
+}
+
+export interface SceneProps {
+    name: string;
+    thumbnail: string;
+    src: string;
+    buttons: SceneButtonProps[];
 }
