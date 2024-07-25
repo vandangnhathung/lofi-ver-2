@@ -1,17 +1,16 @@
-// SwitchSceneButton.tsx
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
 import {setLoadingScene} from '@/redux/reducers/loadingSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {Images} from "lucide-react";
-import scenes from "@/assets/data/themes.json";
+import themesData from "@/assets/data/themes.json";
 import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {isChildOfElement} from "@/helpers";
-import {SceneProps} from "@/components/Scene/Type";
+import {SceneProps, ThemeProps} from "@/components/Scene/Type";
 import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
 
 const SwitchSceneButton = () => {
@@ -19,24 +18,19 @@ const SwitchSceneButton = () => {
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const dispatch = useDispatch();
     const sceneButtonRef = useRef<HTMLButtonElement>(null);
-    const animation = useSelector((state: RootState) => state.scene.animation);
     const currentScene = useSelector((state: RootState) => state.scene.activeScene);
 
     const handleSwitchSceneButton = (newScene: SceneProps) => {
         if (!loadingScene && newScene !== currentScene) {
-            console.log('loadingScene: ', loadingScene, 'animation: ', animation);
             dispatch(setScene(newScene));
             dispatch(setAnimation('out'));
-
-            // Set loading scene to true and set the scene state
             dispatch(setLoadingScene(true));
-
         }
     };
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            const child = e.target as HTMLElement; // Casting e.target to HTMLElement
+            const child = e.target as HTMLElement;
             if (!sceneButtonRef.current?.contains(child) && !isChildOfElement(child, 'panel')) {
                 dispatch(setOpenPanelScene(false));
             }
@@ -50,6 +44,17 @@ const SwitchSceneButton = () => {
             window.removeEventListener('click', handleClickOutside);
         };
     }, [openPanel]);
+
+    const [isChosenTheme, setIsChosenTheme] = useState(false);
+    const [chosenTheme, setChosenTheme] = useState({} as ThemeProps);
+    const handleChooseTheme = (theme: ThemeProps) => {
+        setIsChosenTheme(true);
+        setChosenTheme(theme);
+        console.log("hello", theme);
+    }
+
+    // Flatten the scenes from all themes into a single array
+    const scenes = chosenTheme.scenes;
 
     return (
         <>
@@ -65,9 +70,14 @@ const SwitchSceneButton = () => {
                             <span className="">Scenes</span>
                         </div>
                         <SliderCustom className="">
-                            {scenes.map((scene, index) => (
+                            {isChosenTheme && scenes.map((scene, index) => (
                                 <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
+                                            key={index}/>
+                            ))}
+                            {!isChosenTheme && themesData.map((theme, index) => (
+                                <PanelScene onClick={() => handleChooseTheme(theme)} index={index}
+                                            thumbnail={theme.thumbnail}
                                             key={index}/>
                             ))}
                         </SliderCustom>

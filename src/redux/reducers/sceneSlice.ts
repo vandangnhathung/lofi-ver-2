@@ -9,7 +9,6 @@ interface SceneState {
     animation?: "in" | "out" | 'complete';
 }
 
-
 const initialState: SceneState = {
     scene: themesData[0].scenes[0],
     activeScene: themesData[0].scenes[0],

@@ -15,3 +15,9 @@ export interface SceneProps {
     src: string;
     buttons: SceneButtonProps[];
 }
+
+export interface ThemeProps {
+    title: string;
+    thumbnail: string;
+    scenes: SceneProps[];
+}

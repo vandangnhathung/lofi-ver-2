@@ -7,7 +7,6 @@ import {RootState} from "@/redux/store";
 import {setLoading, setLoadingScene} from "@/redux/reducers/loadingSlice";
 
 const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', duration: number }) => {
-    console.log("PixelLoading work", status);
     const dispatch = useDispatch();
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const animation = useSelector((state: RootState) => state.scene.animation);
@@ -54,8 +53,6 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', 
                 backgroundColor: status === 'out' ? "black" : ""
             }, `+=${randomPosition * 0.00004}`);
         });
-
-        console.log(timeline.duration());
     }, [status]);
 
     return (
