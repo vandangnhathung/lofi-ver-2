@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {gsap} from "gsap";
-import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
+import PixelLoading from "@/components/Loading/PixelLoading";
 
 const Loading: React.FC = () => {
     const loading = useSelector((state: RootState) => state.loading.loading);

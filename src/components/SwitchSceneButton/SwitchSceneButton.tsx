@@ -73,11 +73,14 @@ const SwitchSceneButton = () => {
                                 <span className="">Themes</span>)}
                         </div>
                         <SliderCustom className="">
+                            {/* Show all scenes in a specific theme */}
                             {isChosenTheme && chosenTheme.scenes.map((scene, index) => (
                                 <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
                                             key={index}/>
                             ))}
+
+                            {/* Show all themes */}
                             {!isChosenTheme && themesData.map((theme, index) => (
                                 <PanelScene onClick={() => handleChooseTheme(theme)} index={index}
                                             thumbnail={theme.thumbnail}

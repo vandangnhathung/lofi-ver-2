@@ -3,7 +3,7 @@ import React from "react";
 import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import PixelLoading from "@/components/Loading/PixelLoading/PixelLoading";
+import PixelLoading from "@/components/Loading/PixelLoading";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import Loading from "@/components/Loading/Loading";
