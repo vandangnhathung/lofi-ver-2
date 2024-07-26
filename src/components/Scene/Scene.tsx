@@ -22,13 +22,12 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
         setCurrentSceneSrc(scene.src);
     }
 
-    const handleChangeSceneLoading = () => {
-        if (condition) {
-            setPrevSceneSrc(scene?.srcNight);
-        } else {
-            setCurrentSceneSrc(scene.src);
-        }
-    }
+    // const handleChangeSceneLoading = () => {
+    //     if (condition) {
+    //     } else {
+    //         setCurrentSceneSrc(scene.src);
+    //     }
+    // }
 
     useEffect(() => {
         if (!firstRender) {
@@ -39,15 +38,16 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
                 timeline
                     .to(currentVideoWrapperRef.current, {opacity: 0, duration: 2})
                     .call(() => {
-                        handleChangeSceneLoading()
+                        setPrevSceneSrc(scene?.srcNight);
                     }, [], "-=2")
                     .to(prevVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
             } else {
+                console.log(scene);
                 // Fade out previous video and fade in current video
                 timeline
                     .to(prevVideoWrapperRef.current, {opacity: 0, duration: 2})
                     .call(() => {
-                        handleChangeSceneLoading();
+                        setCurrentSceneSrc(scene.src);
                     }, [], "-=2")
                     .to(currentVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
             }
@@ -55,7 +55,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
         } else {
             setFirstRender(false);
         }
-    }, [nightMode, prevSceneSrc]); // Watch for nightMode and prevSceneSrc changes
+    }, [nightMode, prevSceneSrc, scene]); // Watch for nightMode and prevSceneSrc changes
 
     // Update the scene source when the scene prop changes
     useEffect(() => {

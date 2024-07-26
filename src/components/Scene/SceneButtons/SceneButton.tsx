@@ -12,6 +12,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
         dispatch(setActiveScene({
             ...activeScene,
             src: button?.src,
+            srcNight: button?.srcNight
         }));
         console.log(`button clicked: ${button.srcNight}`);
     }
