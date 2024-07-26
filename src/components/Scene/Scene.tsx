@@ -4,6 +4,7 @@ import {SceneProps} from "@/components/Scene/Type";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {gsap} from "gsap";
+import SceneButtons from "@/components/Scene/SceneButtons/SceneButtons";
 
 const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
     // States
@@ -40,6 +41,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
         <div ref={videoWrapperRef} className={`absolute overflow-hidden inset-0 z-10`}>
             <video src={`/public/assets/videos/${currentSceneSrc}`} autoPlay loop muted
                    className="object-cover h-full w-full"/>
+            <SceneButtons/>
         </div>
     );
 };
