@@ -6,12 +6,14 @@ import {SceneProps} from "@/components/Scene/Type";
 interface SceneState {
     scene: SceneProps;
     activeScene: SceneProps;
+    nightMode: boolean;
     animation?: "in" | "out" | 'complete';
 }
 
 const initialState: SceneState = {
     scene: themesData[0].scenes[0],
     activeScene: themesData[0].scenes[0],
+    nightMode: false,
     animation: "in"
 };
 
@@ -30,9 +32,13 @@ const sceneSlice = createSlice({
         setActiveScene: (state, action: PayloadAction<SceneProps>) => {
             state.activeScene = action.payload;
         },
+        setNightMode: (state, action: PayloadAction<boolean>) => {
+            state.nightMode = action.payload;
+            if (state.nightMode) console.log("Night mode enabled");
+        },
     },
 });
 
 // Export the actions and reducer
-export const {setScene, setAnimation, setActiveScene} = sceneSlice.actions;
+export const {setScene, setAnimation, setActiveScene, setNightMode} = sceneSlice.actions;
 export default sceneSlice.reducer;

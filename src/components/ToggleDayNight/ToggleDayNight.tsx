@@ -1,29 +1,38 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import IconDayNight from "@/components/ToggleDayNight/IconDayNight"; // Adjust the import path as necessary
+import React, {useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import IconDayNight from "@/components/ToggleDayNight/IconDayNight";
+import {RootState} from "@/redux/store";
+import {setNightMode} from "@/redux/reducers/sceneSlice"; // Adjust the import path as necessary
 
 const ToggleDayNight = () => {
-    const [toggleButton, setToggleButton] = useState(false);
+    const isClickableRef = useRef(true); // Ref to manage clickability
+    const nightMode = useSelector((state: RootState) => state.scene.nightMode);
     const dispatch = useDispatch();
 
-    const handleToggle = () => {
-        setToggleButton(!toggleButton); // Toggle the state
-        // console.log("ok", toggleButton);
-        // dispatch(toggleSlice.actions.nightToggleHome());
+    const toggleNightMode = () => {
+        if (isClickableRef.current) {
+            dispatch(setNightMode(!nightMode));
+            isClickableRef.current = false;
+        }
+    };
+
+    const handleTransitionEnd = () => {
+        isClickableRef.current = true;
     };
 
     return (
         <div
             className={`h-[31px] w-[62px] p-1 rounded-full transition-all duration-1000 backdrop-blur-md cursor-pointer relative flex items-center ${
-                toggleButton ? "bg-transparent" : "bg-[rgba(0,0,0,0.6)]"
+                nightMode ? "bg-transparent" : "bg-[rgba(0,0,0,0.6)]"
             }`}
-            onClick={handleToggle}
+            onClick={toggleNightMode}
+            onTransitionEnd={handleTransitionEnd}
         >
-            <IconDayNight type="day" toggleButton={toggleButton}/>
-            <IconDayNight type="night" toggleButton={toggleButton}/>
+            <IconDayNight type="day" toggleButton={nightMode === false && nightMode}/>
+            <IconDayNight type="night" toggleButton={nightMode === true && nightMode}/>
             <div
                 className={`top-[4px] left-[4px] w-[23px] absolute h-[23px] rounded-full transition-all duration-1000 bg-white ${
-                    toggleButton ? "animate-switch" : "animate-reverseSwitch"
+                    nightMode ? "animate-switch" : "animate-reverseSwitch"
                 }`}
             ></div>
         </div>
