@@ -7,11 +7,13 @@
         "name": "Book cafe outside",
         "thumbnail": "bookCafeOutside.png",
         "src": "ExteriorDay.mp4",
+        "srcNight": "ExteriorNight.mp4",
         "buttons": [
           {
             "label": "Rain",
             "sound": "rain_city.mp3",
             "src": "ExteriorRainyDay.mp4",
+            "srcNight": "ExteriorRainyNight.mp4",
             "position": {
               "top": "10%",
               "left": "20%"
@@ -28,6 +30,7 @@
           {
             "label": "Go inside",
             "src": "InteriorDay.mp4",
+            "srcNight": "InteriorNight.mp4",
             "position": {
               "top": "30%",
               "left": "40%"
@@ -39,11 +42,13 @@
         "name": "Book cafe inside",
         "thumbnail": "bookCafeInside.png",
         "src": "InteriorDay.mp4",
+        "srcNight": "InteriorNight.mp4",
         "buttons": [
           {
             "label": "Rain",
             "sound": "rain_city.mp3",
             "src": "InteriorRainyDay.mp4",
+            "srcNight": "InteriorRainyNight.mp4",
             "position": {
               "top": "10%",
               "left": "20%"
@@ -60,6 +65,7 @@
           {
             "label": "Go outside",
             "src": "ExteriorDay.mp4",
+            "srcNight": "ExteriorNight.mp4",
             "position": {
               "top": "30%",
               "left": "40%"
@@ -77,6 +83,7 @@
         "name": "Honolulu Balcony",
         "thumbnail": "HonoluluBalcony.png",
         "src": "HonoluluBalconyDay.mp4",
+        "srcNight": "HonoluluBalconyNight.mp4",
         "buttons": [
           {
             "label": "Rain",
@@ -97,6 +104,7 @@
           {
             "label": "Go to the beach",
             "src": "HonoluluBeachDay.mp4",
+            "srcNight": "HonoluluBeachNight.mp4",
             "position": {
               "top": "30%",
               "left": "40%"
@@ -108,11 +116,13 @@
         "name": "Honolulu Beach",
         "thumbnail": "HonoluluBeach.png",
         "src": "HonoluluBeachDay.mp4",
+        "srcNight": "HonoluluBeachNight.mp4",
         "buttons": [
           {
             "label": "Rain",
             "sound": "rain_forest.mp3",
             "src": "HonoluluBeachRainyDay.mp4",
+            "srcNight": "HonoluluBeachRainyNight.mp4",
             "position": {
               "top": "10%",
               "left": "20%"
@@ -129,6 +139,7 @@
           {
             "label": "Go into Balcony",
             "src": "HonoluluBalconyDay.mp4",
+            "srcNight": "HonoluluBalconyNight.mp4",
             "position": {
               "top": "30%",
               "left": "40%"

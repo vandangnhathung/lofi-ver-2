@@ -3,6 +3,7 @@ export interface SceneButtonProps {
     label: string;
     sound?: string;
     src?: string;
+    srcNight?: string;
     position: {
         top: string;
         left: string;
@@ -13,6 +14,7 @@ export interface SceneProps {
     name: string;
     thumbnail: string;
     src: string;
+    srcNight?: string;
     buttons: SceneButtonProps[];
 }
 

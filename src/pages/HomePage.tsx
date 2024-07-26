@@ -4,11 +4,11 @@ import Scene from '@/components/Scene/Scene';
 import MenuBar from "@/components/MenuBar/MenuBar";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
-import ToggleDayNight from "@/components/ToggleDayNight/ToggleDayNight";
 
 const HomePage: React.FC = () => {
 
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
+    console.log("activeScene", activeScene)
 
     return (
         <>
