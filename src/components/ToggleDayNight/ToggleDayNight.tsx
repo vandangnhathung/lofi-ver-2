@@ -30,8 +30,8 @@ const ToggleDayNight = () => {
         >
             <IconDayNight nightMode={nightMode}/>
             <div
-                className={`top-[4px] left-[4px] w-[23px] absolute h-[23px] rounded-full transition-all duration-1000 bg-white ${
-                    nightMode ? "animate-switch" : "animate-reverseSwitch"
+                className={`top-[4px] left-[4px] w-[23px] absolute h-[23px] rounded-full transition-all duration-1000 ${
+                    nightMode ? "animate-switch bg-white" : "animate-reverseSwitch bg-primary"
                 }`}
             ></div>
         </div>
