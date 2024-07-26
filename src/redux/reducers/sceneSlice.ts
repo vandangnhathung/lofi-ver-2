@@ -34,7 +34,7 @@ const sceneSlice = createSlice({
         },
         setNightMode: (state, action: PayloadAction<boolean>) => {
             state.nightMode = action.payload;
-            if (state.nightMode) console.log("Night mode enabled");
+            if (state.nightMode) console.log("Night mode enabled", state.nightMode);
         },
     },
 });

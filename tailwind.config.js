@@ -25,10 +25,22 @@ export default {
                     '50%': {left: '15px', width: '35px'},
                     '100%': {left: '4px', width: '23px'},
                 },
+                flickerNightMode: {
+                    '0%': {opacity: '1'},
+                    '50%': {opacity: '0', transform: 'translateX(-7px)'},
+                    '100%': {opacity: '1', transform: 'translateX(-14px)'},
+                },
+                flickerDayMode: {
+                    '0%': {opacity: '1', transform: 'translateX(-14px)'},
+                    '50%': {opacity: '0', transform: 'translateX(-7px)'},
+                    '100%': {opacity: '1'},
+                }
             },
             animation: {
                 switch: 'switch 1s ease-in-out forwards',
                 reverseSwitch: 'reverseSwitch 1s ease-in-out forwards',
+                flickerNightMode: 'flickerNightMode 1s ease-in-out forwards',
+                flickerDayMode: 'flickerDayMode 1s ease-in-out forwards',
             },
         },
     },
