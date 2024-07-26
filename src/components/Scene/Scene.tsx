@@ -25,7 +25,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
     useEffect(() => {
         const timeline = gsap.timeline();
 
-        timeline.to(videoWrapperRef.current, {opacity: 0.2, duration: 0.4})
+        timeline.to(videoWrapperRef.current, {opacity: 0.1, duration: 0.4})
             .call(() => handleChangeSceneLoading(), [])
             .to(videoWrapperRef.current, {opacity: 1, duration: 0.5});
 
