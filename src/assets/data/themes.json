@@ -32,8 +32,8 @@
             "src": "InteriorDay.mp4",
             "srcNight": "InteriorNight.mp4",
             "position": {
-              "top": "30%",
-              "left": "40%"
+              "top": "60%",
+              "left": "80%"
             }
           }
         ]

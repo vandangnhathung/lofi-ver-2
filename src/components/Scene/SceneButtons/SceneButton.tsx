@@ -1,8 +1,24 @@
 import React from 'react';
+import {SceneButtonProps} from "@/components/Scene/Type";
+import {useDispatch, useSelector} from "react-redux";
+import {setActiveScene} from "@/redux/reducers/sceneSlice";
+import {RootState} from "@/redux/store";
 
-const SceneButton = () => {
+const SceneButton = ({button}: { button: SceneButtonProps }) => {
+    const activeScene = useSelector((state: RootState) => state.scene.activeScene);
+    const dispatch = useDispatch();
+
+    const handleSceneButton = () => {
+        dispatch(setActiveScene({
+            ...activeScene,
+            src: button?.src,
+        }));
+        console.log(`button clicked: ${button.srcNight}`);
+    }
+
     return (
-        <button className={`group absolute top-[50%] left-[20%]`}>
+        <button onClick={handleSceneButton} className={`group absolute`}
+                style={{top: button.position.top, left: button.position.left}}>
             <div className={`w-12 h-12 p-3`}>
                 <div
                     className={`h-full after:transition-all after:duration-500 after:rounded-full group-hover:after:bg-primary after:absolute after:inset-0 after:opacity-30`}>

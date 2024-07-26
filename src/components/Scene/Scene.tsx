@@ -68,7 +68,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
                    className="object-cover inset-0 absolute"/>
             <video ref={prevVideoWrapperRef} src={`/public/assets/videos/${prevSceneSrc}`} autoPlay loop muted
                    className="opacity-0 object-cover inset-0 absolute"/>
-            <SceneButtons/>
+            <SceneButtons buttons={scene.buttons}/>
         </div>
     );
 };

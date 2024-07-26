@@ -13,7 +13,7 @@ export interface SceneButtonProps {
 export interface SceneProps {
     name: string;
     thumbnail: string;
-    src: string;
+    src: string | undefined;
     srcNight?: string;
     buttons: SceneButtonProps[];
 }
