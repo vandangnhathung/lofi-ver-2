@@ -28,8 +28,8 @@ const ToggleDayNight = () => {
             onClick={toggleNightMode}
             onTransitionEnd={handleTransitionEnd}
         >
-            <IconDayNight type="day" toggleButton={nightMode === false && nightMode}/>
-            <IconDayNight type="night" toggleButton={nightMode === true && nightMode}/>
+            {nightMode === false && <IconDayNight type="day" toggleButton={nightMode}/>}
+            {nightMode === true && <IconDayNight type="night" toggleButton={nightMode}/>}
             <div
                 className={`top-[4px] left-[4px] w-[23px] absolute h-[23px] rounded-full transition-all duration-1000 bg-white ${
                     nightMode ? "animate-switch" : "animate-reverseSwitch"

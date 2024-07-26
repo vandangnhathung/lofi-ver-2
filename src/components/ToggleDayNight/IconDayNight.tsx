@@ -7,7 +7,6 @@ type IconDayNightProps = {
 };
 
 const IconDayNight: React.FC<IconDayNightProps> = ({type, toggleButton}) => {
-    console.log("ok", toggleButton);
     return (
         <div
             className={`transition-all absolute text-white duration-1000 ${
