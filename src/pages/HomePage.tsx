@@ -6,9 +6,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 
 const HomePage: React.FC = () => {
-
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
-    console.log("activeScene", activeScene)
 
     return (
         <>

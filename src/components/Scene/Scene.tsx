@@ -12,13 +12,22 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
     const [currentSceneSrc, setCurrentSceneSrc] = React.useState<string | undefined>(scene.src);
     const [prevSceneSrc, setPrevSceneSrc] = React.useState<string | undefined>(currentSceneSrc);
     const [firstRender, setFirstRender] = React.useState<boolean>(true);
+    const condition = nightMode;
 
     // Refs
     const currentVideoWrapperRef = useRef<HTMLVideoElement>(null);
     const prevVideoWrapperRef = useRef<HTMLVideoElement>(null);
 
-    const handleChangeSceneLoading = () => {
+    const handleChangeScene = () => {
         setCurrentSceneSrc(scene.src);
+    }
+
+    const handleChangeSceneLoading = () => {
+        if (condition) {
+            setPrevSceneSrc(scene?.srcNight);
+        } else {
+            setCurrentSceneSrc(scene.src);
+        }
     }
 
     useEffect(() => {
@@ -30,7 +39,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
                 timeline
                     .to(currentVideoWrapperRef.current, {opacity: 0, duration: 2})
                     .call(() => {
-                        setPrevSceneSrc(scene?.srcNight);
+                        handleChangeSceneLoading()
                     }, [], "-=2")
                     .to(prevVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
             } else {
@@ -38,7 +47,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
                 timeline
                     .to(prevVideoWrapperRef.current, {opacity: 0, duration: 2})
                     .call(() => {
-                        setCurrentSceneSrc(scene.src);
+                        handleChangeSceneLoading();
                     }, [], "-=2")
                     .to(currentVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
             }
@@ -50,7 +59,7 @@ const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
 
     // Update the scene source when the scene prop changes
     useEffect(() => {
-        handleChangeSceneLoading();
+        handleChangeScene();
     }, [scene]);
 
     return (
