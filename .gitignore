@@ -23,4 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+./src/pratice (REMOVE)
+./src/redux (REMOVE)
+
 *storybook.log
+/src/redux (REMOVE)/
+/src/pratice (REMOVE)/
