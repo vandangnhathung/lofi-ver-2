@@ -5,7 +5,7 @@ import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
 import {setLoadingScene} from '@/redux/reducers/loadingSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {ChevronLeft, Images} from "lucide-react";
-import themesData from "@/assets/data/themes.json";
+import themesData from "@/assets/data/themesCopy.json";
 import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";

@@ -104,6 +104,110 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Honolulu",
+    "thumbnail": "Honolulu.png",
+    "scenes": [
+      {
+        "id": "honoluluBalcony",
+        "name": "Honolulu Balcony",
+        "thumbnail": "HonoluluBalcony.png",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "HonoluluBalconyDay.mp4"
+            }
+          },
+          "night": {
+            "normal": {
+              "src": "HonoluluBalconyNight.mp4"
+            }
+          }
+        },
+        "buttons": [
+          {
+            "id": "rain",
+            "label": "Rain",
+            "sound": "rain_forest.mp3",
+            "position": {
+              "top": "10%",
+              "left": "20%"
+            }
+          },
+          {
+            "id": "keyboard",
+            "label": "Keyboard",
+            "sound": "keyboard.mp3",
+            "position": {
+              "top": "30%",
+              "left": "40%"
+            }
+          },
+          {
+            "id": "goToBeach",
+            "label": "Go to the beach",
+            "toSceneId": "honoluluBeach",
+            "position": {
+              "top": "30%",
+              "left": "40%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "honoluluBeach",
+        "name": "Honolulu Beach",
+        "thumbnail": "HonoluluBeach.png",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "HonoluluBeachDay.mp4"
+            },
+            "rain": {
+              "src": "HonoluluBeachRainyDay.mp4"
+            }
+          },
+          "night": {
+            "normal": {
+              "src": "HonoluluBeachNight.mp4"
+            },
+            "rain": {
+              "src": "HonoluluBeachRainyNight.mp4"
+            }
+          }
+        },
+        "buttons": [
+          {
+            "id": "rain",
+            "label": "Rain",
+            "sound": "rain_forest.mp3",
+            "position": {
+              "top": "10%",
+              "left": "20%"
+            }
+          },
+          {
+            "id": "waves",
+            "label": "Waves",
+            "sound": "waves.mp3",
+            "position": {
+              "top": "50%",
+              "left": "20%"
+            }
+          },
+          {
+            "id": "goToBalcony",
+            "label": "Go into Balcony",
+            "toSceneId": "honoluluBalcony",
+            "position": {
+              "top": "30%",
+              "left": "40%"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
 
