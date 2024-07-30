@@ -5,6 +5,7 @@ import panelSlice from "@/redux/reducers/panelSlice";
 import sceneSlice from "@/redux/reducers/sceneSlice";
 import loadingSlice from "@/redux/reducers/loadingSlice";
 import themeSlice from "@/redux/reducers/themeSlice";
+import modeSlice from "@/redux/reducers/modeSlice";
 
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     scene: sceneSlice,
     loading: loadingSlice,
     chosenTheme: themeSlice,
+    mode: modeSlice,
 });
 
 export const store = configureStore({

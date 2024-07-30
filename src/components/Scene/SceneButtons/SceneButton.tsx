@@ -1,11 +1,11 @@
 import React from 'react';
 import {SceneButtonProps} from "@/components/Scene/Type";
 import {useDispatch, useSelector} from "react-redux";
-import {setRainMode} from "@/redux/reducers/sceneSlice";
+import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
-    const rainMode = useSelector((state: RootState) => state.scene.rainMode);
+    const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
     const dispatch = useDispatch();
 
