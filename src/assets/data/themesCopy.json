@@ -117,11 +117,17 @@
           "day": {
             "normal": {
               "src": "HonoluluBalconyDay.mp4"
+            },
+            "rain": {
+              "src": "HonoluluBalconyRainyDay.mp4"
             }
           },
           "night": {
             "normal": {
               "src": "HonoluluBalconyNight.mp4"
+            },
+            "rain": {
+              "src": "HonoluluBalconyRainyNight.mp4"
             }
           }
         },
