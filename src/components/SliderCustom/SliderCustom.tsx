@@ -11,19 +11,20 @@ import themesData from "@/assets/data/themesCopy.json";
 const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.chosenTheme);
     const totalScenes = chosenThemeObject?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
-    console.log('totalScenes', totalScenes);
+    const totalThemes = themesData.length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;
 
+    const isChosenThemeCondition = isChosenTheme ? totalScenes > 2 : totalThemes > 2;
 
     const settings = {
         dots: false,
         adaptiveHeight: true,
-        infinite: false,
+        infinite: totalScenes > 2,
         speed: 500,
         slidesToShow: isTotalScenesGreaterThanTwo ? 2 : 1,
         slidesToScroll: isTotalScenesGreaterThanTwo && isChosenTheme ? 2 : 1,
-        prevArrow: totalScenes > 2 ? <CustomArrow CustomArrowIcon={ChevronLeft}/> : undefined,
-        nextArrow: totalScenes > 2 ? <CustomArrow CustomArrowIcon={ChevronRight}/> : undefined,
+        prevArrow: isChosenThemeCondition ? <CustomArrow CustomArrowIcon={ChevronLeft}/> : undefined,
+        nextArrow: isChosenThemeCondition ? <CustomArrow CustomArrowIcon={ChevronRight}/> : undefined,
     };
 
     return (
