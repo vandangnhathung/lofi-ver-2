@@ -2,16 +2,17 @@ import React, {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import IconDayNight from "@/components/ToggleDayNight/IconDayNight";
 import {RootState} from "@/redux/store";
-import {setNightMode} from "@/redux/reducers/sceneSlice"; // Adjust the import path as necessary
+import {setNightMode, setNightModeClicked} from "@/redux/reducers/sceneSlice"; // Adjust the import path as necessary
 
 const ToggleDayNight = () => {
-    const isClickableRef = useRef(true); // Ref to manage clickability
+    const isClickableRef = useRef(true);
     const nightMode = useSelector((state: RootState) => state.scene.nightMode);
     const dispatch = useDispatch();
 
     const toggleNightMode = () => {
         if (isClickableRef.current) {
             dispatch(setNightMode(!nightMode));
+            dispatch(setNightModeClicked(true));  // Set nightModeClicked to true
             isClickableRef.current = false;
         }
     };

@@ -1,73 +1,88 @@
-// Scene.tsx
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {SceneProps} from "@/components/Scene/Type";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {gsap} from "gsap";
 import SceneButtons from "@/components/Scene/SceneButtons/SceneButtons";
+import {
+    setActiveSceneSrc,
+    setNightModeClicked,
+    setPreviousSceneSrc,
+    setRainModeClicked
+} from "@/redux/reducers/sceneSlice";
 
 const Scene: React.FC<{ scene: SceneProps }> = ({scene}) => {
-    // States
+    const activeSrc = useSelector((state: RootState) => state.scene.activeSrc);
+    const previousSrc = useSelector((state: RootState) => state.scene.previousSrc);
     const nightMode = useSelector((state: RootState) => state.scene.nightMode);
-    const [currentSceneSrc, setCurrentSceneSrc] = React.useState<string | undefined>(scene.src);
-    const [prevSceneSrc, setPrevSceneSrc] = React.useState<string | undefined>(currentSceneSrc);
-    const [firstRender, setFirstRender] = React.useState<boolean>(true);
-    const condition = nightMode;
+    const rainMode = useSelector((state: RootState) => state.scene.rainMode);
+    const nightModeClicked = useSelector((state: RootState) => state.scene.nightModeClicked);
+    const rainModeClicked = useSelector((state: RootState) => state.scene.rainModeClicked);
 
-    // Refs
+    const dispatch = useDispatch();
+    const [firstRender, setFirstRender] = useState<boolean>(true);
+
     const currentVideoWrapperRef = useRef<HTMLVideoElement>(null);
     const prevVideoWrapperRef = useRef<HTMLVideoElement>(null);
 
-    const handleChangeScene = () => {
-        setCurrentSceneSrc(scene.src);
-    }
+    const getNewSrc = () => {
+        return nightMode
+            ? (rainMode ? scene.sources.night.rain?.src : scene.sources.night.normal.src)
+            : (rainMode ? scene.sources.day.rain?.src : scene.sources.day.normal.src);
+    };
 
-    // const handleChangeSceneLoading = () => {
-    //     if (condition) {
-    //     } else {
-    //         setCurrentSceneSrc(scene.src);
-    //     }
-    // }
+    const executeAnimation = ({condition, previousSrc, currentSrc}: {
+        condition: boolean,
+        previousSrc: string | undefined,
+        currentSrc: string | undefined
+    }) => {
+        const timeline = gsap.timeline();
+        console.log("previousSrc: ", previousSrc, "currentSrc: ", currentSrc);
+        if (condition) {
+            timeline
+                .to(currentVideoWrapperRef.current, {opacity: 0, duration: 2})
+                .call(() => {
+                    console.log("currentSrc: ", currentSrc);
+                    dispatch(setPreviousSceneSrc(currentSrc));
+                }, [], "-=2")
+                .to(prevVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2");
+        } else {
+            timeline
+                .to(prevVideoWrapperRef.current, {opacity: 0, duration: 2})
+                .call(() => {
+                    dispatch(setActiveSceneSrc(previousSrc));
+                }, [], "-=2")
+                .to(currentVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2");
+        }
+    };
 
     useEffect(() => {
         if (!firstRender) {
-            const timeline = gsap.timeline();
-
-            if (nightMode) {
-                // Fade out current video and fade in previous video
-                timeline
-                    .to(currentVideoWrapperRef.current, {opacity: 0, duration: 2})
-                    .call(() => {
-                        setPrevSceneSrc(scene?.srcNight);
-                    }, [], "-=2")
-                    .to(prevVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
-            } else {
-                console.log(scene);
-                // Fade out previous video and fade in current video
-                timeline
-                    .to(prevVideoWrapperRef.current, {opacity: 0, duration: 2})
-                    .call(() => {
-                        setCurrentSceneSrc(scene.src);
-                    }, [], "-=2")
-                    .to(currentVideoWrapperRef.current, {opacity: 1, duration: 2}, "-=2")
+            let condition = false;
+            if (nightModeClicked) {
+                condition = nightMode;
+            } else if (rainModeClicked) {
+                console.log("rainModeClicked: ", rainModeClicked);
+                condition = rainMode;
             }
 
+            executeAnimation({
+                condition: condition,
+                previousSrc: activeSrc,
+                currentSrc: getNewSrc()
+            });
+
+            dispatch(setNightModeClicked(false));
+            dispatch(setRainModeClicked(false));
         } else {
             setFirstRender(false);
         }
-    }, [nightMode, prevSceneSrc, scene]); // Watch for nightMode and prevSceneSrc changes
-
-    // Update the scene source when the scene prop changes
-    useEffect(() => {
-        handleChangeScene();
-    }, [scene]);
+    }, [nightMode, rainMode, scene]);
 
     return (
-        <div className={`absolute overflow-hidden inset-0 z-10`}>
-            <video ref={currentVideoWrapperRef} src={`/public/assets/videos/${currentSceneSrc}`} autoPlay loop muted
-                   className="object-cover inset-0 absolute"/>
-            <video ref={prevVideoWrapperRef} src={`/public/assets/videos/${prevSceneSrc}`} autoPlay loop muted
-                   className="opacity-0 object-cover inset-0 absolute"/>
+        <div className="absolute overflow-hidden inset-0 z-10">
+            <video ref={currentVideoWrapperRef} src={`/public/assets/videos/${activeSrc}`}
+                   autoPlay loop muted className="object-cover inset-0 absolute"/>
             <SceneButtons buttons={scene.buttons}/>
         </div>
     );

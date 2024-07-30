@@ -1,20 +1,21 @@
 import React from 'react';
 import {SceneButtonProps} from "@/components/Scene/Type";
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveScene} from "@/redux/reducers/sceneSlice";
+import {setRainMode, setRainModeClicked} from "@/redux/reducers/sceneSlice";
 import {RootState} from "@/redux/store";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
+    const rainMode = useSelector((state: RootState) => state.scene.rainMode);
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
     const dispatch = useDispatch();
 
+
     const handleSceneButton = () => {
-        dispatch(setActiveScene({
-            ...activeScene,
-            src: button?.src,
-            srcNight: button?.srcNight
-        }));
-        console.log(`button clicked: ${button.srcNight}`);
+        console.log(button);
+        if (button.id === 'rain') {
+            dispatch(setRainMode(!rainMode));
+            dispatch(setRainModeClicked(true));  // Set nightModeClicked to true
+        }
     }
 
     return (

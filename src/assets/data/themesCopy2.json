@@ -6,41 +6,94 @@
       {
         "name": "Book cafe outside",
         "thumbnail": "bookCafeOutside.png",
-        "src": {
-          "day": "ExteriorDay.mp4",
-          "night": "ExteriorNight.mp4"
-        },
+        "sources": [
+          {
+            "id": "ExteriorDay",
+            "label": "Day",
+            "path": "ExteriorDay.mp4",
+            "type": "video"
+          },
+          {
+            "id": "ExteriorNight",
+            "label": "Night",
+            "path": "ExteriorNight.mp4",
+            "type": "video"
+          },
+          {
+            "id": "ExteriorRainyDay",
+            "label": "Rainy Day",
+            "path": "ExteriorRainyDay.mp4",
+            "type": "video"
+          },
+          {
+            "id": "ExteriorRainyNight",
+            "label": "Rainy Night",
+            "path": "ExteriorRainyNight.mp4",
+            "type": "video"
+          },
+          {
+            "id": "InteriorDay",
+            "label": "Interior Day",
+            "path": "InteriorDay.mp4",
+            "type": "video"
+          },
+          {
+            "id": "InteriorNight",
+            "label": "Interior Night",
+            "path": "InteriorNight.mp4",
+            "type": "video"
+          },
+          {
+            "id": "rainCity",
+            "label": "Rain",
+            "path": "rain_city.mp3",
+            "type": "sound"
+          },
+          {
+            "id": "cityTraffic",
+            "label": "Traffic",
+            "path": "city_traffic.mp3",
+            "type": "sound"
+          }
+        ],
         "buttons": [
           {
-            "label": "Rain",
-            "sound": "rain_city.mp3",
-            "src": {
-              "day": "ExteriorRainyDay.mp4",
-              "night": "ExteriorRainyNight.mp4"
-            },
-            "position": {
-              "top": "10%",
-              "left": "20%"
-            }
+            "visibleScenes": "ExteriorDay",
+            "buttons": [
+              {
+                "to": "InteriorDay",
+                "position": {
+                  "top": 0.1,
+                  "left": 0.2
+                }
+              },
+              {
+                "to": "ExteriorDayRain",
+                "position": {
+                  "top": 0.1,
+                  "left": 0.2
+                }
+              }
+            ]
           },
           {
-            "label": "Traffic",
-            "sound": "city_traffic.mp3",
-            "position": {
-              "top": "30%",
-              "left": "40%"
-            }
-          },
-          {
-            "label": "Go inside",
-            "src": {
-              "day": "InteriorDay.mp4",
-              "night": "InteriorNight.mp4"
-            },
-            "position": {
-              "top": "60%",
-              "left": "80%"
-            }
+            "visibleScenes": "InteriorDay",
+            "buttons": [
+              {
+                "to": "ExteriorDay",
+                "position": {
+                  "top": 0.1,
+                  "left": 0.2
+                }
+              },
+              {
+                "to": "InteriorDayRain",
+                "position": {
+                  "top": 0.1,
+                  "left": 0.2
+                }
+              }
+            ]
           }
         ]
       },
@@ -205,3 +258,4 @@
     ]
   }
 ]
+

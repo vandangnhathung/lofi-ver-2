@@ -21,6 +21,7 @@ function App() {
                 <PixelLoading duration={0.0000001} status={animation}/>
                 <HomePage/>
             </div>
+            {/*<UserComponent></UserComponent>*/}
         </>
     )
 }

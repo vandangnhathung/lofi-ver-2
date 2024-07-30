@@ -1,0 +1,109 @@
+[
+  {
+    "title": "Book cafe",
+    "thumbnail": "bookCafeOutside.png",
+    "scenes": [
+      {
+        "id": "bookCafeOutside",
+        "name": "Book cafe outside",
+        "thumbnail": "bookCafeOutside.png",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "ExteriorDay.mp4"
+            },
+            "rain": {
+              "src": "ExteriorRainyDay.mp4"
+            }
+          },
+          "night": {
+            "normal": {
+              "src": "ExteriorNight.mp4"
+            },
+            "rain": {
+              "src": "ExteriorRainyNight.mp4"
+            }
+          }
+        },
+        "buttons": [
+          {
+            "id": "rain",
+            "label": "Rain",
+            "position": {
+              "top": "10%",
+              "left": "20%"
+            }
+          },
+          {
+            "id": "traffic",
+            "label": "Traffic",
+            "position": {
+              "top": "30%",
+              "left": "40%"
+            }
+          },
+          {
+            "id": "goInside",
+            "label": "Go inside",
+            "toSceneId": "bookCafeInside",
+            "position": {
+              "top": "60%",
+              "left": "80%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bookCafeInside",
+        "name": "Book cafe inside",
+        "thumbnail": "bookCafeInside.png",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "InteriorDay.mp4"
+            },
+            "rain": {
+              "src": "InteriorRainyDay.mp4"
+            }
+          },
+          "night": {
+            "normal": {
+              "src": "InteriorNight.mp4"
+            },
+            "rain": {
+              "src": "InteriorRainyNight.mp4"
+            }
+          }
+        },
+        "buttons": [
+          {
+            "id": "rain",
+            "label": "Rain",
+            "position": {
+              "top": "10%",
+              "left": "20%"
+            }
+          },
+          {
+            "id": "traffic",
+            "label": "Traffic",
+            "position": {
+              "top": "30%",
+              "left": "40%"
+            }
+          },
+          {
+            "id": "goOutside",
+            "label": "Go outside",
+            "toSceneId": "bookCafeOutside",
+            "position": {
+              "top": "60%",
+              "left": "80%"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+
