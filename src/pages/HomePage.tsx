@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
             {/* decide height of the website */}
             <div className={`relative w-screen h-screen z-10`}>
                 <div className={`bg-black absolute inset-0`}></div>
-                <Scene scene={activeScene}/>
+                <Scene activeScene={activeScene}/>
                 <MenuBar/>
             </div>
         </>

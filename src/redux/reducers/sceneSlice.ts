@@ -5,6 +5,7 @@ import {SceneProps} from "@/components/Scene/Type";
 interface SceneState {
     scene: SceneProps;
     activeScene: SceneProps;
+    activeSceneSrc: string;
     previousScene: SceneProps;
     animation?: "in" | "out" | 'complete';
 }
@@ -12,6 +13,7 @@ interface SceneState {
 const initialState: SceneState = {
     scene: themesData[0].scenes[0],
     activeScene: themesData[0].scenes[0],
+    activeSceneSrc: themesData[0].scenes[0].sources.day.normal.src,
     previousScene: themesData[0].scenes[0],
     animation: "in",
 };
