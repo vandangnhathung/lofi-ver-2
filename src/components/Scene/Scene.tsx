@@ -8,6 +8,7 @@ import VideoElements from "@/components/VideoElements/VideoElements";
 const Scene: React.FC<{ activeScene: SceneProps }> = ({activeScene}) => {
     const chosenThemeObject = useSelector((state: RootState) => state.chosenTheme.chosenThemeObject);
 
+    console.log("load");
 
     const videoElements = chosenThemeObject?.scenes.map(scene => {
         return (
