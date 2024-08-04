@@ -8,8 +8,6 @@ import VideoElements from "@/components/VideoElements/VideoElements";
 const Scene: React.FC<{ activeScene: SceneProps }> = ({activeScene}) => {
     const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
 
-    console.log("load");
-
     const videoElements = chosenThemeObject?.scenes.map(scene => {
         return (
             <React.Fragment key={scene.id}>
@@ -26,4 +24,4 @@ const Scene: React.FC<{ activeScene: SceneProps }> = ({activeScene}) => {
     );
 };
 
-export default Scene;
+export default React.memo(Scene);
