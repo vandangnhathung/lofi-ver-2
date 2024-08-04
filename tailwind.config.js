@@ -10,9 +10,12 @@ export default {
                 primary: "#ffb70b",
             },
             spacing: {
-                'gap-container': '10px',
+                'gap-container': 'var(--gap-container)',
                 'lofi-menu-height': 'var(--lofi-menu-height)',
                 'lofi-panel-position': 'var(--lofi-panel-position)',
+            },
+            width: {
+                'screen-padding': 'var(--w-screen-padding)',
             },
             keyframes: {
                 switch: {

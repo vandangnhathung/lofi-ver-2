@@ -5,5 +5,7 @@
 :root {
     --lofi-menu-height:60px;
     --lofi-panel-position:calc(var(--lofi-menu-height) + 10px);
+    --gap-container:20px;
+    --w-screen-padding:calc(100vw - 20px * 2);
 }
 
