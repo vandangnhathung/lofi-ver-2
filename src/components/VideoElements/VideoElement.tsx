@@ -35,7 +35,11 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             loop
             muted
             className={`object-cover transition-all w-full h-full inset-0 absolute`}
-            style={{zIndex: activeSceneSrc === src ? 2 : 0, opacity: activeSceneSrc === src ? 1 : 0}}
+            style={{
+                zIndex: activeSceneSrc === src ? 2 : 0,
+                opacity: activeSceneSrc === src ? 1 : 0,
+                transitionDuration: '0.5s'
+            }}
         />
     );
 };
