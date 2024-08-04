@@ -4,49 +4,27 @@ import {SceneProps} from "@/components/Scene/Type";
 const VideoElements: React.FC<{ scene: SceneProps }> = ({scene}) => {
     const videoElements: JSX.Element[] = [];
 
-    // Add video for normal day source
-    if (scene.sources.day.normal.src) {
-        videoElements.push(
-            <video
-                key={`day-normal-${scene.id}`}
-                src={`/public/assets/videos/${scene.sources.day.normal.src}`}
-                autoPlay loop muted className="object-cover inset-0 absolute"
-            />
-        );
-    }
+    const addVideoElement = (key: string, src: string | undefined) => {
+        if (src) {
+            videoElements.push(
+                <video
+                    key={key}
+                    src={`/public/assets/videos/${src}`}
+                    autoPlay
+                    loop
+                    muted
+                    className="object-cover opacity-0 inset-0 absolute"
+                />
+            );
+        }
+    };
 
-    // Add video for rain day source
-    if (scene.sources.day.rain?.src) {
-        videoElements.push(
-            <video
-                key={`day-rain-${scene.id}`}
-                src={`/public/assets/videos/${scene.sources.day.rain.src}`}
-                autoPlay loop muted className="object-cover inset-0 absolute"
-            />
-        );
-    }
+    addVideoElement(`day-normal-${scene.id}`, scene.sources.day.normal.src);
+    addVideoElement(`day-rain-${scene.id}`, scene.sources.day.rain?.src);
+    addVideoElement(`night-normal-${scene.id}`, scene.sources.night.normal.src);
+    addVideoElement(`night-rain-${scene.id}`, scene.sources.night.rain?.src);
 
-    // Add video for normal night source
-    if (scene.sources.night.normal.src) {
-        videoElements.push(
-            <video
-                key={`night-normal-${scene.id}`}
-                src={`/public/assets/videos/${scene.sources.night.normal.src}`}
-                autoPlay loop muted className="object-cover inset-0 absolute"
-            />
-        );
-    }
-
-    // Add video for rain night source
-    if (scene.sources.night.rain?.src) {
-        videoElements.push(
-            <video
-                key={`night-rain-${scene.id}`}
-                src={`/public/assets/videos/${scene.sources.night.rain.src}`}
-                autoPlay loop muted className="object-cover inset-0 absolute"
-            />
-        );
-    }
+    console.log("videoElements: ", videoElements);
 
     return <>{videoElements}</>;
 };
