@@ -10,8 +10,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const dispatch = useDispatch();
 
-    console.log("chosenThemeObject: ", chosenThemeObject);
-
     const handleSceneButton = () => {
         if (button.id === 'rain') {
             dispatch(setRainMode(!rainMode));
@@ -21,7 +19,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                     dispatch(setActiveScene(scene));
                 }
             });
-            // dispatch(setActiveScene(button.toSceneId));
         }
     }
 
