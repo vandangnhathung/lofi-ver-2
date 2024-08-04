@@ -3,17 +3,24 @@ import {SceneButtonProps} from "@/components/Scene/Type";
 import {useDispatch, useSelector} from "react-redux";
 import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
+import {setActiveScene} from "@/redux/reducers/sceneSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
+    const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const dispatch = useDispatch();
 
+    console.log("chosenThemeObject: ", chosenThemeObject);
 
     const handleSceneButton = () => {
         if (button.id === 'rain') {
             dispatch(setRainMode(!rainMode));
         } else if (button.toSceneId) {
-            console.log('toSceneId', button.toSceneId);
+            chosenThemeObject?.scenes.forEach(scene => {
+                if (scene.id === button.toSceneId) {
+                    dispatch(setActiveScene(scene));
+                }
+            });
             // dispatch(setActiveScene(button.toSceneId));
         }
     }

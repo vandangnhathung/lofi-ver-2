@@ -26,7 +26,7 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
                     ? activeScene.sources.day.rain?.src
                     : activeScene.sources.day.normal?.src
         ));
-    }, [nightMode, rainMode]);
+    }, [nightMode, rainMode, activeScene]);
 
     return (
         <video
