@@ -4,7 +4,7 @@ import {SceneButtonProps} from "@/components/Scene/Type";
 
 const SceneButtons = ({buttons}: { buttons: SceneButtonProps[] }) => {
     return (
-        <div className={`absolute inset-0`}>
+        <div className={`absolute z-30 inset-0`}>
             {
                 buttons.map((button, index) => (
                     <SceneButton key={index} button={button}/>

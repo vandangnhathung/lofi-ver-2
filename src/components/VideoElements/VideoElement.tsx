@@ -34,7 +34,8 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             autoPlay
             loop
             muted
-            className={`object-cover transition-all ${activeSceneSrc === src ? "opacity-1 z-2" : "opacity-0"} w-full h-full inset-0 absolute`}
+            className={`object-cover transition-all w-full h-full inset-0 absolute`}
+            style={{zIndex: activeSceneSrc === src ? 2 : 0, opacity: activeSceneSrc === src ? 1 : 0}}
         />
     );
 };
