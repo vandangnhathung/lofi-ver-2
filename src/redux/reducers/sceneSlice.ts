@@ -5,7 +5,7 @@ import {SceneProps} from "@/components/Scene/Type";
 interface SceneState {
     scene: SceneProps;
     activeScene: SceneProps;
-    activeSceneSrc: string;
+    activeSceneSrc: string | undefined;
     previousScene: SceneProps;
     animation?: "in" | "out" | 'complete';
 }
@@ -32,6 +32,9 @@ const sceneSlice = createSlice({
         setActiveScene: (state, action: PayloadAction<SceneProps>) => {
             state.activeScene = action.payload;
         },
+        setActiveSceneSrc(state, action: PayloadAction<string | undefined>) {
+            state.activeSceneSrc = action.payload;
+        }
     },
 });
 
@@ -39,6 +42,7 @@ export const {
     setScene,
     setAnimation,
     setActiveScene,
+    setActiveSceneSrc
 } = sceneSlice.actions;
 
 export default sceneSlice.reducer;

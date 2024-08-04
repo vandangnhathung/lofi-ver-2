@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 
@@ -7,8 +7,6 @@ interface VideoElementProps {
 }
 
 const VideoElement: React.FC<VideoElementProps> = ({src}) => {
-    const nightMode = useSelector((state: RootState) => state.mode.nightMode);
-    const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const activeSceneSrc = useSelector((state: RootState) => state.scene.activeSceneSrc);
 
     return (
