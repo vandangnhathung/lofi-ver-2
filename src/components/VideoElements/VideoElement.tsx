@@ -11,6 +11,7 @@ interface VideoElementProps {
 const VideoElement: React.FC<VideoElementProps> = ({src}) => {
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
     const activeSceneSrc = useSelector((state: RootState) => state.scene.activeSceneSrc);
+    const animation = useSelector((state: RootState) => state.scene.animation);
 
     const dispatch = useDispatch();
     const nightMode = useSelector((state: RootState) => state.mode.nightMode);
@@ -38,7 +39,7 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             style={{
                 zIndex: activeSceneSrc === src ? 2 : 0,
                 opacity: activeSceneSrc === src ? 1 : 0,
-                transitionDuration: '0.5s'
+                transitionDuration: animation === 'in' ? 'unset' : '0.5s'
             }}
         />
     );

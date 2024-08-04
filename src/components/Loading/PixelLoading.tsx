@@ -2,11 +2,11 @@ import React, {useEffect, useRef} from 'react';
 import {shuffle} from 'lodash';
 import {gsap} from 'gsap';
 import {useDispatch, useSelector} from "react-redux";
-import {setAnimation, setActiveScene} from "@/redux/reducers/sceneSlice";
+import {setActiveScene, setAnimation} from "@/redux/reducers/sceneSlice";
 import {RootState} from "@/redux/store";
-import {setLoading, setLoadingScene} from "@/redux/reducers/loadingSlice";
+import {setLoadingScene} from "@/redux/reducers/loadingSlice";
 
-const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', duration: number }) => {
+const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", duration: number }) => {
     const dispatch = useDispatch();
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const animation = useSelector((state: RootState) => state.scene.animation);
@@ -32,8 +32,7 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | 'complete', 
                     if (animation === 'out') {
                         dispatch(setActiveScene(scene));
                         dispatch(setAnimation('in'));
-                        dispatch(setLoading(false)); // Animation complete, hide loading
-                        dispatch(setLoadingScene(false));
+                        dispatch(setLoadingScene(false)); // Animation complete, hide loading
                     }
                 }
             }
