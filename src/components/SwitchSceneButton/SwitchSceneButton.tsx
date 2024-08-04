@@ -5,7 +5,6 @@ import {setOpenPanelScene} from '@/redux/reducers/panelSlice';
 import {setLoadingScene} from '@/redux/reducers/loadingSlice';
 import MenuButton from "@/components/MenuButton/MenuButton";
 import {ChevronLeft, Images} from "lucide-react";
-import themesData from "@/assets/data/themesCopy.json";
 import "@/components/Panel/Panel.scss";
 import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
@@ -14,10 +13,11 @@ import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
 import {goBackToThemePanel, setChosenTheme} from '@/redux/reducers/themeSlice';
 
 const SwitchSceneButton = () => {
+    const themesData = useSelector((state: RootState) => state.themes.themes);
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const currentScene = useSelector((state: RootState) => state.scene.activeScene);
-    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.chosenTheme);
+    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.themes);
     const dispatch = useDispatch();
 
     // Refs

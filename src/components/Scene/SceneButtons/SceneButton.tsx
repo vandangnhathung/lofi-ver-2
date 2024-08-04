@@ -6,14 +6,15 @@ import {RootState} from "@/redux/store";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
-    const activeScene = useSelector((state: RootState) => state.scene.activeScene);
     const dispatch = useDispatch();
 
 
     const handleSceneButton = () => {
-        console.log(button);
         if (button.id === 'rain') {
             dispatch(setRainMode(!rainMode));
+        } else if (button.toSceneId) {
+            console.log('toSceneId', button.toSceneId);
+            // dispatch(setActiveScene(button.toSceneId));
         }
     }
 

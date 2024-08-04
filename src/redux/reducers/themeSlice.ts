@@ -3,11 +3,13 @@ import {ThemeProps} from '@/components/Scene/Type';
 import themesData from "@/assets/data/themesCopy.json";
 
 interface ChosenThemeState {
+    themes: ThemeProps[];
     chosenThemeObject: ThemeProps | null;
     isChosenTheme: boolean;
 }
 
 const initialState: ChosenThemeState = {
+    themes: themesData,
     chosenThemeObject: themesData[0],
     isChosenTheme: false,
 };

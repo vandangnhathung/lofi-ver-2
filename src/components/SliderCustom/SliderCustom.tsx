@@ -6,10 +6,10 @@ import {ChevronLeft, ChevronRight} from "lucide-react";
 import {SliderCustomProps} from "@/components/SliderCustom/Type";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
-import themesData from "@/assets/data/themesCopy.json";
 
 const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
-    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.chosenTheme);
+    const themesData = useSelector((state: RootState) => state.themes.themes);
+    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.themes);
     const totalScenes = chosenThemeObject?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
     const totalThemes = themesData.length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;

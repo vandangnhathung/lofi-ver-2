@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     panel: panelSlice,
     scene: sceneSlice,
     loading: loadingSlice,
-    chosenTheme: themeSlice,
+    themes: themeSlice,
     mode: modeSlice,
 });
 

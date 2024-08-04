@@ -6,7 +6,7 @@ import SceneButtons from "@/components/Scene/SceneButtons/SceneButtons";
 import VideoElements from "@/components/VideoElements/VideoElements";
 
 const Scene: React.FC<{ activeScene: SceneProps }> = ({activeScene}) => {
-    const chosenThemeObject = useSelector((state: RootState) => state.chosenTheme.chosenThemeObject);
+    const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
 
     console.log("load");
 
