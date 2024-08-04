@@ -36,7 +36,6 @@ const SwitchSceneButton = () => {
         const handleClickOutside = (e: MouseEvent) => {
             const child = e.target as HTMLElement;
             if (!sceneButtonRef.current?.contains(child) && !panelRef.current?.contains(child)) {
-                console.log('click outside', child);
                 dispatch(setOpenPanelScene(false));
             }
         };

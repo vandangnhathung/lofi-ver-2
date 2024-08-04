@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ThemeProps} from '@/components/Scene/Type';
+import themesData from "@/assets/data/themesCopy.json";
 
 interface ChosenThemeState {
     chosenThemeObject: ThemeProps | null;
@@ -7,7 +8,7 @@ interface ChosenThemeState {
 }
 
 const initialState: ChosenThemeState = {
-    chosenThemeObject: null,
+    chosenThemeObject: themesData[0],
     isChosenTheme: false,
 };
 
