@@ -5,12 +5,14 @@ interface LoadingState {
     loading: boolean;
     loadingScene: boolean;
     animationComplete: boolean;
+    isButtonClicked: boolean;
 }
 
 const initialState: LoadingState = {
     loading: true,
     loadingScene: false,
     animationComplete: false,
+    isButtonClicked: true,
 };
 
 const loadingSlice = createSlice({
@@ -26,8 +28,11 @@ const loadingSlice = createSlice({
         setAnimationComplete: (state, action: PayloadAction<boolean>) => {
             state.animationComplete = action.payload;
         },
+        setTransitionEnd: (state, action: PayloadAction<boolean>) => {
+            state.isButtonClicked = action.payload;
+        }
     },
 });
 
-export const {setLoading, setLoadingScene, setAnimationComplete} = loadingSlice.actions;
+export const {setLoading, setLoadingScene, setAnimationComplete, setTransitionEnd} = loadingSlice.actions;
 export default loadingSlice.reducer;

@@ -4,21 +4,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
+import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const dispatch = useDispatch();
+    const isButtonClicked = useSelector((state: RootState) => state.loading.isButtonClicked);
 
     const handleSceneButton = () => {
-        if (button.id === 'rain') {
-            dispatch(setRainMode(!rainMode));
-        } else if (button.toSceneId) {
-            chosenThemeObject?.scenes.forEach(scene => {
-                if (scene.id === button.toSceneId) {
-                    dispatch(setActiveScene(scene));
-                }
-            });
+        // Delay the button click until the animation ends
+        if (isButtonClicked) {
+            if (button.id === 'rain') {
+                dispatch(setRainMode(!rainMode));
+            } else if (button.toSceneId) {
+                chosenThemeObject?.scenes.forEach(scene => {
+                    if (scene.id === button.toSceneId) {
+                        dispatch(setActiveScene(scene));
+                    }
+                });
+            }
+            dispatch(setTransitionEnd(false));
         }
     }
 
