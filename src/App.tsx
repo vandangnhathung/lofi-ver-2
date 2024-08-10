@@ -14,7 +14,7 @@ function App() {
     return (
         <>
             <AudioPlayer/>
-            {/*<Loading></Loading>*/}
+            <Loading></Loading>
             {/*<SwitchSceneButtonLoading/>*/}
 
             <div className="relative overflow-hidden">

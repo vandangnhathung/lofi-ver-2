@@ -214,6 +214,39 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Traveling",
+    "thumbnail": "traveling.png",
+    "scenes": [
+      {
+        "name": "Traveling",
+        "thumbnail": "traveling.png",
+        "src": {
+          "day": "traveling.mp4"
+        },
+        "buttons": [
+          {
+            "label": "Go to mountain",
+            "src": {
+              "day": "Mountain.mp4"
+            },
+            "position": {
+              "top": "50%",
+              "left": "50%"
+            }
+          },
+          {
+            "label": "Bird sound",
+            "sound": "birds.mp3",
+            "position": {
+              "top": "30%",
+              "left": "50%"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
 

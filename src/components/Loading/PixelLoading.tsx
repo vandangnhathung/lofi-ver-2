@@ -5,11 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {setActiveScene, setAnimation} from "@/redux/reducers/sceneSlice";
 import {RootState} from "@/redux/store";
 import {setLoadingScene} from "@/redux/reducers/loadingSlice";
+import {setChosenTheme} from "@/redux/reducers/themeSlice";
 
 const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", duration: number }) => {
     const dispatch = useDispatch();
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const animation = useSelector((state: RootState) => state.scene.animation);
+    const {chosenThemeObjectPanel} = useSelector((state: RootState) => state.themes);
+
     const scene = useSelector((state: RootState) => state.scene.scene);
     const layerWrapperRef = useRef<HTMLDivElement | null>(null);
     const blockRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -30,6 +33,7 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", 
             {
                 onComplete: () => {
                     if (animation === 'out') {
+                        dispatch(setChosenTheme(chosenThemeObjectPanel!));
                         dispatch(setActiveScene(scene));
                         dispatch(setAnimation('in'));
                         dispatch(setLoadingScene(false)); // Animation complete, hide loading

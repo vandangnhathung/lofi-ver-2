@@ -10,14 +10,14 @@ import SliderCustom from "@/components/SliderCustom/SliderCustom";
 import PanelScene from "@/components/Panel/PanelScene";
 import {SceneProps, ThemeProps} from "@/components/Scene/Type";
 import {setAnimation, setScene} from "@/redux/reducers/sceneSlice";
-import {goBackToThemePanel, setChosenTheme} from '@/redux/reducers/themeSlice';
+import {goBackToThemePanel, setChosenThemePanel} from '@/redux/reducers/themeSlice';
 
 const SwitchSceneButton = () => {
     const themesData = useSelector((state: RootState) => state.themes.themes);
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
     const loadingScene = useSelector((state: RootState) => state.loading.loadingScene);
     const currentScene = useSelector((state: RootState) => state.scene.activeScene);
-    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.themes);
+    const {chosenThemeObjectPanel, isChosenTheme} = useSelector((state: RootState) => state.themes);
     const dispatch = useDispatch();
 
     // Refs
@@ -28,6 +28,9 @@ const SwitchSceneButton = () => {
         if (!loadingScene && newScene !== currentScene) {
             dispatch(setScene(newScene));
             dispatch(setAnimation('out'));
+            // dispatch(setChosenTheme(chosenThemeObjectPanel!));
+            // todo: How state is updated in this function?
+
             dispatch(setLoadingScene(true));
         }
     };
@@ -50,7 +53,8 @@ const SwitchSceneButton = () => {
     }, [openPanel]);
 
     const handleChooseTheme = (theme: ThemeProps) => {
-        dispatch(setChosenTheme(theme));
+        console.log('theme', theme);
+        dispatch(setChosenThemePanel(theme));
     }
 
     const handleBackToThemes = () => {
@@ -63,10 +67,10 @@ const SwitchSceneButton = () => {
                         onClick={() => dispatch(setOpenPanelScene(!openPanel))} IconComponent={Images}/>
             <div
                 ref={panelRef}
-                className={`panel absolute bottom-lofi-panel-position text-white transition-all max-w-full ${chosenThemeObject?.scenes.length === 1 ? "w-[380px]" : "w-[770px]"} duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>
+                className={`panel absolute bottom-lofi-panel-position text-white transition-all max-w-full ${chosenThemeObjectPanel?.scenes.length === 1 ? "w-[380px]" : "w-[770px]"} duration-500 ${openPanel ? 'opacity-100' : 'opacity-0 invisible'}`}>
                 <div className="panel-inner bg-black rounded-xl">
                     <div
-                        className={`switch-scene transition-all min-h-[169px] ${chosenThemeObject?.scenes.length === 1 && "max-w-[350px]"}`}>
+                        className={`switch-scene transition-all min-h-[169px] ${chosenThemeObjectPanel?.scenes.length === 1 && "max-w-[350px]"}`}>
                         <div
                             className="switch-scene__title py-2 pl-[10px] items-center inline-flex gap-x-2">
                             {isChosenTheme ? (<button onClick={handleBackToThemes}
@@ -76,7 +80,7 @@ const SwitchSceneButton = () => {
                         </div>
                         <SliderCustom className="">
                             {/* Show all scenes in a specific theme */}
-                            {isChosenTheme && chosenThemeObject?.scenes.map((scene, index) => (
+                            {isChosenTheme && chosenThemeObjectPanel?.scenes.map((scene, index) => (
                                 <PanelScene onClick={() => handleSwitchSceneButton(scene)} index={index}
                                             thumbnail={scene.thumbnail}
                                             key={index}/>
