@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import Slider from "react-slick";
 import "@/components/SliderCustom/CustomSlider.scss";
 import CustomArrow from "@/components/SliderCustom/CustomArrow";
@@ -13,6 +13,13 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const totalScenes = chosenThemeObject?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
     const totalThemes = themesData.length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;
+    const sliderRef = useRef<Slider | null>(null); // Type the ref
+
+    useEffect(() => {
+        if (isChosenTheme && sliderRef.current) {
+            sliderRef.current.slickGoTo(0);
+        }
+    }, [isChosenTheme])
 
     const isChosenThemeCondition = isChosenTheme ? totalScenes > 2 : totalThemes > 2;
 
@@ -28,7 +35,7 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     };
 
     return (
-        <Slider className={className} {...settings}>
+        <Slider ref={sliderRef} className={className} {...settings}>
             {children}
         </Slider>
     );

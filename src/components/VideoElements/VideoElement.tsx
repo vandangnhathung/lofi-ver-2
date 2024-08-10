@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {setActiveSceneSrc} from "@/redux/reducers/sceneSlice";
 
-
 interface VideoElementProps {
     src: string | undefined;
 }
@@ -18,16 +17,16 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
 
     useEffect(() => {
-        dispatch(setActiveSceneSrc(
-            nightMode
-                ? rainMode
-                    ? activeScene.sources.night.rain?.src
-                    : activeScene.sources.night.normal?.src
-                : rainMode
-                    ? activeScene.sources.day.rain?.src
-                    : activeScene.sources.day.normal?.src
-        ));
-    }, [nightMode, rainMode, activeScene]);
+        const newSrc = nightMode
+            ? rainMode
+                ? activeScene.sources?.night?.rain?.src
+                : activeScene.sources?.night?.normal?.src
+            : rainMode
+                ? activeScene.sources?.day?.rain?.src
+                : activeScene.sources?.day?.normal?.src;
+
+        dispatch(setActiveSceneSrc(newSrc ?? activeScene.sources?.day?.normal?.src));
+    }, [nightMode, rainMode, activeScene, dispatch]);
 
     return (
         <video

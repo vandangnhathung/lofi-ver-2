@@ -7,21 +7,18 @@ interface SceneState {
     activeScene: SceneProps;
     activeSceneSrc: string | undefined;
     previousScene: SceneProps;
-    animation?: "in" | "out" | "complete";
+    animation?: "in" | "out" | 'complete';
 }
 
+console.log("themesData", themesData[0].scenes[0]);
+
 const initialState: SceneState = {
-    scene: themesData[0].scenes[0] as SceneProps,
-    activeScene: themesData[0].scenes[0] as SceneProps,
-    activeSceneSrc: 'sources' in themesData[0].scenes[0]
-        ? themesData[0].scenes[0].sources?.day?.normal?.src
-        : typeof themesData[0].scenes[0].src === 'string'
-            ? themesData[0].scenes[0].src
-            : undefined,  // Handle cases where src is an object rather than a string
-    previousScene: themesData[0].scenes[0] as SceneProps,
+    scene: themesData[0].scenes[0],
+    activeScene: themesData[0].scenes[0],
+    activeSceneSrc: themesData[0].scenes[0].sources.day.normal.src,
+    previousScene: themesData[0].scenes[0],
     animation: "in",
 };
-
 
 const sceneSlice = createSlice({
     name: "scene",
@@ -32,11 +29,9 @@ const sceneSlice = createSlice({
             state.animation = "in";
         },
         setAnimation: (state, action: PayloadAction<"in" | "out" | 'complete'>) => {
-            console.log("change animation");
             state.animation = action.payload;
         },
         setActiveScene: (state, action: PayloadAction<SceneProps>) => {
-            console.log("change scene");
             state.activeScene = action.payload;
         },
         setActiveSceneSrc(state, action: PayloadAction<string | undefined>) {

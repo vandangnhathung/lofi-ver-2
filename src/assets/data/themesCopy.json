@@ -220,23 +220,28 @@
     "thumbnail": "traveling.png",
     "scenes": [
       {
+        "id": "travelingScene",
         "name": "Traveling",
         "thumbnail": "traveling.png",
-        "src": {
-          "day": "traveling.mp4"
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "traveling.mp4"
+            }
+          }
         },
         "buttons": [
           {
+            "id": "goToMountain",
             "label": "Go to mountain",
-            "src": {
-              "day": "Mountain.mp4"
-            },
+            "toSceneId": "mountainScene",
             "position": {
               "top": "50%",
               "left": "50%"
             }
           },
           {
+            "id": "birdSound",
             "label": "Bird sound",
             "sound": "birds.mp3",
             "position": {
@@ -245,6 +250,19 @@
             }
           }
         ]
+      },
+      {
+        "id": "mountainScene",
+        "name": "Mountain",
+        "thumbnail": "traveling.png",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "Universe.mp4"
+            }
+          }
+        },
+        "buttons": []
       }
     ]
   }
