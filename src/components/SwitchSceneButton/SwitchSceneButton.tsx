@@ -53,7 +53,6 @@ const SwitchSceneButton = () => {
     }, [openPanel]);
 
     const handleChooseTheme = (theme: ThemeProps) => {
-        console.log('theme', theme);
         dispatch(setChosenThemePanel(theme));
     }
 

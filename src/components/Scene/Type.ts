@@ -7,11 +7,12 @@ export interface SceneButtonProps {
         left: string;
     };
     toSceneId?: string;
+    sound?: string;  // Optional sound property
 }
 
 // Define the structure of sources for different conditions
 export interface SceneSourceProps {
-    normal: {
+    normal?: {
         src: string;
     };
     rain?: {
@@ -21,13 +22,14 @@ export interface SceneSourceProps {
 
 // Define the structure of a scene
 export interface SceneProps {
-    id: string;
+    id?: string; // ID might not be available in some scenes
     name: string;
     thumbnail: string;
-    sources: {
-        day: SceneSourceProps;
-        night: SceneSourceProps;
+    sources?: {
+        day?: SceneSourceProps;
+        night?: SceneSourceProps;
     };
+    src?: string;  // Direct src as a fallback for simpler structures
     buttons: SceneButtonProps[];
 }
 
