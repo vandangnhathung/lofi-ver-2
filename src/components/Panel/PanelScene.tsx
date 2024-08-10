@@ -10,8 +10,6 @@ const PanelScene = ({index, thumbnail, onClick}: PanelSceneProps) => {
         }, 1000);
     }, [isSkeletonLoading])
 
-    console.log("thumbnail", thumbnail);
-
     return (
         <li onClick={onClick} key={index} className={`!block rounded-md  h-[169px] w-full overflow-hidden relative`}>
             {isSkeletonLoading ? <SkeletonLoading/> :

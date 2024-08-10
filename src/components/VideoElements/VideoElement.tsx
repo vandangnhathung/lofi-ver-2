@@ -15,6 +15,8 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
     const dispatch = useDispatch();
     const nightMode = useSelector((state: RootState) => state.mode.nightMode);
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
+    const {isChosenTheme} = useSelector((state: RootState) => state.themes);
+    const openPanel = useSelector((state: RootState) => state.panel.panelScene);
 
     useEffect(() => {
         const newSrc = nightMode
@@ -36,7 +38,7 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             muted
             className={`object-cover transition-all w-full h-full inset-0 absolute`}
             style={{
-                transitionDuration: animation === 'in' ? '0.5s' : 'unset',
+                transitionDuration: animation === 'in' && openPanel === false ? '0.5s' : 'unset',
                 zIndex: activeSceneSrc === src ? 2 : 0,
                 opacity: activeSceneSrc === src ? 1 : 0,
             }}
