@@ -39,7 +39,7 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             autoPlay
             loop
             muted
-            className={`object-cover transition-all w-full h-full inset-0 absolute`}
+            className={`object-cover transition-all w-full h-full inset-0 absolute object-center`}
             style={{
                 transitionDuration: animation === 'in' && openPanel === false ? '0.5s' : 'unset',
                 zIndex: activeSceneSrc === src ? 2 : 0,

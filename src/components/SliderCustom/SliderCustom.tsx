@@ -6,6 +6,7 @@ import {ChevronLeft, ChevronRight} from "lucide-react";
 import {SliderCustomProps} from "@/components/SliderCustom/Type";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const themesData = useSelector((state: RootState) => state.themes.themes);
@@ -14,6 +15,8 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const totalThemes = themesData.length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;
     const sliderRef = useRef<Slider | null>(null); // Type the ref
+
+    const {isMobile} = useBreakpoint();
 
     useEffect(() => {
         if (isChosenTheme && sliderRef.current) {
@@ -28,8 +31,8 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
         adaptiveHeight: true,
         infinite: totalScenes > 2,
         speed: 500,
-        slidesToShow: isTotalScenesGreaterThanTwo ? 2 : 1,
-        slidesToScroll: isTotalScenesGreaterThanTwo && isChosenTheme ? 2 : 1,
+        slidesToShow: isMobile ? 1 : isTotalScenesGreaterThanTwo ? 2 : 1,
+        slidesToScroll: isMobile ? 1 : isTotalScenesGreaterThanTwo && isChosenTheme ? 2 : 1,
         prevArrow: isChosenThemeCondition ? <CustomArrow CustomArrowIcon={ChevronLeft}/> : undefined,
         nextArrow: isChosenThemeCondition ? <CustomArrow CustomArrowIcon={ChevronRight}/> : undefined,
     };
