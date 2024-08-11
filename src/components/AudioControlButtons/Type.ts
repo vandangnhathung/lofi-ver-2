@@ -5,6 +5,8 @@ export interface Song {
 }
 
 export interface PlayerMusicState {
+    musics: Song[];
+    categorizedMusics: { [key: string]: Song[] };
     musicIndex: number;
     currentSong: Song;
     isPlay: boolean;

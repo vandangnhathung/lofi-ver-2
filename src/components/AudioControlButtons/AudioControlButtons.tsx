@@ -19,9 +19,9 @@ const AudioControlButtons: React.FC = () => {
 
     return (
         <>
-            <MenuButton onClick={() => dispatch(playPrevSong())} IconComponent={SkipBack}/>
+            <MenuButton onClick={() => dispatch(playPrevSong("jazzy"))} IconComponent={SkipBack}/>
             <MenuButton onClick={handlePlaySong} IconComponent={isPlay ? CirclePause : CirclePlay}/>
-            <MenuButton onClick={() => dispatch(playNextSong())} IconComponent={SkipForward}/>
+            <MenuButton onClick={() => dispatch(playNextSong("jazzy"))} IconComponent={SkipForward}/>
         </>
     );
 };
