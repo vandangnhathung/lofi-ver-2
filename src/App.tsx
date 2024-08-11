@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import PixelLoading from "@/components/Loading/PixelLoading";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import ControlBarMenu from "@/components/ControlBar/ControlBarMenu";
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
@@ -19,6 +20,7 @@ function App() {
             <div className="relative overflow-hidden">
                 <PixelLoading duration={0.0000001} status={animation}/>
                 <HomePage/>
+                <ControlBarMenu/>
             </div>
             {/*<UserComponent></UserComponent>*/}
         </>

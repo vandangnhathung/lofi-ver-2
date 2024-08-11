@@ -1,0 +1,26 @@
+[
+  {
+    "title": "sleep1",
+    "src": "/assets/musics/sleepy/sleepy_1.mp3"
+  },
+  {
+    "title": "sleep2",
+    "src": "/assets/musics/sleepy/sleepy_2.mp3"
+  },
+  {
+    "title": "sleep3",
+    "src": "/assets/musics/sleepy/sleepy_3.mp3"
+  },
+  {
+    "title": "sleep4",
+    "src": "/assets/musics/sleepy/sleepy_4.mp3"
+  },
+  {
+    "title": "sleep5",
+    "src": "/assets/musics/sleepy/sleepy_5.mp3"
+  },
+  {
+    "title": "sleep6",
+    "src": "/assets/musics/sleepy/sleepy_6.mp3"
+  }
+]
