@@ -265,6 +265,40 @@
         "buttons": []
       }
     ]
+  },
+  {
+    "title": "Train",
+    "thumbnail": "train-night.jpg",
+    "scenes": [
+      {
+        "id": "trainScene",
+        "name": "train",
+        "thumbnail": "train-night.jpg",
+        "sources": {
+          "day": {
+            "normal": {
+              "src": "yorushika-day.mp4"
+            }
+          },
+          "night": {
+            "normal": {
+              "src": "yorushika-night.mp4"
+            }
+          }
+        },
+        "buttons": [
+          {
+            "id": "birdSound",
+            "label": "Bird sound",
+            "sound": "birds.mp3",
+            "position": {
+              "top": "30%",
+              "left": "50%"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
 
