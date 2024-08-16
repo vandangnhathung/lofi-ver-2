@@ -6,6 +6,9 @@ export default {
     ],
     theme: {
         extend: {
+            backgroundImage: {
+                'icon-gradient': 'linear-gradient(0deg, rgba(0,0,0,0.7205383129814426) 0%, rgba(0,0,0,0.26395567992822133) 28%, rgba(255,255,255,1) 100%)',
+            },
             colors: {
                 primary: "#ffb70b",
             },

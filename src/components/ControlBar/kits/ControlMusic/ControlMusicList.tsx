@@ -11,12 +11,16 @@ const ControlMusicList = () => {
     return (
         <div className="flex gap-4 justify-between">
             {categories.map((category, index) => (
-                <div key={index} className={`w-1/3 aspect-square rounded-full bg-red-500`}>
-                    <div className={`flex items-center justify-center grayscale h-full`}>
-                        <img className={`w-[35px] aspect-square backdrop-grayscale-0`}
-                             src={`/assets/icons/${category.src}`} alt=""/>
+                <div key={index} className={`w-1/3 flex flex-col gap-y-1 items-center`}>
+                    <div className={`w-full aspect-square rounded-full backdrop-blur-[10px]`}>
+                        <div className={`flex items-center justify-center grayscale h-full`}>
+                            <img className={`w-[35px] aspect-square`}
+                                 src={`/assets/icons/${category.src}`} alt=""/>
+                        </div>
                     </div>
+                    <p className={`ta-center`}>{category.name}</p>
                 </div>
+
             ))}
         </div>
     );
