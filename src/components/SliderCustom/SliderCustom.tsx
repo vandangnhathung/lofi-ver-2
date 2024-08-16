@@ -10,8 +10,8 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 
 const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
     const themesData = useSelector((state: RootState) => state.themes.themes);
-    const {chosenThemeObject, isChosenTheme} = useSelector((state: RootState) => state.themes);
-    const totalScenes = chosenThemeObject?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
+    const {chosenThemeObjectPanel, isChosenTheme} = useSelector((state: RootState) => state.themes);
+    const totalScenes = chosenThemeObjectPanel?.scenes.length || themesData.flatMap(theme => theme.scenes).length;
     const totalThemes = themesData.length;
     const isTotalScenesGreaterThanTwo = totalScenes >= 2;
     const sliderRef = useRef<Slider | null>(null); // Type the ref
@@ -23,6 +23,8 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
             sliderRef.current.slickGoTo(0);
         }
     }, [isChosenTheme])
+
+    console.log("test: ", chosenThemeObjectPanel);
 
     const isChosenThemeCondition = isChosenTheme ? totalScenes > 2 : totalThemes > 2;
 
