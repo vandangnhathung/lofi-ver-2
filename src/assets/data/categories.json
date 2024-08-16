@@ -1,14 +1,14 @@
 [
   {
     "name": "jazzy",
-    "src": "jazzy.svg"
+    "src": "IconJazzy"
   },
   {
     "name": "chill",
-    "src": "chill.svg"
+    "src": "IconChill"
   },
   {
     "name": "sleep",
-    "src": "sleepy.svg"
+    "src": "IconSleep"
   }
 ]
