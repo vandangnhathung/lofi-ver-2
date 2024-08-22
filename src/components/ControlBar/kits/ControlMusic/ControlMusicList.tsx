@@ -36,7 +36,6 @@ const ControlMusicList: React.FC = () => {
         setHoveredCategory(null);
     };
 
-    // todo: what is this for?
     const getIconComponent = useMemo(() => (src: string) => {
         if (loadedIcons[src]) {
             return loadedIcons[src];

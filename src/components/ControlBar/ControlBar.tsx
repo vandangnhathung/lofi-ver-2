@@ -10,7 +10,7 @@ const ControlBar = () => {
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
 
     return (
-        <div>
+        <div className={`control-bar`}>
             <MenuButton isActive={openPanel} onClick={() => dispatch(setOpenPanelControlBar(!openPanel))}
                         IconComponent={ControlBarIcon}/>
 

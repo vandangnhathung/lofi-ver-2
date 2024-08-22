@@ -8,7 +8,3 @@
     --gap-container:20px;
     --w-screen-padding:calc(100vw - 20px * 2);
 }
-
-svg, polygon, path {
-    transition:all .2s ease-in-out;
-}
