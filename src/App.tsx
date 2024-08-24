@@ -7,6 +7,7 @@ import PixelLoading from "@/components/Loading/PixelLoading";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import ControlBarMenu from "@/components/ControlBar/ControlBarMenu";
+import Loading from "@/components/Loading/Loading";
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
@@ -15,7 +16,6 @@ function App() {
         <>
             <AudioPlayer/>
             {/*<Loading></Loading>*/}
-            {/*<SwitchSceneButtonLoading/>*/}
 
             <div className="relative overflow-hidden">
                 <PixelLoading duration={0.0000001} status={animation}/>

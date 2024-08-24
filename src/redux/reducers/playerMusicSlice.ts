@@ -5,10 +5,12 @@ import {PlayerMusicState, Song} from "@/components/AudioControlButtons/Type";
 // Function to categorize music based on categories in JSON
 const categorizeMusics = (musics: Song[]) => {
     return musics.reduce((acc, music) => {
-        if (!acc[music.category]) {
-            acc[music.category] = [];
-        }
-        acc[music.category].push(music);
+        music.category.forEach(category => {
+            if (!acc[category]) {
+                acc[category] = [];
+            }
+            acc[category].push(music);
+        });
         return acc;
     }, {} as { [key: string]: Song[] });
 };

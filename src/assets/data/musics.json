@@ -2,96 +2,134 @@
   {
     "title": "Jazzy 1",
     "path": "jazzy_1.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 2",
     "path": "jazzy_2.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 3",
     "path": "jazzy_3.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 4",
     "path": "jazzy_4.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 5",
     "path": "jazzy_5.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 6",
     "path": "jazzy_6.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 7",
     "path": "jazzy_7.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Jazzy 9",
     "path": "jazzy_9.mp3",
-    "category": "jazzy"
+    "category": [
+      "jazzy"
+    ]
   },
   {
     "title": "Chill 1",
     "path": "lofi.mp3",
-    "category": "chill"
+    "category": [
+      "chill"
+    ]
   },
   {
     "title": "Chill 2",
     "path": "lofi2.mp3",
-    "category": "chill"
+    "category": [
+      "chill"
+    ]
   },
   {
     "title": "Chill 3",
     "path": "lofi3.mp3",
-    "category": "chill"
+    "category": [
+      "chill"
+    ]
   },
   {
     "title": "Chill 4",
     "path": "lofi4.mp3",
-    "category": "chill"
+    "category": [
+      "chill"
+    ]
   },
   {
     "title": "Chill 5",
     "path": "lofi5.mp3",
-    "category": "chill"
+    "category": [
+      "chill"
+    ]
   },
   {
     "title": "Sleep 1",
     "path": "sleepy_1.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   },
   {
     "title": "Sleep 2",
     "path": "sleepy_2.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   },
   {
     "title": "Sleep 3",
     "path": "sleepy_3.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   },
   {
     "title": "Sleep 4",
     "path": "sleepy_4.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   },
   {
     "title": "Sleep 5",
     "path": "sleepy_5.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   },
   {
     "title": "Sleep 6",
     "path": "sleepy_6.mp3",
-    "category": "sleep"
+    "category": [
+      "sleep"
+    ]
   }
 ]

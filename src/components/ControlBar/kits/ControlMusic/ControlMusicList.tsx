@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useMemo, useState} from 'react';
+import React, {lazy, Suspense, useCallback, useMemo, useState} from 'react';
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import categories from "@/assets/data/categories.json";
@@ -30,16 +30,13 @@ const ControlMusicList: React.FC = () => {
 
     const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
 
-    console.log("currentSong: ", currentSong);
-    console.log("categorizedMusics: ", categorizedMusics);
-
-    const handleMouseEnter = (categoryName: string) => {
+    const handleMouseEnter = useCallback((categoryName: string) => {
         setHoveredCategory(categoryName);
-    };
+    }, []);
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = useCallback(() => {
         setHoveredCategory(null);
-    };
+    }, []);
 
     const getIconComponent = useMemo(() => (src: string) => {
         if (loadedIcons[src]) {
@@ -60,17 +57,17 @@ const ControlMusicList: React.FC = () => {
                 return (
                     <div
                         key={index}
-                        className="group cursor-pointer w-1/3 flex flex-col gap-y-1 items-center"
+                        className={`group cursor-pointer w-1/3 flex flex-col gap-y-1 items-center ${currentSong.category[0] === category.name ? "pointer-events-none" : ""}`}
                         onMouseEnter={() => handleMouseEnter(category.name)}
                         onMouseLeave={handleMouseLeave}
                     >
                         <div className="w-full aspect-square rounded-full backdrop-blur-[10px] relative">
                             <div
-                                className="relative z-20 flex items-center justify-center group-hover:grayscale-0 grayscale h-full">
+                                className="relative z-20 flex items-center justify-center h-full">
                                 <Suspense fallback={<SkeletonLoading/>}>
                                     <IconComponent
-                                        color={hoveredCategory === category.name ? "#ffb70b" : "#c3c3c3"}
-                                        className="w-[35px] aspect-square"
+                                        color={hoveredCategory === category.name || currentSong.category[0] === category.name ? "#ffb70b" : "#c3c3c3"}
+                                        className={`w-[35px] aspect-square`}
                                     />
                                 </Suspense>
                             </div>

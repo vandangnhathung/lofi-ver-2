@@ -1,7 +1,7 @@
 export interface Song {
     title: string;
     path: string;
-    category: string;
+    category: string[];
 }
 
 export interface PlayerMusicState {

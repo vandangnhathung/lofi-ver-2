@@ -63,7 +63,7 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", 
 
     return (
         <div ref={layerWrapperRef}
-             className={`absolute opacity-0 inset-0 flex z-50 ${loadingScene ? '' : 'pointer-events-none'}`}>
+             className={`absolute opacity-0 inset-0 flex z-30 ${loadingScene ? '' : 'pointer-events-none'}`}>
             {[...Array(20)].map((_, i) => (
                 <div key={i} className={`${isMobile ? 'w-[40vh]' : 'w-[5vw]'} h-full`}>
                     {[...Array(amountOfBlocks)].map((_, j) => (
