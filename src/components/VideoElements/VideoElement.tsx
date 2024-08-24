@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {setActiveSceneSrc} from "@/redux/reducers/sceneSlice";
@@ -12,11 +12,11 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
     const activeSceneSrc = useSelector((state: RootState) => state.scene.activeSceneSrc);
     const animation = useSelector((state: RootState) => state.scene.animation);
-
-    const dispatch = useDispatch();
     const nightMode = useSelector((state: RootState) => state.mode.nightMode);
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const newSrc = nightMode
@@ -30,12 +30,17 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
         dispatch(setActiveSceneSrc(newSrc ?? activeScene.sources?.day?.normal?.src));
     }, [nightMode, rainMode, activeScene, dispatch]);
 
+    if (!src || !activeSceneSrc) {
+        return null;
+    }
+
     return (
         <video
+            key={src}
             onTransitionEnd={() => {
-                dispatch(setTransitionEnd(true))
+                dispatch(setTransitionEnd(true));
             }}
-            src={`/public/assets/videos/${src}`}
+            src={`/assets/videos/${src}`}
             autoPlay
             loop
             muted
