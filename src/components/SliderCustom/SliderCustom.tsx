@@ -24,8 +24,6 @@ const SliderCustom: React.FC<SliderCustomProps> = ({children, className}) => {
         }
     }, [isChosenTheme])
 
-    console.log("test: ", chosenThemeObjectPanel);
-
     const isChosenThemeCondition = isChosenTheme ? totalScenes > 2 : totalThemes > 2;
 
     const settings = {

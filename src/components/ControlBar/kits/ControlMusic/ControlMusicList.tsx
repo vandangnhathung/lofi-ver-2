@@ -28,6 +28,11 @@ const ControlMusicList: React.FC = () => {
         [key: string]: React.LazyExoticComponent<React.FC<IconProps>>
     }>({});
 
+    const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
+
+    console.log("currentSong: ", currentSong);
+    console.log("categorizedMusics: ", categorizedMusics);
+
     const handleMouseEnter = (categoryName: string) => {
         setHoveredCategory(categoryName);
     };
