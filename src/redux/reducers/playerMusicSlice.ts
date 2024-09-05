@@ -78,6 +78,7 @@ export const {
     pause,
     setIsPlay,
     setMusicIndex,
+    setCurrentSong,
     playNextSong,
     playPrevSong
 } = playerMusicSlice.actions;
