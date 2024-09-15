@@ -8,3 +8,9 @@
     --gap-container:20px;
     --w-screen-padding:calc(100vw - 20px * 2);
 }
+
+@layer components {
+    .glass-card {
+        @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
+    }
+}

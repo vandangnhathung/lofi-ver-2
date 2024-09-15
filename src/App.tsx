@@ -6,14 +6,29 @@ import "slick-carousel/slick/slick-theme.css";
 import PixelLoading from "@/components/Loading/PixelLoading";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
-import ControlBarMenu from "@/components/ControlBar/ControlBarMenu";
-import Loading from "@/components/Loading/Loading";
+import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMenu";
+import {createTheme, ThemeProvider} from "@mui/material";
+
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
 
+    // Function to get CSS variable
+    const getCssVariable = (name: string): string => {
+        console.log(getComputedStyle(document.documentElement));
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: getCssVariable('--primary-color'),
+            }
+        },
+    });
+
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <AudioPlayer/>
             {/*<Loading></Loading>*/}
 
@@ -23,7 +38,7 @@ function App() {
                 <ControlBarMenu/>
             </div>
             {/*<UserComponent></UserComponent>*/}
-        </>
+        </ThemeProvider>
     )
 }
 
