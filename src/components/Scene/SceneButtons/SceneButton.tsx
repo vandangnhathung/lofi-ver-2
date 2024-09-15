@@ -5,6 +5,7 @@ import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
 import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
+import {openSound} from "@/redux/reducers/BackgroundSoundSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
@@ -13,20 +14,30 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const isButtonClicked = useSelector((state: RootState) => state.loading.isButtonClicked);
 
     const handleSceneButton = () => {
-        // Delay the button click until the animation ends
+        console.log(button, isButtonClicked);
+
         if (isButtonClicked) {
+            let transitionShouldEnd = false;
+
             if (button.id === 'rain') {
                 dispatch(setRainMode(!rainMode));
+                transitionShouldEnd = true; // Mark to trigger setTransitionEnd
             } else if (button.toSceneId) {
                 chosenThemeObject?.scenes.forEach(scene => {
                     if (scene.id === button.toSceneId) {
                         dispatch(setActiveScene(scene));
+                        transitionShouldEnd = true; // Mark to trigger setTransitionEnd
                     }
                 });
             }
-            dispatch(setTransitionEnd(false));
+            dispatch(openSound(button?.id));
+
+            // Only dispatch setTransitionEnd if conditions were met
+            if (transitionShouldEnd) {
+                dispatch(setTransitionEnd(false));
+            }
         }
-    }
+    };
 
     return (
         <button onClick={handleSceneButton} className={`group absolute`}

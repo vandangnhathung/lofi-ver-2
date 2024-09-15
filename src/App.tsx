@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMenu";
 import {createTheme, ThemeProvider} from "@mui/material";
+import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
 
 
 function App() {
@@ -15,7 +16,6 @@ function App() {
 
     // Function to get CSS variable
     const getCssVariable = (name: string): string => {
-        console.log(getComputedStyle(document.documentElement));
         return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
 
@@ -40,6 +40,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <AudioPlayer/>
+            <AudioNoiseSoundList/>
             {/*<Loading></Loading>*/}
 
             <div className="relative overflow-hidden">

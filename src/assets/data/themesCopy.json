@@ -38,7 +38,7 @@
           {
             "id": "traffic",
             "label": "Traffic",
-            "sound": "traffic.mp3",
+            "sound": "city_traffic.mp3",
             "position": {
               "top": "30%",
               "left": "40%"
