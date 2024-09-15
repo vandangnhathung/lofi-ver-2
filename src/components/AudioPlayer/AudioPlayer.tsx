@@ -1,15 +1,20 @@
 import React, {useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import {playNextSong} from "@/redux/reducers/playerMusicSlice";
 
 const AudioPlayer: React.FC = () => {
     const isPlay = useSelector((state: RootState) => state.playerMusic.isPlay);
     const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
-    const audioRef = useRef<HTMLAudioElement>(null);
     const volume = useSelector((state: RootState) => state.playerMusic.volume);
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const dispatch = useDispatch();
 
-
-    console.log(audioRef.current?.volume);
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+    }, [volume]);
 
     useEffect(() => {
         if (isPlay) {
@@ -20,11 +25,21 @@ const AudioPlayer: React.FC = () => {
     }, [isPlay, currentSong]);
 
     useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.volume = volume;
+        const handleEnded = () => {
+            dispatch(playNextSong("jazzy")); // Change "jazzy" to your category if needed
+        };
+
+        const audioElement = audioRef.current;
+        if (audioElement) {
+            audioElement.addEventListener("ended", handleEnded);
         }
-        console.log(volume)
-    }, [volume]);
+
+        return () => {
+            if (audioElement) {
+                audioElement.removeEventListener("ended", handleEnded);
+            }
+        };
+    }, [dispatch]);
 
     return (
         <audio ref={audioRef} loop src={`/assets/musics/${currentSong.path}`}/>
