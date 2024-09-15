@@ -26,6 +26,7 @@ const initialState: PlayerMusicState = {
     musicIndex: RANDOM_MUSIC_INDEX,
     currentSong: musics[RANDOM_MUSIC_INDEX],
     isPlay: false,
+    volume: 0.3, // Default volume (0 to 1)
 };
 
 const playerMusicSlice = createSlice({
@@ -43,6 +44,9 @@ const playerMusicSlice = createSlice({
         },
         pause: (state) => {
             state.isPlay = false;
+        },
+        setVolume(state, action: PayloadAction<number>) { // Add volume reducer
+            state.volume = action.payload;
         },
         setMusicIndex: (state, action: PayloadAction<number>) => {
             state.musicIndex = action.payload;
@@ -78,6 +82,7 @@ export const {
     pause,
     setIsPlay,
     setMusicIndex,
+    setVolume,
     setCurrentSong,
     playNextSong,
     playPrevSong

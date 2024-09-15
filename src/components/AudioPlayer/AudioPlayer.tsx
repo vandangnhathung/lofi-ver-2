@@ -6,6 +6,10 @@ const AudioPlayer: React.FC = () => {
     const isPlay = useSelector((state: RootState) => state.playerMusic.isPlay);
     const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
     const audioRef = useRef<HTMLAudioElement>(null);
+    const volume = useSelector((state: RootState) => state.playerMusic.volume);
+
+
+    console.log(audioRef.current?.volume);
 
     useEffect(() => {
         if (isPlay) {
@@ -14,6 +18,13 @@ const AudioPlayer: React.FC = () => {
             audioRef.current?.pause();
         }
     }, [isPlay, currentSong]);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+        console.log(volume)
+    }, [volume]);
 
     return (
         <audio ref={audioRef} loop src={`/assets/musics/${currentSong.path}`}/>

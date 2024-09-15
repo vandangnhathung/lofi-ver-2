@@ -10,4 +10,5 @@ export interface PlayerMusicState {
     musicIndex: number;
     currentSong: Song;
     isPlay: boolean;
+    volume: number;
 }
