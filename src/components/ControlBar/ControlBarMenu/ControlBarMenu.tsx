@@ -1,6 +1,7 @@
 import React from 'react';
 import ControlBarMenuTop from "@/components/ControlBar/ControlBarMenu/ControlBarMenuTop";
 import ControlBarMenuMiddle from "@/components/ControlBar/ControlBarMenu/ControlBarMenuMiddle";
+import ControlBarMenuBottom from "@/components/ControlBar/ControlBarMenu/ControlBarMenuBottom/ControlBarMenuBottom";
 
 const ControlBarMenu = () => {
     return (
@@ -10,6 +11,7 @@ const ControlBarMenu = () => {
                 <div className="gap-3 flex flex-col pt-5 px-4">
                     <ControlBarMenuTop/>
                     <ControlBarMenuMiddle/>
+                    <ControlBarMenuBottom/>
                 </div>
             </div>
         </div>

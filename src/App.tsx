@@ -25,6 +25,16 @@ function App() {
                 main: getCssVariable('--primary-color'),
             }
         },
+        components: {
+            // Override Slider styles
+            MuiSlider: {
+                styleOverrides: {
+                    root: {
+                        height: 8,
+                    }
+                }
+            }
+        }
     });
 
     return (

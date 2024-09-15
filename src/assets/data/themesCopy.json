@@ -29,6 +29,7 @@
           {
             "id": "rain",
             "label": "Rain",
+            "sound": "rain_city.mp3",
             "position": {
               "top": "10%",
               "left": "20%"
@@ -37,6 +38,7 @@
           {
             "id": "traffic",
             "label": "Traffic",
+            "sound": "traffic.mp3",
             "position": {
               "top": "30%",
               "left": "40%"
@@ -79,14 +81,16 @@
           {
             "id": "rain",
             "label": "Rain",
+            "sound": "rain_city.mp3",
             "position": {
               "top": "10%",
               "left": "20%"
             }
           },
           {
-            "id": "traffic",
-            "label": "Traffic",
+            "id": "keyboard",
+            "label": "Keyboard",
+            "sound": "keyboard.mp3",
             "position": {
               "top": "30%",
               "left": "40%"
