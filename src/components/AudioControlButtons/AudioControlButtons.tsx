@@ -7,6 +7,7 @@ import {pause, play, playNextSong, playPrevSong} from "@/redux/reducers/playerMu
 
 const AudioControlButtons: React.FC = () => {
     const isPlay = useSelector((state: RootState) => state.playerMusic.isPlay);
+    const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
     const dispatch = useDispatch();
 
     const handlePlaySong = () => {
@@ -19,9 +20,9 @@ const AudioControlButtons: React.FC = () => {
 
     return (
         <>
-            <MenuButton onClick={() => dispatch(playPrevSong("jazzy"))} IconComponent={SkipBack}/>
+            <MenuButton onClick={() => dispatch(playPrevSong(currentSong.category[0]))} IconComponent={SkipBack}/>
             <MenuButton onClick={handlePlaySong} IconComponent={isPlay ? CirclePause : CirclePlay}/>
-            <MenuButton onClick={() => dispatch(playNextSong("jazzy"))} IconComponent={SkipForward}/>
+            <MenuButton onClick={() => dispatch(playNextSong(currentSong.category[0]))} IconComponent={SkipForward}/>
         </>
     );
 };

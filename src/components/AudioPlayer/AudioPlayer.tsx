@@ -26,7 +26,7 @@ const AudioPlayer: React.FC = () => {
 
     useEffect(() => {
         const handleEnded = () => {
-            dispatch(playNextSong("jazzy")); // Change "jazzy" to your category if needed
+            dispatch(playNextSong(currentSong.category[0])); // Change "jazzy" to your category if needed
         };
 
         const audioElement = audioRef.current;
@@ -40,6 +40,8 @@ const AudioPlayer: React.FC = () => {
             }
         };
     }, [dispatch]);
+
+    console.log("AudioPlayer rendered", currentSong);
 
     return (
         <audio ref={audioRef} loop src={`/assets/musics/${currentSong.path}`}/>
