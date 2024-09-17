@@ -15,38 +15,40 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const activeScene = useSelector((state: RootState) => state.scene.activeScene);
 
     const handleSceneButton = () => {
-        // console.log(button, isButtonClicked);
-
+        // Check if the button was clicked and proceed
         if (isButtonClicked) {
             let transitionShouldEnd = false;
 
             if (button.id.includes('rain')) {
+                // Toggle rain mode and mark to trigger transition end
                 dispatch(setRainMode(!rainMode));
-                transitionShouldEnd = true; // Mark to trigger setTransitionEnd
+                transitionShouldEnd = true;
             } else if (button.toSceneId) {
-                chosenThemeObject?.scenes.forEach(scene => {
-                    if (scene.id === button.toSceneId) {
-                        const previousScene = activeScene;
-                        dispatch(setActiveScene(scene));
+                // Find the new scene based on the button's target ID
+                const newScene = chosenThemeObject?.scenes.find(scene => scene.id === button.toSceneId);
 
-                        // If the sound isn't existing, generate it
-                        const previousSounds = previousScene.buttons.filter(sceneButton => sceneButton.sound);
-                        const newSounds = scene.buttons.filter(sceneButton => sceneButton.sound);
+                if (newScene) {
+                    const previousSounds = activeScene.buttons.filter(sceneButton => sceneButton.sound);
+                    const newSounds = newScene.buttons.filter(sceneButton => sceneButton.sound);
 
-                        newSounds.forEach(newSound => {
-                            const isExisting = previousSounds.find(previousSound => previousSound.id === newSound.id);
-                            if (!isExisting) {
-                                console.log('New sound:', newSound.id, newSound.sound);
-                                dispatch(setNewSound(newSound.id));
-                            }
-                        })
+                    // If the sound isn't existing, generate it
+                    newSounds.forEach(newSound => {
+                        const isExisting = previousSounds.some(previousSound => previousSound.id === newSound.id);
+                        if (!isExisting) {
+                            // Dispatch the new sound
+                            console.log('New sound:', newSound.id, newSound.sound);
+                            dispatch(setNewSound(newSound.id));
+                        }
+                    });
 
-                        // console.log(scene);
-                        transitionShouldEnd = true; // Mark to trigger setTransitionEnd
-                    }
-                });
+                    // Update the active scene
+                    dispatch(setActiveScene(newScene));
+                    transitionShouldEnd = true; // Mark to trigger setTransitionEnd
+                }
             }
-            dispatch(toggleSound(button?.id));
+
+            // Toggle the sound for the button's ID
+            dispatch(toggleSound(button.id));
 
             // Only dispatch setTransitionEnd if conditions were met
             if (transitionShouldEnd) {
