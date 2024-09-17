@@ -5,13 +5,14 @@ import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
 import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
-import {toggleSound} from "@/redux/reducers/BackgroundSoundSlice";
+import {setNewSound, toggleSound} from "@/redux/reducers/BackgroundSoundSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
     const rainMode = useSelector((state: RootState) => state.mode.rainMode);
     const dispatch = useDispatch();
     const isButtonClicked = useSelector((state: RootState) => state.loading.isButtonClicked);
+    const activeScene = useSelector((state: RootState) => state.scene.activeScene);
 
     const handleSceneButton = () => {
         // console.log(button, isButtonClicked);
@@ -25,7 +26,21 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
             } else if (button.toSceneId) {
                 chosenThemeObject?.scenes.forEach(scene => {
                     if (scene.id === button.toSceneId) {
+                        const previousScene = activeScene;
                         dispatch(setActiveScene(scene));
+
+                        // If the sound isn't existing, generate it
+                        const previousSounds = previousScene.buttons.filter(sceneButton => sceneButton.sound);
+                        const newSounds = scene.buttons.filter(sceneButton => sceneButton.sound);
+
+                        newSounds.forEach(newSound => {
+                            const isExisting = previousSounds.find(previousSound => previousSound.id === newSound.id);
+                            if (!isExisting) {
+                                console.log('New sound:', newSound.id, newSound.sound);
+                                dispatch(setNewSound(newSound.id));
+                            }
+                        })
+
                         // console.log(scene);
                         transitionShouldEnd = true; // Mark to trigger setTransitionEnd
                     }

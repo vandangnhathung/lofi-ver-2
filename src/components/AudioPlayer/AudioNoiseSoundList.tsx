@@ -11,12 +11,13 @@ const AudioNoiseSoundList = () => {
     const [buttonSound, setButtonSound] = useState<SceneButtonProps[]>([]);
 
     useEffect(() => {
+        // Filter buttons with sound and update the state
         const sounds = currentScene.buttons.filter(button => button.sound);
-        setButtonSound([]); // Clear the previous sounds
-        setButtonSound(sounds); // Then set the new ones
+        console.log(sounds);
+        setButtonSound(sounds);
+        console.log(currentScene, buttonSound)
     }, [currentScene]);
 
-    console.log(currentScene, buttonSound)
 
     return (
         <ul>

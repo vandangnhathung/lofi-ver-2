@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
-import {useSelector} from 'react-redux';
-import {RootState} from '@/redux/store';
+import {useSelector} from "react-redux";
+import {RootState} from "@/redux/store";
 
 interface AudioNoiseSoundProps {
     soundId: string;
@@ -12,27 +12,28 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({soundId, soundSrc}) =>
     const backgroundNoise = useSelector((state: RootState) => state.backgroundSound.volumes);
 
     useEffect(() => {
-        if (noiseAudioRef.current) {
-            const audioElement = noiseAudioRef.current;
-            audioElement.src = `/assets/sounds/${soundSrc}`;
-            audioElement.load();
+        if (noiseAudioRef.current && soundSrc) {
+            const fullSrcPath = `/assets/sounds/${soundSrc}`;
+            noiseAudioRef.current.src = ''; // Clear the src first
+            noiseAudioRef.current.load(); // Reset the audio element
+            noiseAudioRef.current.src = fullSrcPath;
+            noiseAudioRef.current.load(); // Load the new source
         }
     }, [soundSrc]);
 
     useEffect(() => {
-        if (noiseAudioRef.current) {
-            const audioElement = noiseAudioRef.current;
-            if (backgroundNoise[soundId] > 0) {
-                audioElement.play().catch(error => console.error("Error playing audio:", error));
-            } else {
-                audioElement.pause();
-            }
+        console.log("Playing sound:", soundId, backgroundNoise[soundId])
+        if (backgroundNoise[soundId] > 0 && noiseAudioRef.current?.src) {
+            noiseAudioRef.current.play().catch((error) => {
+                console.error("Error playing audio:", error);
+            });
+        } else {
+            noiseAudioRef.current?.pause();
         }
-    }, [soundId, backgroundNoise]);
-
+    }, [soundId, backgroundNoise, soundSrc]);
 
     return (
-        <audio ref={noiseAudioRef} loop>
+        <audio controls ref={noiseAudioRef} loop>
             <source src={`/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
         </audio>
     );

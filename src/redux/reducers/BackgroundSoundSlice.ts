@@ -13,7 +13,7 @@ const initialState: VolumeState = {
     volumes: {
         rainCity: 0,
         traffic: 0,
-        keyboard: 0
+        keyboard: 0,
     }
 };
 
@@ -21,9 +21,8 @@ const backgroundSoundSlice = createSlice({
     name: 'backgroundSound',
     initialState,
     reducers: {
-        setVolume: (state, action) => {
-            const {sound, volume} = action.payload;
-            state.volumes[sound] = volume;
+        setNewSound: (state, action) => {
+            state.volumes[action.payload] = 0;
         },
         toggleSound: (state, action) => {
             if (state.volumes[action.payload] === undefined) {
@@ -39,5 +38,5 @@ const backgroundSoundSlice = createSlice({
     },
 });
 
-export const {setVolume, toggleSound} = backgroundSoundSlice.actions;
+export const {setNewSound, toggleSound} = backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;
