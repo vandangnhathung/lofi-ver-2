@@ -29,7 +29,7 @@ const loadingSlice = createSlice({
             state.animationComplete = action.payload;
         },
         setTransitionEnd: (state, action: PayloadAction<boolean>) => {
-            console.log('setTransitionEnd', action.payload);
+            // console.log('setTransitionEnd', action.payload);
             state.isButtonClicked = action.payload;
         }
     },

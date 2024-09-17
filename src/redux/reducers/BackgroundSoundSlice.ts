@@ -25,11 +25,19 @@ const backgroundSoundSlice = createSlice({
             const {sound, volume} = action.payload;
             state.volumes[sound] = volume;
         },
-        openSound: (state, action) => {
-            state.volumes[action.payload] = 50;
+        toggleSound: (state, action) => {
+            if (state.volumes[action.payload] === undefined) {
+                state.volumes[action.payload] = 50;
+            }
+
+            if (state.volumes[action.payload] > 0) {
+                state.volumes[action.payload] = 0;
+            } else state.volumes[action.payload] = 50;
+
+            console.log(action.payload);
         }
     },
 });
 
-export const {setVolume, openSound} = backgroundSoundSlice.actions;
+export const {setVolume, toggleSound} = backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;
