@@ -22,7 +22,6 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({soundId, soundSrc}) =>
     }, [soundSrc]);
 
     useEffect(() => {
-        console.log("Playing sound:", soundId, backgroundNoise[soundId])
         if (backgroundNoise[soundId] > 0 && noiseAudioRef.current?.src) {
             noiseAudioRef.current.play().catch((error) => {
                 console.error("Error playing audio:", error);

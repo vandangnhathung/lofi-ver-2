@@ -1,0 +1,70 @@
+[
+  {
+    "name": "birds",
+    "src": "birds.mp3"
+  },
+  {
+    "name": "campfire",
+    "src": "campfire.mp3"
+  },
+  {
+    "name": "city traffic",
+    "src": "city_traffic.mp3"
+  },
+  {
+    "name": "deep space",
+    "src": "deepspace.mp3"
+  },
+  {
+    "name": "fireplace",
+    "src": "fireplace.mp3"
+  },
+  {
+    "name": "forest night",
+    "src": "forest_night.mp3"
+  },
+  {
+    "name": "keyboard",
+    "src": "keyboard.mp3"
+  },
+  {
+    "name": "ocean",
+    "src": "ocean.mp3"
+  },
+  {
+    "name": "people talk inside",
+    "src": "people_talk_inside.mp3"
+  },
+  {
+    "name": "rain city",
+    "src": "rain_city.mp3"
+  },
+  {
+    "name": "rain forest",
+    "src": "rain_forest.mp3"
+  },
+  {
+    "name": "river",
+    "src": "river.mp3"
+  },
+  {
+    "name": "snow",
+    "src": "snow.mp3"
+  },
+  {
+    "name": "summer storm",
+    "src": "summer_storm.mp3"
+  },
+  {
+    "name": "underwater",
+    "src": "underwater.mp3"
+  },
+  {
+    "name": "waves",
+    "src": "waves.mp3"
+  },
+  {
+    "name": "",
+    "src": "birds.mp3"
+  }
+]

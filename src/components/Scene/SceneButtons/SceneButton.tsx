@@ -5,7 +5,7 @@ import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
 import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
-import {setNewSound, toggleSound} from "@/redux/reducers/BackgroundSoundSlice";
+import {setNewSound, toggleSound} from "@/redux/reducers/backgroundSoundSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const chosenThemeObject = useSelector((state: RootState) => state.themes.chosenThemeObject);
