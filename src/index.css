@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 :root {
-    --lofi-menu-height:60px;
-    --lofi-panel-position:calc(var(--lofi-menu-height) + 10px);
-    --gap-container:20px;
-    --w-screen-padding:calc(100vw - 20px * 2);
+  --lofi-menu-height: 60px;
+  --lofi-panel-position: calc(var(--lofi-menu-height) + 10px);
+  --gap-container: 20px;
+  --w-screen-padding: calc(100vw - 20px * 2);
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
 }
 
 @layer components {
-    .glass-card {
-        @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
-    }
+  .glass-card {
+    @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
+  }
 }

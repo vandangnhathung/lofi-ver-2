@@ -13,6 +13,7 @@ export interface BackgroundSound {
 interface VolumeState {
   volumes: Volumes;
   backgroundSounds: BackgroundSound[];
+  mixMore: boolean;
 }
 
 const initialState: VolumeState = {
@@ -22,6 +23,7 @@ const initialState: VolumeState = {
     keyboard: 0,
   },
   backgroundSounds: backgroundSoundsData,
+  mixMore: false,
 };
 
 const backgroundSoundSlice = createSlice({
@@ -42,8 +44,12 @@ const backgroundSoundSlice = createSlice({
 
       console.log(action.payload);
     },
+    toggleMixMore: (state, action) => {
+      state.mixMore = action.payload;
+    },
   },
 });
 
-export const { setNewSound, toggleSound } = backgroundSoundSlice.actions;
+export const { setNewSound, toggleSound, toggleMixMore } =
+  backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;

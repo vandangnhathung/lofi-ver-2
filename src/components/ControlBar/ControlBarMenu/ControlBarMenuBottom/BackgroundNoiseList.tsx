@@ -13,6 +13,10 @@ const BackgroundNoiseList = () => {
     (state: RootState) => state.scene.activeScene
   );
 
+  const mixMore = useSelector(
+    (state: RootState) => state.backgroundSound.mixMore
+  );
+
   const newBackgroundSounds = useMemo(() => {
     const sceneBackgroundSounds = new Set(
       currentScene.buttons.map((button) => button.sound)
@@ -33,17 +37,27 @@ const BackgroundNoiseList = () => {
         [[], []]
       );
 
-    return [...updatedSceneBackgroundSounds, ...updatedOtherBackgroundSounds];
+    return [updatedSceneBackgroundSounds, updatedOtherBackgroundSounds];
   }, [currentScene, backgroundSounds]);
 
-  const showBackgroundNoise = useMemo(() => {
-    return newBackgroundSounds.length > 0;
-  }, [newBackgroundSounds]);
-
   return (
-    <ul className="flex flex-col gap-2">
-      {newBackgroundSounds.map((sound) => (
-        <BackgroundNoiseItem key={sound.name} soundName={sound.name} />
+    <ul
+      className={`${mixMore ? "overflow-y-auto overflow-x-hidden scrollbar-hidden" : ""} flex flex-col gap-2 h-full`}
+    >
+      {newBackgroundSounds[0].map((sound, index) => (
+        <BackgroundNoiseItem
+          key={sound.name}
+          soundName={sound.name}
+          index={index}
+        />
+      ))}
+      {newBackgroundSounds[1].map((sound, index) => (
+        <BackgroundNoiseItem
+          key={sound.name}
+          soundName={sound.name}
+          index={index}
+          className={`${mixMore ? "opacity-100" : "opacity-0"}`}
+        />
       ))}
     </ul>
   );
