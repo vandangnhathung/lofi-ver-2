@@ -71,14 +71,13 @@ const BackgroundNoiseList = () => {
   console.log("limitedBackgroundSounds:", limitedBackgroundSounds);
 
   return (
-    <ul
-      className={`${mixMore ? "overflow-y-auto overflow-x-hidden scrollbar-hidden" : ""} pt-8 flex flex-col gap-2 h-full`}
-    >
+    <ul className={`flex flex-col gap-2 h-full`}>
       {newBackgroundSounds[0].map((sound, index) => (
         <BackgroundNoiseItem
           key={sound.name}
           soundName={sound.name}
           index={index}
+          className={``}
         />
       ))}
       {limitedBackgroundSounds.map((sound, index) => (
