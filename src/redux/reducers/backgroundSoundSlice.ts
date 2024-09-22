@@ -42,7 +42,7 @@ const backgroundSoundSlice = createSlice({
         state.volumes[action.payload] = 0;
       } else state.volumes[action.payload] = 50;
 
-      console.log(action.payload);
+      console.log("action.payload", action.payload, backgroundSoundsData);
     },
     toggleMixMore: (state, action) => {
       state.mixMore = action.payload;

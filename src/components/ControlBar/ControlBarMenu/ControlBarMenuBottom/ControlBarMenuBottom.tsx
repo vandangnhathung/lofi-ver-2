@@ -10,12 +10,14 @@ const ControlBarMenuBottom = () => {
 
   return (
     <div
-      className={`glass-card overflow-hidden pt-1 pr-7 overflow-y-auto min-h-[180px] transition-all ease-in-out duration-300    pb-control-bar-height`}
+      className={`glass-card pt-1 pr-2 min-h-[180px] transition-all ease-in-out duration-300    pb-control-bar-height`}
     >
-      <h3 className="mb-2 uppercase">Background noise</h3>
+      <h3 className="mb-2 uppercase pt-2 pl-3 pr-3 absolute z-10 top-0 left-0">
+        Background noise
+      </h3>
 
       <div
-        className={`${mixMore ? "h-[25vh]" : "h-[150px]"} transition-all duration-300 ease-in overflow-hidden`}
+        className={`${mixMore ? "h-[50vh]" : "h-[150px]"} transition-all duration-300 relative z-20 ease-in overflow-hidden`}
       >
         <BackgroundNoiseList />
       </div>

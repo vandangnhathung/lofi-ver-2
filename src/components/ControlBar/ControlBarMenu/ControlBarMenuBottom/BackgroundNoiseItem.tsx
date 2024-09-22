@@ -23,9 +23,9 @@ const BackgroundNoiseItem: React.FC<BackgroundNoiseItemProps> = ({
 
   return (
     <li
-      className={`flex items-center gap-4 pt-1 pl-3 pr-5 ${mixMore ? "transition-all" : ""} duration-300 ${className}`}
+      className={`flex items-center gap-4 pl-3 pr-8 ${mixMore ? "transition-all" : ""} duration-1000 ${className}`}
       style={{
-        transitionDelay: `${index * 100}ms`,
+        transitionDelay: `${mixMore ? index * 100 : index * -100}ms`,
       }}
     >
       <div className="w-1/3 ">

@@ -28,9 +28,9 @@ const BackgroundNoiseList = () => {
       backgroundSounds.reduce<BackgroundSound[][]>(
         (acc, sound) => {
           if (sceneBackgroundSounds.has(sound.src)) {
-            acc[0].push(sound);
+            acc[0].push({ ...sound, volume: 0 });
           } else {
-            acc[1].push(sound);
+            acc[1].push({ ...sound, volume: 0 });
           }
           return acc;
         },
@@ -40,9 +40,39 @@ const BackgroundNoiseList = () => {
     return [updatedSceneBackgroundSounds, updatedOtherBackgroundSounds];
   }, [currentScene, backgroundSounds]);
 
+  console.log("newBackgroundSounds:", newBackgroundSounds);
+
+  const limitBackgroundNoiseQuantity = ({
+    currentSceneBackgroundSounds,
+    backgroundSounds,
+    quantities,
+  }: {
+    currentSceneBackgroundSounds: BackgroundSound[];
+    backgroundSounds: BackgroundSound[];
+    quantities: number;
+  }) => {
+    const adjustedQuantities = Math.max(
+      quantities,
+      currentSceneBackgroundSounds.length
+    );
+    return backgroundSounds.slice(
+      0,
+      adjustedQuantities - currentSceneBackgroundSounds.length
+    );
+  };
+
+  // Update quantities to change the number of background noises
+  const limitedBackgroundSounds = limitBackgroundNoiseQuantity({
+    currentSceneBackgroundSounds: newBackgroundSounds[0],
+    backgroundSounds: newBackgroundSounds[1],
+    quantities: 15,
+  });
+
+  console.log("limitedBackgroundSounds:", limitedBackgroundSounds);
+
   return (
     <ul
-      className={`${mixMore ? "overflow-y-auto overflow-x-hidden scrollbar-hidden" : ""} flex flex-col gap-2 h-full`}
+      className={`${mixMore ? "overflow-y-auto overflow-x-hidden scrollbar-hidden" : ""} pt-8 flex flex-col gap-2 h-full`}
     >
       {newBackgroundSounds[0].map((sound, index) => (
         <BackgroundNoiseItem
@@ -51,12 +81,12 @@ const BackgroundNoiseList = () => {
           index={index}
         />
       ))}
-      {newBackgroundSounds[1].map((sound, index) => (
+      {limitedBackgroundSounds.map((sound, index) => (
         <BackgroundNoiseItem
           key={sound.name}
           soundName={sound.name}
           index={index}
-          className={`${mixMore ? "opacity-100" : "opacity-0"}`}
+          className={`${mixMore ? "opacity-100" : "opacity-0 cursor-default pointer-events-none"}`}
         />
       ))}
     </ul>
