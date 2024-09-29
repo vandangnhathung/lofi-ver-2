@@ -3,15 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --lofi-menu-height: 60px;
-  --lofi-panel-position: calc(var(--lofi-menu-height) + 10px);
-  --gap-container: 20px;
-  --w-screen-padding: calc(100vw - 20px * 2);
+  --lofi-menu-height:60px;
+  --lofi-panel-position:calc(var(--lofi-menu-height) + 10px);
+  --gap-container:20px;
+  --w-screen-padding:calc(100vw - 20px * 2);
 }
 
 .scrollbar-hidden {
-  scrollbar-width: none;
+  scrollbar-width:none;
 }
+
+body::-webkit-scrollbar,
+.custom-scroll-bar::-webkit-scrollbar {width:3px;}
+body::-webkit-scrollbar-track,
+.custom-scroll-bar::-webkit-scrollbar-track {background:#ccc;}
+body::-webkit-scrollbar-thumb,
+.custom-scroll-bar::-webkit-scrollbar-thumb {background-color:var(--primary-color);}
 
 @layer components {
   .glass-card {
