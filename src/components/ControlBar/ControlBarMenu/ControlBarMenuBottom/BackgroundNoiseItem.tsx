@@ -2,7 +2,6 @@ import React from "react";
 import Slider from "@mui/material/Slider";
 import {useDispatch} from "react-redux";
 import {setVolumeSound} from "@/redux/reducers/backgroundSoundSlice";
-import AudioPlayerNoise from "../AudioPlayerNoise";
 
 interface BackgroundNoiseItemProps {
     index: number;
@@ -40,6 +39,7 @@ const BackgroundNoiseItem: React.FC<BackgroundNoiseItemProps> = ({
                     value={Math.floor(volume * 100)} // Display volume as a percentage
                     onChange={handleChange}
                     valueLabelDisplay="auto"
+                    className={`!pt-3 !pb-3`}
                 />
             </div>
         </li>

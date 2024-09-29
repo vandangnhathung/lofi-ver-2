@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import {setRainMode} from "@/redux/reducers/modeSlice";
 
 interface AudioNoiseSoundProps {
     soundId: string;
@@ -8,64 +9,63 @@ interface AudioNoiseSoundProps {
 }
 
 const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
-                                                           soundId,
-                                                           soundSrc,
+                                                             soundId,
+                                                             soundSrc,
                                                          }) => {
-  const noiseAudioRef = useRef<HTMLAudioElement>(null);
-  const allBackgroundSounds = useSelector(
-      (state: RootState) => state.backgroundSound.allBackgroundSounds
-  );
+    const dispatch = useDispatch();
+    const noiseAudioRef = useRef<HTMLAudioElement>(null);
 
-  useEffect(() => {
-    if (noiseAudioRef.current && soundSrc) {
-      const fullSrcPath = `/assets/sounds/${soundSrc}`;
-      noiseAudioRef.current.src = ""; // Clear the src first
-      noiseAudioRef.current.load(); // Reset the audio element
-      noiseAudioRef.current.src = fullSrcPath;
-      noiseAudioRef.current.load(); // Load the new source
-    }
-  }, [soundSrc]);
+    const currentVolume = useSelector(
+        (state: RootState) =>
+            state.backgroundSound.allBackgroundSounds.find(
+                (sound) => sound.name === soundId
+            )?.volume
+    );
 
-  const currentVolume = useSelector(
-      (state: RootState) =>
-          state.backgroundSound.allBackgroundSounds.find(
-              (sound) => sound.name === soundId
-          )?.volume
-  );
+    useEffect(() => {
+        if (noiseAudioRef.current && soundSrc) {
+            const fullSrcPath = `/assets/sounds/${soundSrc}`;
+            noiseAudioRef.current.src = ""; // Clear the src first
+            noiseAudioRef.current.load(); // Reset the audio element
+            noiseAudioRef.current.src = fullSrcPath;
+            noiseAudioRef.current.load(); // Load the new source
+        }
+    }, [soundSrc]);
 
-  useEffect(() => {
-    if (noiseAudioRef.current) {
-      noiseAudioRef.current.volume = currentVolume ?? 0; // Update audio element volume
-    }
-  }, [noiseAudioRef.current, currentVolume]); // Only re-run the effect if volume changes
+    useEffect(() => {
+        if (noiseAudioRef.current) {
+            noiseAudioRef.current.volume = currentVolume ?? 0; // Update audio element volume
+        }
+    }, [currentVolume]); // Only re-run the effect if volume changes
 
-  useEffect(() => {
-    // Add an event listener to play the audio once it's loaded
-    const audioElement = noiseAudioRef.current;
-    const handleCanPlay = () => {
-      const soundItem = allBackgroundSounds.find(
-          (item) => item.name === soundId
-      );
-      if ((soundItem?.volume ?? 0) > 0) {
-        audioElement?.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
-      }
-    };
+    useEffect(() => {
+        // Add an event listener to play the audio once it's loaded
+        const audioElement = noiseAudioRef.current;
+        const handleCanPlay = () => {
+            if ((currentVolume ?? 0) > 0) {
+                audioElement?.play().catch((error) => {
+                    console.error("Error playing audio:", error);
+                });
 
-    audioElement?.addEventListener("canplay", handleCanPlay);
+                if (soundId.includes("rain")) {
+                    dispatch(setRainMode(true));
+                }
+            } else if ((currentVolume ?? 0) === 0) {
+                audioElement?.pause();
+                if (soundId.includes("rain")) {
+                    dispatch(setRainMode(false));
+                }
+            }
+        };
 
-    // Cleanup event listener on component unmount or when soundSrc changes
-    return () => {
-      audioElement?.removeEventListener("canplay", handleCanPlay);
-    };
-  }, [allBackgroundSounds, soundId, soundSrc]);
+        handleCanPlay();
+    }, [dispatch, currentVolume, soundId]);
 
-  return (
-      <audio controls ref={noiseAudioRef} loop>
-        <source src={`/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
-      </audio>
-  );
+    return (
+        <audio controls ref={noiseAudioRef} loop>
+            <source src={`/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
+        </audio>
+    );
 };
 
-export default AudioNoiseSound;
+export default React.memo(AudioNoiseSound);

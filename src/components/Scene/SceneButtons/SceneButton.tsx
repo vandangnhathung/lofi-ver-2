@@ -5,7 +5,7 @@ import {setRainMode} from "@/redux/reducers/modeSlice";
 import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
 import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
-import {toggleBackgroundSoundItem} from "@/redux/reducers/backgroundSoundSlice";
+import {setVolumeSound} from "@/redux/reducers/backgroundSoundSlice";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const chosenThemeObject = useSelector(
@@ -16,12 +16,22 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     const isButtonClicked = useSelector(
         (state: RootState) => state.loading.isButtonClicked
     );
-    const allBackgroundSounds = useSelector((state: RootState) => state.backgroundSound.allBackgroundSounds);
+    const currentVolume = useSelector(
+        (state: RootState) =>
+            state.backgroundSound.allBackgroundSounds.find(
+                (sound) => sound.name === button.id
+            )?.volume
+    ) ?? 0;
 
     const handleSceneButton = () => {
         // Check if the button was clicked and proceed
         if (isButtonClicked) {
             let transitionShouldEnd = false;
+
+            currentVolume > 0 ? dispatch(setVolumeSound({
+                soundName: button.id,
+                newVolume: 0
+            })) : dispatch(setVolumeSound({soundName: button.id, newVolume: 0.5}));
 
             if (button.id.includes("rain")) {
                 // Toggle rain mode and mark to trigger transition end
@@ -38,9 +48,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                     transitionShouldEnd = true; // Mark to trigger setTransitionEnd
                 }
             }
-
-            // Toggle the sound for the button's ID
-            dispatch(toggleBackgroundSoundItem(button.id));
 
             // Only dispatch setTransitionEnd if conditions were met
             if (transitionShouldEnd) {

@@ -28,15 +28,6 @@ const backgroundSoundSlice = createSlice({
         toggleMixMore: (state, action: PayloadAction<boolean>) => {
             state.mixMore = action.payload;
         },
-        toggleBackgroundSoundItem: (state, action: PayloadAction<string>) => {
-            console.log(action.payload);
-            const sound = state.allBackgroundSounds.find(
-                (sound) => sound.name === action.payload
-            );
-            if (sound) {
-                sound.volume = sound.volume > 0 ? 0 : 0.5;
-            }
-        },
         setVolumeSound: (state, action: PayloadAction<{ soundName: string, newVolume: number }>) => {
             const {soundName, newVolume} = action.payload;
             const sound = state.allBackgroundSounds.find(
@@ -49,5 +40,5 @@ const backgroundSoundSlice = createSlice({
     },
 });
 
-export const {toggleMixMore, toggleBackgroundSoundItem, setVolumeSound} = backgroundSoundSlice.actions;
+export const {toggleMixMore, setVolumeSound} = backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;

@@ -22,7 +22,7 @@ const BackgroundNoiseList = () => {
                             key={sound.name}
                             soundName={sound.name}
                             index={0}
-                            className={``}
+                            className={`noise-priority-Item`}
                             volume={sound.volume ?? 0} // Provide a default value of 0 if sound.volume is undefined
                         />
                     );
