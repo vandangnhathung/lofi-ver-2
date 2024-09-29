@@ -27,7 +27,7 @@
         },
         "buttons": [
           {
-            "id": "rainCity",
+            "id": "rain city",
             "label": "Rain",
             "sound": "rain_city.mp3",
             "position": {

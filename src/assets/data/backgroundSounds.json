@@ -8,7 +8,7 @@
     "src": "campfire.mp3"
   },
   {
-    "name": "city traffic",
+    "name": "traffic",
     "src": "city_traffic.mp3"
   },
   {
@@ -62,9 +62,5 @@
   {
     "name": "waves",
     "src": "waves.mp3"
-  },
-  {
-    "name": "",
-    "src": "birds.mp3"
   }
 ]

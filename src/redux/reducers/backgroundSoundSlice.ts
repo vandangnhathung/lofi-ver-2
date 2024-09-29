@@ -1,54 +1,53 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import backgroundSoundsData from "@/assets/data/backgroundSounds.json";
 
-interface Volumes {
-  [key: string]: number;
+export interface BackgroundSound {
+    name: string;
+    src: string;
+    volume: number;
 }
 
-export interface BackgroundSound {
-  name: string;
-  src: string;
-  volume?: number;
-}
 interface VolumeState {
-  volumes: Volumes[];
-  backgroundSounds: BackgroundSound[];
-  mixMore: boolean;
+    allBackgroundSounds: BackgroundSound[];
+    mixMore: boolean;
 }
+
 
 const initialState: VolumeState = {
-  volumes: [],
-  backgroundSounds: backgroundSoundsData,
-  mixMore: false,
+    allBackgroundSounds: backgroundSoundsData.map((item) => ({
+        ...item,
+        volume: 0, // Set volume directly in the object
+    })), // Use the updated backgroundSoundsData
+    mixMore: false,
 };
 
 const backgroundSoundSlice = createSlice({
-  name: "backgroundSound",
-  initialState,
-  reducers: {
-    setNewSound: (state, action) => {
-      state.volumes[action.payload] = 0;
+    name: "backgroundSound",
+    initialState,
+    reducers: {
+        toggleMixMore: (state, action: PayloadAction<boolean>) => {
+            state.mixMore = action.payload;
+        },
+        toggleBackgroundSoundItem: (state, action: PayloadAction<string>) => {
+            console.log(action.payload);
+            const sound = state.allBackgroundSounds.find(
+                (sound) => sound.name === action.payload
+            );
+            if (sound) {
+                sound.volume = sound.volume > 0 ? 0 : 0.5;
+            }
+        },
+        setVolumeSound: (state, action: PayloadAction<{ soundName: string, newVolume: number }>) => {
+            const {soundName, newVolume} = action.payload;
+            const sound = state.allBackgroundSounds.find(
+                (sound) => sound.name === soundName
+            );
+            if (sound) {
+                sound.volume = newVolume;
+            }
+        },
     },
-    setNewSounds: (state, action) => {
-      state.volumes = action.payload;
-    },
-    toggleSound: (state, action) => {
-      if (state.volumes[action.payload] === undefined) {
-        state.volumes[action.payload] = 50;
-      }
-
-      if (state.volumes[action.payload] > 0) {
-        state.volumes[action.payload] = 0;
-      } else state.volumes[action.payload] = 50;
-
-      console.log("action.payload", action.payload, backgroundSoundsData);
-    },
-    toggleMixMore: (state, action) => {
-      state.mixMore = action.payload;
-    },
-  },
 });
 
-export const {setNewSound, setNewSounds, toggleSound, toggleMixMore} =
-    backgroundSoundSlice.actions;
+export const {toggleMixMore, toggleBackgroundSoundItem, setVolumeSound} = backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;
