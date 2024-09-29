@@ -9,12 +9,13 @@ import { toggleMixMore } from "@/redux/reducers/backgroundSoundSlice";
 const ControlBarMenu = () => {
   const dispatch = useDispatch();
   const mixMore = useSelector(
-    (state: RootState) => state.backgroundSound.mixMore
+      (state: RootState) => state.backgroundSound.mixMore
   );
+  const controlBar = useSelector((state: RootState) => state.panel.controlBar);
 
   return (
     <div
-      className={`fixed z-20 top-gap-container capitalize left-gap-container font-medium`}
+        className={`${controlBar ? "opacity visible" : "opacity-0 invisible"} transition-all fixed z-20 top-gap-container capitalize left-gap-container font-medium`}
     >
       <div
         className={`relative min-w-[400px] max-w-[500px] rounded-3xl border border-[rgba(255,255,255,0.4)] aspect-square backdrop-blur-[4px] bg-[rgba(0,0,0,0.6)] text-white`}

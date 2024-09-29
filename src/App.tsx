@@ -9,6 +9,7 @@ import {RootState} from "@/redux/store";
 import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMenu";
 import {createTheme, ThemeProvider} from "@mui/material";
 import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
+import MenuBar from "@/components/MenuBar/MenuBar";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                 <PixelLoading duration={0.0000001} status={animation}/>
                 <HomePage/>
                 <ControlBarMenu/>
+                <MenuBar/>
             </div>
             {/*<UserComponent></UserComponent>*/}
         </ThemeProvider>

@@ -7,11 +7,11 @@ import {setOpenPanelControlBar} from "@/redux/reducers/panelSlice";
 
 const ControlBar = () => {
     const dispatch = useDispatch();
-    const openPanel = useSelector((state: RootState) => state.panel.panelScene);
+    const controlBar = useSelector((state: RootState) => state.panel.controlBar);
 
     return (
         <div className={`control-bar`}>
-            <MenuButton isActive={openPanel} onClick={() => dispatch(setOpenPanelControlBar(!openPanel))}
+            <MenuButton isActive={controlBar} onClick={() => dispatch(setOpenPanelControlBar(!controlBar))}
                         IconComponent={ControlBarIcon}/>
 
         </div>

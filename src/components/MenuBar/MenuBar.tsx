@@ -6,7 +6,7 @@ import ControlBar from "@/components/ControlBar/ControlBar";
 
 const MenuBar = () => {
     return (
-        <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-gap-container`}>
+        <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-30 px-gap-container`}>
             <div
                 className={`flex relative items-center  border border-[rgba(255,255,255,0.3)] justify-between w-screen-padding max-w-[1440px] p-2 rounded-xl h-lofi-menu-height before:content-normal after:content-normal backdrop-blur-md bg-[rgba(0,0,0,0.6)] `}>
 

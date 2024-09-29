@@ -146,7 +146,7 @@
         },
         "buttons": [
           {
-            "id": "rain",
+            "id": "rain forest",
             "label": "Rain",
             "sound": "rain_forest.mp3",
             "position": {
@@ -198,7 +198,7 @@
         },
         "buttons": [
           {
-            "id": "rain",
+            "id": "rain forest",
             "label": "Rain",
             "sound": "rain_forest.mp3",
             "position": {
