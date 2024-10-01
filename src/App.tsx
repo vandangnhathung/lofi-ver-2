@@ -10,6 +10,7 @@ import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMen
 import {createTheme, ThemeProvider} from "@mui/material";
 import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
 import MenuBar from "@/components/MenuBar/MenuBar";
+import Loading from "@/components/Loading/Loading";
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <AudioPlayer/>
             <AudioNoiseSoundList/>
-            {/*<Loading></Loading>*/}
+            <Loading></Loading>
 
             <div className="relative overflow-hidden">
                 <PixelLoading duration={0.0000001} status={animation}/>
