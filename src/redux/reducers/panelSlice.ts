@@ -19,7 +19,6 @@ const panelSlice = createSlice({
             state.panelScene = action.payload;
         },
         setOpenPanelControlBar: (state, action: PayloadAction<boolean>) => {
-            console.log("hello")
             state.controlBar = action.payload;
         }
     },

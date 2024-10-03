@@ -43,7 +43,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <AudioPlayer/>
             <AudioNoiseSoundList/>
-            <Loading></Loading>
+            {/*<Loading></Loading>*/}
 
             <div className="relative overflow-hidden">
                 <PixelLoading duration={0.0000001} status={animation}/>

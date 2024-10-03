@@ -9,8 +9,6 @@ const ControlBar = () => {
     const dispatch = useDispatch();
     const controlBar = useSelector((state: RootState) => state.panel.controlBar);
 
-    console.log(controlBar);
-
     return (
         <div className={`control-bar`}>
             <MenuButton isActive={controlBar} onClick={() => dispatch(setOpenPanelControlBar(!controlBar))}
