@@ -24,8 +24,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
             )?.volume
     ) ?? 0;
 
-    console.log(currentVolume);
-
     const handleSceneButton = () => {
         // Check if the button was clicked and proceed
         if (isButtonClicked) {
@@ -57,48 +55,59 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                 dispatch(setTransitionEnd(false));
             }
         }
-
-        console.log('button: ', button);
     };
 
-    const handleChangeVolume = () => {
-
-    }
+    const handleChangeVolume = (e: Event, newValue: number | number[]) => {
+        const newVolume = (newValue as number) / 100;
+        dispatch(setVolumeSound({soundName: button.id, newVolume})); // Dispatch action to update volume in Redux store
+    };
 
     return (
-        <button
-            onClick={handleSceneButton}
-            className={`group absolute`}
-            style={{top: button.position.top, left: button.position.left}}
-        >
-            <div className={`w-12 h-12 p-3`}>
-                <div
-                    className={`h-full after:transition-all after:duration-500 after:rounded-full group-hover:after:bg-primary after:absolute after:inset-0 after:opacity-30`}
-                >
+        <div className={`group absolute`}
+             style={{top: button.position.top, left: button.position.left}}>
+            <button
+                onClick={handleSceneButton}
+                className={``}
+
+            >
+                <div className={`w-12 h-12 p-3`}>
                     <div
-                        className="h-full transition-all duration-500 rounded-full group-hover:bg-primary border-2 border-white">
+                        className={`h-full after:transition-all after:duration-500 after:rounded-full group-hover:after:bg-primary after:absolute after:inset-0 after:opacity-30`}
+                    >
+                        <div
+                            className={`${currentVolume > 0 ? 'before:opacity-100' : 'before:opacity-0'}
+                          h-full transition-all duration-500 rounded-full relative
+                           before:w-full before:h-full before:absolute before:top-0 before:left-0 before:bg-primary before:rounded-full 
+                           group-hover:bg-primary border-2 border-white`}
+                            style={{transformOrigin: "center center"}}>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </button>
 
             <div
-                className={`group-hover:visible group-hover:opacity-100 opacity-0 invisible relative transition-all duration-2000 flex flex-col gap-y-2`}>
+                className={`text-center group-hover:visible group-hover:opacity-100 opacity-0 invisible relative transition-all duration-2000 flex flex-col gap-y-2`}>
                 <div
-                    className="min-w-[160px] py-2 px-8 bg-[rgba(0,0,0,0.6)] absolute left-1/2 -translate-x-1/2 top-full translate-y-1 rounded-md">
+                    className={`min-w-[160px] py-2 px-8 bg-[rgba(0,0,0,0.6)] 
+                    absolute left-1/2 -translate-x-1/2 top-full translate-y-1 rounded-md`}>
                     <p className={`text-white`}>{button.label}</p>
 
                     {button?.sound &&
-                        <Slider
-                            aria-label="Background Volume"
-                            value={Math.floor(currentVolume * 100)} // Display volume as a percentage
-                            onChange={handleChangeVolume}
-                            valueLabelDisplay="auto"
-                            className={`transition-all ${currentVolume > 0 ? '!h-[8px] visible block' : '!h-0 invisible !p-0 block'}`}
-                        />
+                        <div>
+                            <Slider
+                                aria-label="Background Volume"
+                                value={Math.floor(currentVolume * 100)} // Display volume as a percentage
+                                onChange={handleChangeVolume}
+                                valueLabelDisplay="auto"
+                                className={`transition-all !block ${currentVolume > 0 ? '!h-[8px] opacity-100' : '!h-0 opacity-0 !p-0'}`}
+                            />
+                        </div>
                     }
                 </div>
             </div>
-        </button>
+        </div>
+
     );
 };
 

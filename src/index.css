@@ -20,6 +20,18 @@ body::-webkit-scrollbar-track,
 body::-webkit-scrollbar-thumb,
 .custom-scroll-bar::-webkit-scrollbar-thumb {background-color:var(--primary-color);}
 
+.close-effect {
+  clip-path:polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.open-effect {
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.slow-effect-duration {
+  transition-duration:1s;
+}
+
 @layer components {
   .glass-card {
     @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
