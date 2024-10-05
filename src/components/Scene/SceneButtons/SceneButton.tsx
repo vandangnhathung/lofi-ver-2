@@ -1,19 +1,22 @@
 import React from "react";
 import {SceneButtonProps} from "@/components/Scene/Type";
 import {useDispatch, useSelector} from "react-redux";
-import {setRainMode} from "@/redux/reducers/modeSlice";
-import {RootState} from "@/redux/store";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
 import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
 import {setVolumeSound} from "@/redux/reducers/backgroundSoundSlice";
 import Slider from "@mui/material/Slider";
+import {RootState} from "@/redux/store";
+import {setRainMode} from "@/redux/reducers/modeSlice";
+import useRainModeStatus from "@/hooks/useRainModeStatus";
 
 const SceneButton = ({button}: { button: SceneButtonProps }) => {
+    const dispatch = useDispatch();
     const chosenThemeObject = useSelector(
         (state: RootState) => state.themes.chosenThemeObject
     );
-    const rainMode = useSelector((state: RootState) => state.mode.rainMode);
-    const dispatch = useDispatch();
+
+    const isRainModeInactive = useRainModeStatus();
+
     const isButtonClicked = useSelector(
         (state: RootState) => state.loading.isButtonClicked
     );
@@ -25,7 +28,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     ) ?? 0;
 
     const handleSceneButton = () => {
-        // Check if the button was clicked and proceed
         if (isButtonClicked) {
             let transitionShouldEnd = false;
 
@@ -35,22 +37,24 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
             })) : dispatch(setVolumeSound({soundName: button.id, newVolume: 0.5}));
 
             if (button.id.includes("rain")) {
-                // Toggle rain mode and mark to trigger transition end
-                dispatch(setRainMode(!rainMode));
+
+                if (isRainModeInactive) {
+                    dispatch(setRainMode(true));
+                } else {
+                    dispatch(setRainMode(false));
+                }
+
                 transitionShouldEnd = true;
             } else if (button.toSceneId) {
-                // Find the new scene based on the button's target ID
                 const newScene = chosenThemeObject?.scenes.find(
                     (scene) => scene.id === button.toSceneId
                 );
                 if (newScene) {
-                    // Update the active scene
                     dispatch(setActiveScene(newScene));
-                    transitionShouldEnd = true; // Mark to trigger setTransitionEnd
+                    transitionShouldEnd = true;
                 }
             }
 
-            // Only dispatch setTransitionEnd if conditions were met
             if (transitionShouldEnd) {
                 dispatch(setTransitionEnd(false));
             }
@@ -59,7 +63,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
 
     const handleChangeVolume = (e: Event, newValue: number | number[]) => {
         const newVolume = (newValue as number) / 100;
-        dispatch(setVolumeSound({soundName: button.id, newVolume})); // Dispatch action to update volume in Redux store
+        dispatch(setVolumeSound({soundName: button.id, newVolume}));
     };
 
     return (
@@ -68,7 +72,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
             <button
                 onClick={handleSceneButton}
                 className={``}
-
             >
                 <div className={`w-12 h-12 p-3`}>
                     <div
@@ -83,13 +86,12 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                         </div>
                     </div>
                 </div>
-
             </button>
 
             <div
                 className={`text-center group-hover:visible group-hover:opacity-100 opacity-0 invisible relative transition-all duration-2000 flex flex-col gap-y-2`}>
                 <div
-                    className={`min-w-[160px] py-2 px-8 bg-[rgba(0,0,0,0.6)] 
+                    className={`min-w-[180px] py-2 px-8 bg-[rgba(0,0,0,0.6)] 
                     absolute left-1/2 -translate-x-1/2 top-full translate-y-1 rounded-md`}>
                     <p className={`text-white`}>{button.label}</p>
 
@@ -97,7 +99,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                         <div>
                             <Slider
                                 aria-label="Background Volume"
-                                value={Math.floor(currentVolume * 100)} // Display volume as a percentage
+                                value={Math.floor(currentVolume * 100)}
                                 onChange={handleChangeVolume}
                                 valueLabelDisplay="auto"
                                 className={`transition-all !block ${currentVolume > 0 ? '!h-[8px] opacity-100' : '!h-0 opacity-0 !p-0'}`}
@@ -107,7 +109,6 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                 </div>
             </div>
         </div>
-
     );
 };
 

@@ -12,12 +12,15 @@ interface VolumeState {
     mixMore: boolean;
 }
 
+// Initialize allBackgroundSounds with a volume of 0
+const allBackgroundSounds = backgroundSoundsData.map((item) => ({
+    ...item,
+    volume: 0, // Set volume directly in the object
+}));
+
 
 const initialState: VolumeState = {
-    allBackgroundSounds: backgroundSoundsData.map((item) => ({
-        ...item,
-        volume: 0, // Set volume directly in the object
-    })), // Use the updated backgroundSoundsData
+    allBackgroundSounds,
     mixMore: false,
 };
 
@@ -28,7 +31,10 @@ const backgroundSoundSlice = createSlice({
         toggleMixMore: (state, action: PayloadAction<boolean>) => {
             state.mixMore = action.payload;
         },
-        setVolumeSound: (state, action: PayloadAction<{ soundName: string, newVolume: number }>) => {
+        setVolumeSound: (
+            state,
+            action: PayloadAction<{ soundName: string; newVolume: number }>
+        ) => {
             const {soundName, newVolume} = action.payload;
             const sound = state.allBackgroundSounds.find(
                 (sound) => sound.name === soundName
@@ -40,5 +46,6 @@ const backgroundSoundSlice = createSlice({
     },
 });
 
-export const {toggleMixMore, setVolumeSound} = backgroundSoundSlice.actions;
+export const {toggleMixMore, setVolumeSound} =
+    backgroundSoundSlice.actions;
 export default backgroundSoundSlice.reducer;

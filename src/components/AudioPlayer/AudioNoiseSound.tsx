@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import {setRainMode} from "@/redux/reducers/modeSlice";
+import useRainModeStatus from "@/hooks/useRainModeStatus";
 
 interface AudioNoiseSoundProps {
     soundId: string;
@@ -14,6 +15,9 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
                                                          }) => {
     const dispatch = useDispatch();
     const noiseAudioRef = useRef<HTMLAudioElement>(null);
+    const isRainModeInactive = useRainModeStatus();
+
+    console.log("isRainModeInactive: ", isRainModeInactive)
 
     const currentVolume = useSelector(
         (state: RootState) =>
@@ -52,7 +56,7 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
                 }
             } else if ((currentVolume ?? 0) === 0) {
                 audioElement?.pause();
-                if (soundId.includes("rain")) {
+                if (soundId.includes("rain") && isRainModeInactive) {
                     dispatch(setRainMode(false));
                 }
             }
