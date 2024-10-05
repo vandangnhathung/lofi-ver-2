@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/redux/store";
-import {setActiveSceneSrc} from "@/redux/reducers/sceneSlice";
-import {setTransitionEnd} from "@/redux/reducers/loadingSlice";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@/redux/store';
+import {setActiveSceneSrc} from '@/redux/reducers/sceneSlice';
+import {setTransitionEnd} from '@/redux/reducers/loadingSlice';
 
 interface VideoElementProps {
     src: string | undefined;
@@ -18,14 +18,32 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
 
     const dispatch = useDispatch();
 
+    // Function to check if there is any 'rain' source in activeScene.sources
+    const hasRainSource = (sources: any) => {
+        return (
+            sources?.day?.rain?.src !== undefined ||
+            sources?.night?.rain?.src !== undefined
+        );
+    };
+
     useEffect(() => {
-        const newSrc = nightMode
-            ? rainMode
-                ? activeScene.sources?.night?.rain?.src
-                : activeScene.sources?.night?.normal?.src
-            : rainMode
-                ? activeScene.sources?.day?.rain?.src
+        const rainAvailable = hasRainSource(activeScene.sources);
+        let newSrc = "";
+
+        if (rainAvailable) {
+            newSrc = nightMode
+                ? rainMode
+                    ? activeScene.sources?.night?.rain?.src
+                    : activeScene.sources?.night?.normal?.src
+                : rainMode
+                    ? activeScene.sources?.day?.rain?.src
+                    : activeScene.sources?.day?.normal?.src;
+        } else {
+            newSrc = nightMode
+                ? activeScene.sources?.night?.normal?.src
                 : activeScene.sources?.day?.normal?.src;
+        }
+
 
         dispatch(setActiveSceneSrc(newSrc ?? activeScene.sources?.day?.normal?.src));
     }, [nightMode, rainMode, activeScene, dispatch]);

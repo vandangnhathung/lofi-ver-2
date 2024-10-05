@@ -301,7 +301,7 @@
         },
         "buttons": [
           {
-            "id": "birdSound",
+            "id": "birds",
             "label": "Bird sound",
             "sound": "birds.mp3",
             "position": {
