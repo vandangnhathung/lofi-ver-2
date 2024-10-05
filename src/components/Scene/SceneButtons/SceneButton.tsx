@@ -73,7 +73,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
                 onClick={handleSceneButton}
                 className={``}
             >
-                <div className={`w-12 h-12 p-3`}>
+                <div className={`w-12 h-12 p-3 relative`}>
                     <div
                         className={`h-full after:transition-all after:duration-500 after:rounded-full group-hover:after:bg-primary after:absolute after:inset-0 after:opacity-30`}
                     >
