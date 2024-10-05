@@ -9,62 +9,52 @@ interface VideoElementProps {
 }
 
 const VideoElement: React.FC<VideoElementProps> = ({src}) => {
-    const activeScene = useSelector((state: RootState) => state.scene.activeScene);
-    const activeSceneSrc = useSelector((state: RootState) => state.scene.activeSceneSrc);
-    const animation = useSelector((state: RootState) => state.scene.animation);
-    const nightMode = useSelector((state: RootState) => state.mode.nightMode);
-    const rainMode = useSelector((state: RootState) => state.mode.rainMode);
-    const openPanel = useSelector((state: RootState) => state.panel.panelScene);
-
     const dispatch = useDispatch();
 
-    // Function to check if there is any 'rain' source in activeScene.sources
-    const hasRainSource = (sources: any) => {
-        return (
-            sources?.day?.rain?.src !== undefined ||
-            sources?.night?.rain?.src !== undefined
-        );
+    const {
+        activeScene,
+        activeSceneSrc,
+        animation
+    } = useSelector((state: RootState) => state.scene);
+
+    const {
+        nightMode,
+        rainMode
+    } = useSelector((state: RootState) => state.mode);
+
+    const openPanel = useSelector((state: RootState) => state.panel.panelScene);
+
+    const getSceneSource = () => {
+        const {sources} = activeScene;
+        if (nightMode) {
+            return rainMode ? sources?.night?.rain?.src : sources?.night?.normal?.src;
+        } else {
+            return rainMode ? sources?.day?.rain?.src : sources?.day?.normal?.src;
+        }
     };
 
     useEffect(() => {
-        const rainAvailable = hasRainSource(activeScene.sources);
-        let newSrc = "";
-
-        if (rainAvailable) {
-            newSrc = nightMode
-                ? rainMode
-                    ? activeScene.sources?.night?.rain?.src
-                    : activeScene.sources?.night?.normal?.src
-                : rainMode
-                    ? activeScene.sources?.day?.rain?.src
-                    : activeScene.sources?.day?.normal?.src;
-        } else {
-            newSrc = nightMode
-                ? activeScene.sources?.night?.normal?.src
-                : activeScene.sources?.day?.normal?.src;
-        }
-
-
-        dispatch(setActiveSceneSrc(newSrc ?? activeScene.sources?.day?.normal?.src));
+        const newSrc = getSceneSource() ?? activeScene.sources?.day?.normal?.src;
+        dispatch(setActiveSceneSrc(newSrc));
     }, [nightMode, rainMode, activeScene, dispatch]);
 
-    if (!src || !activeSceneSrc) {
-        return null;
-    }
+    const handleTransitionEnd = () => {
+        dispatch(setTransitionEnd(true));
+    };
+
+    if (!src || !activeSceneSrc) return null;
 
     return (
         <video
             key={src}
-            onTransitionEnd={() => {
-                dispatch(setTransitionEnd(true));
-            }}
+            onTransitionEnd={handleTransitionEnd}
             src={`/assets/videos/${src}`}
             autoPlay
             loop
             muted
-            className={`object-cover transition-all w-full h-full inset-0 absolute object-center`}
+            className="object-cover transition-all w-full h-full inset-0 absolute object-center"
             style={{
-                transitionDuration: animation === 'in' && openPanel === false ? '0.5s' : 'unset',
+                transitionDuration: animation === 'in' && !openPanel ? '0.5s' : 'unset',
                 zIndex: activeSceneSrc === src ? 2 : 0,
                 opacity: activeSceneSrc === src ? 1 : 0,
             }}
