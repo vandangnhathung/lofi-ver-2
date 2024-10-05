@@ -10,44 +10,46 @@ interface VideoElementProps {
 
 const VideoElement: React.FC<VideoElementProps> = ({src}) => {
     const dispatch = useDispatch();
-
-    const {
-        activeScene,
-        activeSceneSrc,
-        animation
-    } = useSelector((state: RootState) => state.scene);
-
-    const {
-        nightMode,
-        rainMode
-    } = useSelector((state: RootState) => state.mode);
-
+    const {activeScene, activeSceneSrc, animation} = useSelector((state: RootState) => state.scene);
+    const {nightMode, rainMode} = useSelector((state: RootState) => state.mode);
     const openPanel = useSelector((state: RootState) => state.panel.panelScene);
 
-    const getSceneSource = () => {
-        const {sources} = activeScene;
-        if (nightMode) {
-            return rainMode ? sources?.night?.rain?.src : sources?.night?.normal?.src;
-        } else {
-            return rainMode ? sources?.day?.rain?.src : sources?.day?.normal?.src;
-        }
-    };
-
     useEffect(() => {
-        const newSrc = getSceneSource() ?? activeScene.sources?.day?.normal?.src;
-        dispatch(setActiveSceneSrc(newSrc));
-    }, [nightMode, rainMode, activeScene, dispatch]);
+        const getSource = () => {
+            if (!activeScene.sources) {
+                console.warn("No sources available for the current scene.");
+                return null;
+            }
 
-    const handleTransitionEnd = () => {
-        dispatch(setTransitionEnd(true));
-    };
+            const {day, night} = activeScene.sources;
+            const isNight = nightMode ? night : day;
+            const isRain = rainMode ? isNight?.rain : isNight?.normal;
+
+            // Check for the existence of sources and provide fallbacks
+            if (isRain?.src) {
+                return isRain.src;
+            } else if (isNight?.normal?.src) {
+                return isNight.normal.src;
+            } else if (day?.normal?.src) {
+                return day.normal.src;
+            } else {
+                console.warn("No valid video source found for the current scene.");
+                return null;
+            }
+        };
+
+        const newSrc = getSource();
+        if (newSrc && newSrc !== activeSceneSrc) {
+            dispatch(setActiveSceneSrc(newSrc));
+        }
+    }, [nightMode, rainMode, activeScene, activeSceneSrc, dispatch]);
 
     if (!src || !activeSceneSrc) return null;
 
     return (
         <video
             key={src}
-            onTransitionEnd={handleTransitionEnd}
+            onTransitionEnd={() => dispatch(setTransitionEnd(true))}
             src={`/assets/videos/${src}`}
             autoPlay
             loop
