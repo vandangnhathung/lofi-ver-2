@@ -3,14 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --lofi-menu-height:60px;
-  --lofi-panel-position:calc(var(--lofi-menu-height) + 10px);
-  --gap-container:20px;
-  --w-screen-padding:calc(100vw - 20px * 2);
+    --lofi-menu-height:60px;
+    --lofi-panel-position:calc(var(--lofi-menu-height) + 10px);
+    --gap-container:20px;
+    --w-screen-padding:calc(100vw - 20px * 2);
+    --play-button-size:40px;
 }
 
 .scrollbar-hidden {
-  scrollbar-width:none;
+    scrollbar-width:none;
 }
 
 body::-webkit-scrollbar,
@@ -21,19 +22,54 @@ body::-webkit-scrollbar-thumb,
 .custom-scroll-bar::-webkit-scrollbar-thumb {background-color:var(--primary-color);}
 
 .close-effect {
-  clip-path:polygon(0 0, 100% 0, 100% 0, 0 0);
+    clip-path:polygon(0 0, 100% 0, 100% 0, 0 0);
 }
 
 .open-effect {
-  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .slow-effect-duration {
-  transition-duration:1s;
+    transition-duration:1s;
+}
+
+.img-wrapper-cover > img {
+    object-position:center center;
+    height:100%;width:100%;
+    min-height:100%; min-width:100%;
+    max-height:100%; max-width:100%;
+    display:block; object-fit:cover;
+}
+
+.img-wrapper-contain > img {
+    object-position:center center;
+    height:100%; width:100%;
+    min-height:100%; min-width:100%;
+    max-height:100%; max-width:100%;
+    display:block; object-fit:contain;
 }
 
 @layer components {
-  .glass-card {
-    @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
-  }
+    .glass-card {
+        @apply p-2 border border-[rgba(255,255,255,0.4)] rounded-xl bg-[rgba(255,255,255,0.3)] backdrop-blur-[10px];
+    }
+
+    /* play button */
+    .play-button {
+        @apply transition-all cursor-pointer relative w-play-button aspect-square bg-white rounded-full before:transition-all before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:-translate-y-1/2 before:-translate-x-[35%]  before:border-l-[10px] before:border-t-[7px] before:border-b-[7px] before:border-t-transparent before:border-b-transparent before:border-l-black;
+    }
+
+    .play-button:hover {
+        @apply bg-primary;
+    }
+    .play-button:hover:before {
+        @apply border-l-white;
+    }
+
+    /* text */
+    .faded-text {
+        @apply text-[rgba(255,255,255,0.5)] hover:text-white transition-all cursor-pointer;
+    }
 }
+
+

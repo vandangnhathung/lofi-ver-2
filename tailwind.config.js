@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
       },
       spacing: {
         "gap-container": "var(--gap-container)",
@@ -18,6 +19,7 @@ export default {
       },
       width: {
         "screen-padding": "var(--w-screen-padding)",
+        "play-button": "var(--play-button-size)"
       },
       keyframes: {
         switch: {

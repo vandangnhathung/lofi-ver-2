@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+.env.local
+
 ./src/pratice (REMOVE)
 ./src/redux (REMOVE)
 

@@ -7,6 +7,7 @@ import loadingSlice from "@/redux/reducers/loadingSlice";
 import themeSlice from "@/redux/reducers/themeSlice";
 import modeSlice from "@/redux/reducers/modeSlice";
 import backgroundSoundSlice from "@/redux/reducers/backgroundSoundSlice";
+import spotifySlice from "@/redux/reducers/SpotifySlice";
 
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     themes: themeSlice,
     mode: modeSlice,
     backgroundSound: backgroundSoundSlice,
+    spotify: spotifySlice,
 });
 
 export const store = configureStore({
