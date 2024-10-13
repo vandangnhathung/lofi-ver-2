@@ -177,10 +177,11 @@ const SpotifyMenu: React.FC = () => {
             return;
         }
 
-        try {
+        // todo: check trackId against playingTrackId
+        if (playingTrackId === trackId && !isPaused) {
             await axios({
                 method: 'PUT',
-                url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+                url: `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -188,19 +189,36 @@ const SpotifyMenu: React.FC = () => {
                 data: JSON.stringify({uris: [trackUri]})
             });
 
-            setPlayingTrackId(trackId);
-            setIsPaused(false);
-        } catch (err) {
-            console.error('Failed to play track', err);
-            if (axios.isAxiosError(err) && err.response?.status === 401) {
-                const newToken = await refreshAccessToken();
-                if (newToken) {
-                    return playTrack(trackUri, trackId);
+            setPlayingTrackId("");
+            setIsPaused(true);
+        } else {
+
+
+            try {
+                await axios({
+                    method: 'PUT',
+                    url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({uris: [trackUri]})
+                });
+
+                setPlayingTrackId(trackId);
+                setIsPaused(false);
+            } catch (err) {
+                console.error('Failed to play track', err);
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    const newToken = await refreshAccessToken();
+                    if (newToken) {
+                        return playTrack(trackUri, trackId);
+                    }
                 }
+                setError('Failed to play track. Please try again.');
             }
-            setError('Failed to play track. Please try again.');
         }
-    };
+    }
 
     const togglePlayPause = async () => {
         if (!player) return;
