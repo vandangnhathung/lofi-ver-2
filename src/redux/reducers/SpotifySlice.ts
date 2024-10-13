@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface SpotifyState {
@@ -8,6 +8,7 @@ interface SpotifyState {
     currentTrack: any | null;
     isPlaying: boolean;
     error: string | null;
+    isOpenSpotify: boolean,
 }
 
 const initialState: SpotifyState = {
@@ -17,6 +18,7 @@ const initialState: SpotifyState = {
     currentTrack: null,
     isPlaying: false,
     error: null,
+    isOpenSpotify: false,
 };
 
 export const fetchUserPlaylists = createAsyncThunk(
@@ -72,6 +74,10 @@ const spotifySlice = createSlice({
         setError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
+        setOpenSpotify: (state) => {
+            console.log("state.isOpenSpotify")
+            state.isOpenSpotify = !state.isOpenSpotify;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -96,7 +102,8 @@ export const {
     setIsLoggedIn,
     setIsPlaying,
     logout,
-    setError
+    setError,
+    setOpenSpotify
 } = spotifySlice.actions;
 
 export default spotifySlice.reducer;

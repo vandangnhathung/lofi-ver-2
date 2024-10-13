@@ -21,7 +21,7 @@ const ControlBarMenuMiddle = () => {
     };
 
     return (
-        <div className={`flex flex-col gap-3`}>
+        <div className={`flex flex-col`}>
             <div className={`flex flex-col gap-1 glass-card`}>
                 <p className="uppercase">Music volume</p>
                 <div className="flex items-center gap-4">

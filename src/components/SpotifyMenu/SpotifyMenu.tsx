@@ -1,6 +1,8 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import axios from 'axios';
-import {Pause, Play, Loader, Music} from 'lucide-react';
+import {Loader, Music, Pause, Play} from 'lucide-react';
+import {RootState} from "@/redux/store";
+import {useSelector} from "react-redux";
 
 interface Track {
     id: string;
@@ -39,6 +41,8 @@ const SpotifyMenu: React.FC = () => {
     const [player, setPlayer] = useState<any>(null);
     const [deviceId, setDeviceId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
+
+    const isOpenSpotify = useSelector((state: RootState) => state.spotify.isOpenSpotify);
 
     const playlistId = import.meta.env.VITE_PLAYLIST_ID || '37i9dQZF1DXcBWIGoYBM5M';
 
@@ -210,9 +214,9 @@ const SpotifyMenu: React.FC = () => {
         }
     };
 
-    if (isLoading) {
+    if (isOpenSpotify && isLoading) {
         return (
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center pt-3">
                 <Loader className="animate-spin" size={24}/>
             </div>
         );
@@ -232,65 +236,71 @@ const SpotifyMenu: React.FC = () => {
     }
 
     return (
-        <div className="p-4 bg-gray-800 text-white rounded-xl flex flex-col h-[250px] max-w-3xl mx-auto">
-            {error ? (
-                <p className="text-red-500 p-2 bg-red-500/10 rounded">{error}</p>
-            ) : (
-                <>
-                    <ul className="flex-1 overflow-y-auto custom-scroll-bar">
-                        {playlist?.tracks.items.map(({track}) => (
-                            <li key={track.id} className="mb-2 flex items-center p-2 hover:bg-gray-700 rounded">
-                                {track.album && track.album.images && track.album.images.length > 0 ? (
-                                    <img
-                                        src={track.album.images[0].url}
-                                        alt={`${track.album.name} cover`}
-                                        className="w-12 h-12 mr-3 rounded object-cover"
-                                    />
-                                ) : (
-                                    <div
-                                        className="w-12 h-12 mr-3 rounded bg-gray-600 flex items-center justify-center">
-                                        <Music size={24}/>
+        <div
+            className={`${isOpenSpotify ? 'open-effect h-[242px] pb-[12px]' : 'close-effect h-0'} before:block before:w-full before:h-[12px] transition-all duration-700`}>
+            <div
+                className={`p-4 bg-gray-800 text-white rounded-xl max-w-3xl mx-auto h-full`}>
+                <div className="  flex flex-col h-full">
+                    {error ? (
+                        <p className="text-red-500 p-2 bg-red-500/10 rounded">{error}</p>
+                    ) : (
+                        <>
+                            <ul className="flex-1 overflow-y-auto custom-scroll-bar">
+                                {playlist?.tracks.items.map(({track}) => (
+                                    <li key={track.id} className="mb-2 flex items-center p-2 hover:bg-gray-700 rounded">
+                                        {track.album && track.album.images && track.album.images.length > 0 ? (
+                                            <img
+                                                src={track.album.images[0].url}
+                                                alt={`${track.album.name} cover`}
+                                                className="w-12 h-12 mr-3 rounded object-cover"
+                                            />
+                                        ) : (
+                                            <div
+                                                className="w-12 h-12 mr-3 rounded bg-gray-600 flex items-center justify-center">
+                                                <Music size={24}/>
+                                            </div>
+                                        )}
+                                        <div className="flex-grow">
+                                            <div className="font-semibold">{track.name}</div>
+                                            <div className="text-sm text-gray-400">
+                                                {track.artists.map(artist => artist.name).join(', ')}
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={() => playTrack(track.uri, track.id)}
+                                            className="ml-2 p-2 rounded-full bg-green-500 transition-all hover:bg-green-600"
+                                            disabled={!isPlayerReady}
+                                        >
+                                            {playingTrackId === track.id && !isPaused ? (
+                                                <Pause size={20}/>
+                                            ) : (
+                                                <Play size={20}/>
+                                            )}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                            {playingTrackId && (
+                                <div className="mt-4 py-2 px-3 bg-gray-700 rounded-lg flex items-center">
+                                    <div className="flex-grow">
+                                        <div className="font-semibold">Now Playing</div>
+                                        <div className="text-sm text-gray-400">
+                                            {playlist?.tracks.items.find(item => item.track.id === playingTrackId)?.track.name || 'Unknown Track'}
+                                        </div>
                                     </div>
-                                )}
-                                <div className="flex-grow">
-                                    <div className="font-semibold">{track.name}</div>
-                                    <div className="text-sm text-gray-400">
-                                        {track.artists.map(artist => artist.name).join(', ')}
-                                    </div>
+                                    <button
+                                        onClick={togglePlayPause}
+                                        className="p-2 rounded-full bg-green-500 hover:bg-green-600"
+                                        disabled={!isPlayerReady}
+                                    >
+                                        {isPaused ? <Play size={20}/> : <Pause size={20}/>}
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => playTrack(track.uri, track.id)}
-                                    className="ml-2 p-2 rounded-full bg-green-500 transition-all hover:bg-green-600"
-                                    disabled={!isPlayerReady}
-                                >
-                                    {playingTrackId === track.id && !isPaused ? (
-                                        <Pause size={20}/>
-                                    ) : (
-                                        <Play size={20}/>
-                                    )}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                    {playingTrackId && (
-                        <div className="mt-4 py-2 px-3 bg-gray-700 rounded-lg flex items-center">
-                            <div className="flex-grow">
-                                <div className="font-semibold">Now Playing</div>
-                                <div className="text-sm text-gray-400">
-                                    {playlist?.tracks.items.find(item => item.track.id === playingTrackId)?.track.name || 'Unknown Track'}
-                                </div>
-                            </div>
-                            <button
-                                onClick={togglePlayPause}
-                                className="p-2 rounded-full bg-green-500 hover:bg-green-600"
-                                disabled={!isPlayerReady}
-                            >
-                                {isPaused ? <Play size={20}/> : <Pause size={20}/>}
-                            </button>
-                        </div>
+                            )}
+                        </>
                     )}
-                </>
-            )}
+                </div>
+            </div>
         </div>
     );
 };
