@@ -17,8 +17,6 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
     const noiseAudioRef = useRef<HTMLAudioElement>(null);
     const isRainModeInactive = useRainModeStatus();
 
-    console.log("isRainModeInactive: ", isRainModeInactive)
-
     const currentVolume = useSelector(
         (state: RootState) =>
             state.backgroundSound.allBackgroundSounds.find(
