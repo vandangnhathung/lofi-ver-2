@@ -18,11 +18,17 @@ jobs:
           node-version: 20
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm install -g cross-env webpack-cli
       - name: Build website
-        run: npm run ghp-build
+        run: |
+          echo "Starting build process"
+          npm run ghp-build
+        env:
+          CI: true
       - name: Publish to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
