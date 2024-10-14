@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "gh-build": "cross-env BASE=/lofi-ver-2 webpack --config config/webpack.build.js",
+    "ghp-build": "cross-env BASE=/lofi-ver-2 webpack --config config/webpack.build.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
