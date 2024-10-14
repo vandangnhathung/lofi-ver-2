@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const IconJazzy = ({color = "#c3c3c3", className = ""}) => {
     return (

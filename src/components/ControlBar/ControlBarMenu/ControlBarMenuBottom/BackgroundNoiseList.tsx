@@ -1,10 +1,8 @@
-import React from "react";
 import BackgroundNoiseItem from "@/components/ControlBar/ControlBarMenu/ControlBarMenuBottom/BackgroundNoiseItem";
 import {RootState} from "@/redux/store";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 const BackgroundNoiseList = () => {
-    const dispatch = useDispatch();
     const allBackgroundSounds = useSelector((state: RootState) => state.backgroundSound.allBackgroundSounds);
     const currentScene = useSelector((state: RootState) => state.scene.activeScene);
     const mixMore = useSelector((state: RootState) => state.backgroundSound.mixMore);

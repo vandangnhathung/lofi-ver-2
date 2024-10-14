@@ -1,4 +1,3 @@
-import React from "react";
 import {SceneButtonProps} from "@/components/Scene/Type";
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveScene} from "@/redux/reducers/sceneSlice";
@@ -61,7 +60,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
         }
     };
 
-    const handleChangeVolume = (e: Event, newValue: number | number[]) => {
+    const handleChangeVolume = (_e: Event, newValue: number | number[]) => {
         const newVolume = (newValue as number) / 100;
         dispatch(setVolumeSound({soundName: button.id, newVolume}));
     };

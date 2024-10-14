@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {shuffle} from 'lodash';
 import {gsap} from 'gsap';
 import {useDispatch, useSelector} from "react-redux";

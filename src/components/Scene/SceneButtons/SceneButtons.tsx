@@ -1,4 +1,3 @@
-import React from 'react';
 import SceneButton from "@/components/Scene/SceneButtons/SceneButton";
 import {SceneButtonProps} from "@/components/Scene/Type";
 

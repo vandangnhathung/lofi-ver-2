@@ -21,7 +21,6 @@ const loadIcon = (iconName: string) =>
     );
 
 const ControlMusicList: React.FC = () => {
-    const musics = useSelector((state: RootState) => state.playerMusic.musics);
     const categorizedMusics = useSelector((state: RootState) => state.playerMusic.categorizedMusics);
     const dispatch = useDispatch();
 

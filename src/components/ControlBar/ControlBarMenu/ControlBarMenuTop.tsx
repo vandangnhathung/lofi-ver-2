@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ControlMusic from "@/components/ControlBar/kits/ControlMusic/ControlMusic";
 import {setOpenSpotify} from "@/redux/reducers/SpotifySlice";
 import {useDispatch, useSelector} from "react-redux";

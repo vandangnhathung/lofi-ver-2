@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "@mui/material/Slider";
 import {styled} from "@mui/material";
 import {Volume, Volume2} from "lucide-react";
@@ -7,7 +6,7 @@ import {setVolume} from "@/redux/reducers/playerMusicSlice"; // Adjust path as n
 import {RootState} from "@/redux/store";
 import SpotifyMenu from "@/components/SpotifyMenu/SpotifyMenu"; // Adjust path as needed
 
-const LofiSlider = styled(Slider)(({theme}) => ({
+const LofiSlider = styled(Slider)(({}) => ({
     height: 8,
 }));
 
@@ -15,7 +14,7 @@ const ControlBarMenuMiddle = () => {
     const dispatch = useDispatch();
     const volume = useSelector((state: RootState) => state.playerMusic.volume); // Get volume from Redux store
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleChange = (_event: Event, newValue: number | number[]) => {
         const newVolume = (newValue as number) / 100; // Convert slider value to a fraction (0 to 1)
         dispatch(setVolume(newVolume));
     };

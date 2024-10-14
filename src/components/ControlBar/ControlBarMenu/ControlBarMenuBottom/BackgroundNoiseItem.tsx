@@ -18,7 +18,7 @@ const BackgroundNoiseItem: React.FC<BackgroundNoiseItemProps> = ({
                                                                  }) => {
     const dispatch = useDispatch();
 
-    const handleChange = (e: Event, newValue: number | number[]) => {
+    const handleChange = (_e: Event, newValue: number | number[]) => {
         const newVolume = (newValue as number) / 100;
         dispatch(setVolumeSound({soundName, newVolume})); // Dispatch action to update volume in Redux store
     };

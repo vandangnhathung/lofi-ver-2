@@ -1,4 +1,4 @@
-import React from 'react';
+
 import AudioControlButtons from "@/components/AudioControlButtons/AudioControlButtons";
 import SwitchSceneButton from "@/components/SwitchSceneButton/SwitchSceneButton";
 import ToggleDayNight from "@/components/ToggleDayNight/ToggleDayNight";

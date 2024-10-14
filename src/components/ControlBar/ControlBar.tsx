@@ -1,4 +1,4 @@
-import React from 'react';
+
 import MenuButton from "@/components/MenuButton/MenuButton";
 import ControlBarIcon from "@/components/ControlBar/ControlBarIcon";
 import {useDispatch, useSelector} from "react-redux";
