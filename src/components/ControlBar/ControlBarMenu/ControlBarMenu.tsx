@@ -17,7 +17,7 @@ const ControlBarMenu = () => {
         <div
             className={`${controlBar ? "open-effect opacity" : "close-effect opacity-0"}  transition-all slow-effect-duration absolute z-20 top-gap-container right-gap-container md:right-auto left-gap-container capitalize font-medium`}
         >
-            <div className={` max-h-[80vh] scrollbar-hidden ${mixMore ? "overflow-y-auto " : ""}`}>
+            <div className={` max-h-[88vh] scrollbar-hidden ${mixMore ? "overflow-y-auto " : ""}`}>
 
                 <div
                     className={`backdrop-blur-[4px] transition-all relative md:min-w-[400px] min-w-[300px] max-w-[500px] rounded-3xl border border-[rgba(255,255,255,0.4)] aspect-square bg-[rgba(0,0,0,0.6)] text-white`}
