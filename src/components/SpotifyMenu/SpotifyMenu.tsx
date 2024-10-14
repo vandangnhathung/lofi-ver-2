@@ -23,10 +23,26 @@ interface Playlist {
     };
 }
 
+interface SpotifySDK {
+    Player: new (options: SpotifyPlayerOptions) => SpotifyPlayer;
+}
+
+interface SpotifyPlayerOptions {
+    name: string;
+    getOAuthToken: (cb: (token: string) => void) => void;
+    volume: number;
+}
+
+interface SpotifyPlayer {
+    addListener: (eventName: string, callback: (state: any) => void) => void;
+    connect: () => Promise<boolean>;
+    togglePlay: () => Promise<void>;
+}
+
 declare global {
     interface Window {
         onSpotifyWebPlaybackSDKReady: () => void;
-        Spotify: any;
+        Spotify: SpotifySDK;
     }
 }
 
@@ -38,7 +54,7 @@ const SpotifyMenu: React.FC = () => {
     const [playingTrackId, setPlayingTrackId] = useState<string | null>(null);
     const [isPaused, setIsPaused] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
-    const [player, setPlayer] = useState<any>(null);
+    const [player, setPlayer] = useState<SpotifyPlayer | null>(null);
     const [deviceId, setDeviceId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
 
@@ -50,7 +66,9 @@ const SpotifyMenu: React.FC = () => {
         if (!refreshToken) return null;
 
         try {
-            const response = await axios.get(`http://localhost:3002/refresh_token?refresh_token=${refreshToken}`);
+            const response = await axios.get<{
+                access_token: string
+            }>(`http://localhost:3002/refresh_token?refresh_token=${refreshToken}`);
             const newAccessToken = response.data.access_token;
             setToken(newAccessToken);
             localStorage.setItem('spotifyAccessToken', newAccessToken);
@@ -85,19 +103,19 @@ const SpotifyMenu: React.FC = () => {
 
             setPlayer(player);
 
-            player.addListener('ready', ({device_id}) => {
+            player.addListener('ready', ({device_id}: { device_id: string }) => {
                 console.log('Ready with Device ID', device_id);
                 setDeviceId(device_id);
                 setIsPlayerReady(true);
             });
 
-            player.addListener('not_ready', ({device_id}) => {
+            player.addListener('not_ready', ({device_id}: { device_id: string }) => {
                 console.log('Device ID has gone offline', device_id);
                 setDeviceId(null);
                 setIsPlayerReady(false);
             });
 
-            player.addListener('player_state_changed', (state) => {
+            player.addListener('player_state_changed', (state: any) => {
                 if (!state) {
                     return;
                 }
@@ -144,7 +162,7 @@ const SpotifyMenu: React.FC = () => {
         setError(null);
 
         try {
-            const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+            const response = await axios.get<Playlist>(`https://api.spotify.com/v1/playlists/${playlistId}`, {
                 headers: {'Authorization': `Bearer ${token}`}
             });
             setPlaylist(response.data);
@@ -177,7 +195,6 @@ const SpotifyMenu: React.FC = () => {
             return;
         }
 
-        // todo: check trackId against playingTrackId
         if (playingTrackId === trackId && !isPaused) {
             await axios({
                 method: 'PUT',
@@ -185,15 +202,12 @@ const SpotifyMenu: React.FC = () => {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                },
-                data: JSON.stringify({uris: [trackUri]})
+                }
             });
 
             setPlayingTrackId("");
             setIsPaused(true);
         } else {
-
-
             try {
                 await axios({
                     method: 'PUT',
@@ -258,7 +272,7 @@ const SpotifyMenu: React.FC = () => {
             className={`${isOpenSpotify ? 'open-effect h-[242px] pb-[12px]' : 'close-effect h-0'} before:block before:w-full before:h-[12px] transition-all duration-700`}>
             <div
                 className={`p-4 bg-gray-800 text-white rounded-xl max-w-3xl mx-auto h-full`}>
-                <div className="  flex flex-col h-full">
+                <div className="flex flex-col h-full">
                     {error ? (
                         <p className="text-red-500 p-2 bg-red-500/10 rounded">{error}</p>
                     ) : (
