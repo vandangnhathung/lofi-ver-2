@@ -23,16 +23,21 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build the Project
         run: npm run build
+        env:
+          CI: true
+          VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+          VITE_PLAYLIST_ID: ${{ secrets.VITE_PLAYLIST_ID }}
 
       - name: Create and Push to Staging Branch
+        if: success()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b staging
           git add .
-          git commit -m "first commit"
+          git commit -m "Build for staging"
           git push --force origin staging
