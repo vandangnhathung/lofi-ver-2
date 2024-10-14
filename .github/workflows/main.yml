@@ -15,7 +15,8 @@ jobs:
         node-version: [ 18.x, 20.x, 22.x ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -23,21 +24,37 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          echo "Installing dependencies..."
+          npm ci
+          echo "Dependencies installed successfully."
 
       - name: Build the Project
-        run: npm run build
+        run: |
+          echo "Building the project..."
+          npm run build
+          echo "Build completed successfully."
         env:
           CI: true
           VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
           VITE_PLAYLIST_ID: ${{ secrets.VITE_PLAYLIST_ID }}
 
       - name: Create and Push to Staging Branch
-        if: success()
         run: |
+          echo "Configuring Git..."
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          echo "Creating staging branch..."
           git checkout -b staging
+          
+          echo "Adding files to staging..."
           git add .
+          
+          echo "Committing changes..."
           git commit -m "Build for staging"
+          
+          echo "Pushing to staging branch..."
           git push --force origin staging
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
