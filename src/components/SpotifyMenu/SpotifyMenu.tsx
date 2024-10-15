@@ -1,8 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {Loader, Music, Pause, Play} from 'lucide-react';
 import {RootState} from "@/redux/store";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setIsPlaying} from "@/redux/reducers/SpotifySlice";
+import TrackProgressBar from "@/components/ControlBar/kits/TrackProgressBar";
 
 interface Track {
     id: string;
@@ -37,6 +39,7 @@ interface SpotifyPlayer {
     addListener: (eventName: string, callback: (state: any) => void) => void;
     connect: () => Promise<boolean>;
     togglePlay: () => Promise<void>;
+    seek: (positionMs: number) => Promise<void>;
 }
 
 declare global {
@@ -45,7 +48,6 @@ declare global {
         Spotify: SpotifySDK;
     }
 }
-
 const SpotifyMenu: React.FC = () => {
     const [token, setToken] = useState<string | null>(null);
     const [refreshToken, setRefreshToken] = useState<string | null>(null);
@@ -57,8 +59,15 @@ const SpotifyMenu: React.FC = () => {
     const [player, setPlayer] = useState<SpotifyPlayer | null>(null);
     const [deviceId, setDeviceId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
+    const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+    const [trackDuration, setTrackDuration] = useState<number>(0);
+    const [trackPosition, setTrackPosition] = useState<number>(0);
+
+    const playerStateRef = useRef<any>(null);
+    const lastUpdateTimeRef = useRef<number>(Date.now());
 
     const isOpenSpotify = useSelector((state: RootState) => state.spotify.isOpenSpotify);
+    const dispatch = useDispatch();
 
     const playlistId = import.meta.env.VITE_PLAYLIST_ID || '37i9dQZF1DXcBWIGoYBM5M';
 
@@ -83,6 +92,7 @@ const SpotifyMenu: React.FC = () => {
             return null;
         }
     }, [refreshToken]);
+
 
     const initializePlayer = useCallback(() => {
         if (!token) return;
@@ -117,15 +127,36 @@ const SpotifyMenu: React.FC = () => {
 
             player.addListener('player_state_changed', (state: any) => {
                 if (!state) {
+                    console.log('Received empty state, ignoring...');
                     return;
                 }
-                setPlayingTrackId(state.track_window.current_track.id);
+
+                playerStateRef.current = state;
+                lastUpdateTimeRef.current = Date.now();
+
+                // Check if the current track exists before accessing its properties
+                if (state.track_window?.current_track) {
+                    setPlayingTrackId(state.track_window.current_track.id);
+                } else {
+                    console.log('No current track in player state');
+                    setPlayingTrackId(null);
+                }
+
                 setIsPaused(state.paused);
+                dispatch(setIsPlaying(!state.paused));
+                setTrackDuration(state.duration || 0);
+                setTrackPosition(state.position || 0);
+
+                // Check if the track has ended
+                if (state.position === 0 && state.paused) {
+                    console.log("Track has ended")
+                    playNextTrack();
+                }
             });
 
             player.connect();
         };
-    }, [token]);
+    }, [token, dispatch]);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -189,26 +220,66 @@ const SpotifyMenu: React.FC = () => {
         }
     };
 
-    const playTrack = async (trackUri: string, trackId: string) => {
-        if (!token || !player || !deviceId || !isPlayerReady) {
-            console.error('Unable to play track: missing token, player, device ID, or player not ready');
-            return;
-        }
+    const playNextTrack = useCallback(async () => {
+        console.log("work", playlist, token, deviceId, currentTrackIndex);
+        if (!playlist || !playlist.tracks.items.length || !token || !deviceId) return;
 
-        if (playingTrackId === trackId && !isPaused) {
+        console.log("passed")
+
+        const nextIndex = (currentTrackIndex + 1) % playlist.tracks.items.length;
+        const nextTrack = playlist.tracks.items[nextIndex].track;
+
+        console.log("Playing next track:", nextTrack.name);
+
+        try {
             await axios({
                 method: 'PUT',
-                url: `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+                url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                data: JSON.stringify({uris: [nextTrack.uri]})
             });
 
-            setPlayingTrackId("");
-            setIsPaused(true);
-        } else {
-            try {
+            setPlayingTrackId(nextTrack.id);
+            setIsPaused(false);
+            setCurrentTrackIndex(nextIndex);
+            dispatch(setIsPlaying(true));
+        } catch (err) {
+            console.error('Failed to play next track', err);
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                const newToken = await refreshAccessToken();
+                if (newToken) {
+                    setToken(newToken);
+                    return playNextTrack();
+                }
+            }
+            setError('Failed to play next track. Please try again.');
+        }
+    }, [currentTrackIndex, playlist, token, deviceId, dispatch, refreshAccessToken]);
+
+    const playTrack = async (trackUri: string, trackId: string) => {
+        if (!token || !deviceId || !isPlayerReady) {
+            console.error('Unable to play track: missing token, device ID, or player not ready');
+            return;
+        }
+
+        try {
+            if (playingTrackId === trackId && !isPaused) {
+                await axios({
+                    method: 'PUT',
+                    url: `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                setPlayingTrackId("");
+                setIsPaused(true);
+                dispatch(setIsPlaying(false));
+            } else {
                 await axios({
                     method: 'PUT',
                     url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -221,32 +292,80 @@ const SpotifyMenu: React.FC = () => {
 
                 setPlayingTrackId(trackId);
                 setIsPaused(false);
-            } catch (err) {
-                console.error('Failed to play track', err);
-                if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    const newToken = await refreshAccessToken();
-                    if (newToken) {
-                        return playTrack(trackUri, trackId);
-                    }
-                }
-                setError('Failed to play track. Please try again.');
+                dispatch(setIsPlaying(true));
+                setCurrentTrackIndex(playlist?.tracks.items.findIndex(item => item.track.id === trackId) ?? 0);
             }
+        } catch (err) {
+            console.error('Failed to play/pause track', err);
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                const newToken = await refreshAccessToken();
+                if (newToken) {
+                    setToken(newToken);
+                    return playTrack(trackUri, trackId);
+                }
+            }
+            setError('Failed to play/pause track. Please try again.');
         }
     }
-
     const togglePlayPause = async () => {
         if (!player) return;
 
         try {
             await player.togglePlay();
             setIsPaused(!isPaused);
+            dispatch(setIsPlaying(isPaused));
         } catch (err) {
             console.error('Failed to toggle play/pause', err);
             setError('Failed to toggle play/pause. Please try again.');
         }
     };
 
-    if (isOpenSpotify && isLoading) {
+    const handleSeek = async (position: number) => {
+        if (!player) return;
+
+        try {
+            await player.seek(position);
+            setTrackPosition(position);
+            lastUpdateTimeRef.current = Date.now();
+        } catch (err) {
+            console.error('Failed to seek', err);
+            setError('Failed to seek. Please try again.');
+        }
+    };
+
+    useEffect(() => {
+        const updatePosition = () => {
+            if (playerStateRef.current && !playerStateRef.current.paused) {
+                const now = Date.now();
+                const timePassed = now - lastUpdateTimeRef.current;
+                const newPosition = Math.min(
+                    playerStateRef.current.position + timePassed,
+                    playerStateRef.current.duration
+                );
+                setTrackPosition(newPosition);
+            }
+            requestAnimationFrame(updatePosition);
+        };
+
+        const animationId = requestAnimationFrame(updatePosition);
+
+        return () => cancelAnimationFrame(animationId);
+    }, []);
+
+    useEffect(() => {
+        const updateInterval = setInterval(() => {
+            if (playerStateRef.current && !playerStateRef.current.paused) {
+                const now = Date.now();
+                const timePassed = now - playerStateRef.current.timestamp;
+                const newPosition = Math.min(playerStateRef.current.position + timePassed, playerStateRef.current.duration);
+                setTrackPosition(newPosition);
+            }
+        }, 1000);
+
+        return () => clearInterval(updateInterval);
+    }, []);
+
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center pt-3">
                 <Loader className="animate-spin" size={24}/>
@@ -313,20 +432,28 @@ const SpotifyMenu: React.FC = () => {
                                 ))}
                             </ul>
                             {playingTrackId && (
-                                <div className="mt-4 py-2 px-3 bg-gray-700 rounded-lg flex items-center">
-                                    <div className="flex-grow">
-                                        <div className="font-semibold">Now Playing</div>
-                                        <div className="text-sm text-gray-400">
-                                            {playlist?.tracks.items.find(item => item.track.id === playingTrackId)?.track.name || 'Unknown Track'}
+                                <div className="mt-4 py-2 px-3 bg-gray-700 rounded-lg">
+                                    <div className="flex items-center mb-2">
+                                        <div className="flex-grow">
+                                            <div className="font-semibold">Now Playing</div>
+                                            <div className="text-sm text-gray-400">
+                                                {playlist?.tracks.items.find(item => item.track.id === playingTrackId)?.track.name || 'Unknown Track'}
+                                            </div>
                                         </div>
+                                        <button
+                                            onClick={togglePlayPause}
+                                            className="p-2 rounded-full bg-green-500 hover:bg-green-600"
+                                            disabled={!isPlayerReady}
+                                        >
+                                            {isPaused ? <Play size={20}/> : <Pause size={20}/>}
+                                        </button>
                                     </div>
-                                    <button
-                                        onClick={togglePlayPause}
-                                        className="p-2 rounded-full bg-green-500 hover:bg-green-600"
-                                        disabled={!isPlayerReady}
-                                    >
-                                        {isPaused ? <Play size={20}/> : <Pause size={20}/>}
-                                    </button>
+                                    <TrackProgressBar
+                                        duration={trackDuration}
+                                        position={trackPosition}
+                                        isPlaying={!isPaused}
+                                        onSeek={handleSeek}
+                                    />
                                 </div>
                             )}
                         </>

@@ -75,7 +75,6 @@ const spotifySlice = createSlice({
             state.error = action.payload;
         },
         setOpenSpotify: (state) => {
-            console.log("state.isOpenSpotify")
             state.isOpenSpotify = !state.isOpenSpotify;
         }
     },
