@@ -62,7 +62,6 @@ const ControlMusicList: React.FC = () => {
                         onMouseEnter={() => handleMouseEnter(category.name)}
                         onMouseLeave={handleMouseLeave}
                         onClick={() => {
-                            console.log("category clicked", category.name);
                             dispatch(setCurrentSong(categorizedMusics[category.name][0]));
                         }}
                     >
