@@ -9,7 +9,7 @@ import {store} from "@/redux/store";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
-        <BrowserRouter basename="/lofi-ver-2">
+        <BrowserRouter">
             <App/>
         </BrowserRouter>
     </Provider>
