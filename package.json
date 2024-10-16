@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "ghp-build": "tsc -b && vite build --base=/lofi-ver-2/",
+    "build:gh-pages": "BASE_URL='/lofi-ver-2/' npm run build",
+    "build:root": "BASE_URL='/' npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
