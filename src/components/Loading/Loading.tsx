@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/redux/store';
 import {gsap} from "gsap";
 import PixelLoading from "@/components/Loading/PixelLoading";
+import lofiLogo from "@/assets/logo/logo-lofi.gif";
 
 const Loading: React.FC = () => {
     const loading = useSelector((state: RootState) => state.loading.loading);
@@ -11,7 +12,6 @@ const Loading: React.FC = () => {
 
     const circleRef = useRef<HTMLDivElement>(null);
     const circleWrapperRef = useRef<HTMLDivElement>(null);
-    // const circleWrapperOverlayRef = useRef<HTMLDivElement>(null);
     const scene2Ref = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
     const logoTextRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,6 @@ const Loading: React.FC = () => {
             // scene 1
             timeline.to(circleWrapperRef.current, {y: 0})
                 .to(circleRef.current, {scale: 55, duration: animationDuration})
-                // .to(circleWrapperOverlayRef.current, {opacity: 1, duration: 0})
                 .to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
 
             // scene 2
@@ -41,7 +40,6 @@ const Loading: React.FC = () => {
                 .to(logoRef.current, {y: -40, duration: animationDuration + 0.2, transition: "power2.inOut"})
                 .to(logoTextRef.current, {opacity: 1, duration: animationDuration + 0.3}, "-=0.5")
                 .to(logoTextRef.current, {y: 0, duration: animationDuration + 0.6, transition: "power2.inOut"}, "-=1");
-
 
             // scene 3
             timeline.addLabel(`scene3-start`, "+=1")
@@ -74,7 +72,7 @@ const Loading: React.FC = () => {
                         <div
                             className="absolute w-[450px] px-2 max-w-full text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
                             <div ref={logoRef} className="opacity-0 w-[250px] scale-[150%] aspect-square">
-                                <img className="w-full h-full object-contain" src="/logo/logo-lofi.gif" alt="Logo"/>
+                                <img className="w-full h-full object-contain" src={lofiLogo} alt="Lofi Logo"/>
                             </div>
                             <div ref={logoTextRef}
                                  className="-translate-y-[120%] opacity-0 absolute bottom-[20%] left-0 w-full">
