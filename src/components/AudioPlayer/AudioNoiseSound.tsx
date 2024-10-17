@@ -65,7 +65,7 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
 
     return (
         <audio controls ref={noiseAudioRef} loop>
-            <source src={`/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
+            <source src={`@/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
         </audio>
     );
 };

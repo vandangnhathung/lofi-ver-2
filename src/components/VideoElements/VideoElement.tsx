@@ -50,7 +50,7 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
         <video
             key={src}
             onTransitionEnd={() => dispatch(setTransitionEnd(true))}
-            src={`/assets/videos/${src}`}
+            src={`@/assets/videos/${src}`}
             autoPlay
             loop
             muted
