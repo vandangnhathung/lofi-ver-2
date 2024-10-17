@@ -17,9 +17,9 @@ const resolvePath = (path: string) => {
     return `../../${path}`;
 };
 
-const loadIcon = (iconName: string) =>
+const loadIcon = (iconName: any) =>
     lazy(() =>
-        import(/* @vite-ignore */ resolvePath(`assets/icons/${iconName}`)).then(module => {
+        import(resolvePath(`assets/icons/${iconName}`)).then(module => {
             const IconComponent = module.default as React.FC<IconProps>;
             return {default: IconComponent};
         })

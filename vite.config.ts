@@ -11,6 +11,7 @@ export default defineConfig(({command}) => {
         base,
         resolve: {
             alias: {
+                find: 'src',
                 '@': path.resolve(__dirname, './src'),
             },
         },
