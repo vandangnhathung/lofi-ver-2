@@ -5,27 +5,21 @@ import categories from "@/assets/data/categories.json";
 import SkeletonLoading from "@/components/Loading/SkeletonLoading";
 import {setCurrentSong} from "@/redux/reducers/playerMusicSlice";
 
-// Define the props type for the icons
 interface IconProps {
     color?: string;
     className?: string;
 }
 
-// Utility function to resolve paths
 const resolvePath = (path: string) => {
-    // Check if we're in development or production
-    if (process.env.NODE_ENV === 'development') {
-        return `../../${path}`;
+    if (process.env.NODE_ENV === 'production') {
+        return `https://vandangnhathung.github.io/lofi-ver-2/${path}`;
     }
-    // In production, prepend the base URL
-    // You might need to adjust this depending on your GitHub Pages setup
-    return `/lofi-ver-2/${path}`;
+    return `../../${path}`;
 };
 
-// Utility function to dynamically import icons
 const loadIcon = (iconName: string) =>
     lazy(() =>
-        import(resolvePath(`assets/icons/${iconName}`)).then(module => {
+        import(/* @vite-ignore */ resolvePath(`assets/icons/${iconName}`)).then(module => {
             const IconComponent = module.default as React.FC<IconProps>;
             return {default: IconComponent};
         })
@@ -87,7 +81,6 @@ const ControlMusicList: React.FC = () => {
                                 </Suspense>
                             </div>
 
-                            {/* icon hover effect */}
                             <div
                                 className={`z-10 bg-[rgba(255,255,255,0.2)] opacity-0 group-hover:w-full group-hover:opacity-100 transition-all duration-500 ease-in-out absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full inset-0 w-[35px] aspect-square`}></div>
                         </div>
