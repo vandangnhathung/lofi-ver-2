@@ -11,10 +11,21 @@ interface IconProps {
     className?: string;
 }
 
+// Utility function to resolve paths
+const resolvePath = (path: string) => {
+    // Check if we're in development or production
+    if (process.env.NODE_ENV === 'development') {
+        return `../../${path}`;
+    }
+    // In production, prepend the base URL
+    // You might need to adjust this depending on your GitHub Pages setup
+    return `/lofi-ver-2/${path}`;
+};
+
 // Utility function to dynamically import icons
 const loadIcon = (iconName: string) =>
     lazy(() =>
-        import(`@/assets/icons/${iconName}`).then(module => {
+        import(resolvePath(`assets/icons/${iconName}`)).then(module => {
             const IconComponent = module.default as React.FC<IconProps>;
             return {default: IconComponent};
         })
