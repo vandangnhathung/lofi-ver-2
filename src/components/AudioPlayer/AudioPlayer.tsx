@@ -44,7 +44,7 @@ const AudioPlayer: React.FC = () => {
     // console.log("AudioPlayer rendered", currentSong);
 
     return (
-        <audio ref={audioRef} src={`@/assets/musics/${currentSong.path}`}/>
+        <audio ref={audioRef} src={`assets/musics/${currentSong.path}`}/>
     );
 };
 

@@ -19,7 +19,7 @@ const PanelScene = ({index, thumbnail, onClick}: PanelSceneProps) => {
             {isSkeletonLoading ? <SkeletonLoading/> :
                 <img
                     className={`object-cover aspect-[315/150] h-full`}
-                    src={`@/assets/images/thumbnails/${thumbnail}`}
+                    src={`assets/images/thumbnails/${thumbnail}`}
                     alt={`PanelScene ${index + 1}`}/>
             }
         </li>
