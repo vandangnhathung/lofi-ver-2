@@ -1,34 +1,23 @@
-import React, {lazy, Suspense, useCallback, useMemo, useState} from 'react';
+import React, {Suspense, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import categories from "@/assets/data/categories.json";
 import SkeletonLoading from "@/components/Loading/SkeletonLoading";
 import {setCurrentSong} from "@/redux/reducers/playerMusicSlice";
-
-// Define the props type for the icons
-interface IconProps {
-    color?: string;
-    className?: string;
-}
-
-// Utility function to dynamically import icons
-const loadIcon = (iconName: string) =>
-    lazy(() =>
-        import(`../../../../../src/components/ControlBar/assets/icons/${iconName}`).then(module => {
-            const IconComponent = module.default as React.FC<IconProps>;
-            return {default: IconComponent};
-        })
-    );
+import IconChill from "@/components/ControlBar/assets/icons//IconChill";
+import IconJazzy from "@/components/ControlBar/assets/icons/IconJazzy";
+import IconSleep from "@/components/ControlBar/assets/icons/IconSleep";
 
 const ControlMusicList: React.FC = () => {
+    const IconArray = [IconChill, IconJazzy, IconSleep];
+    const IconMap: { [key: string]: React.ComponentType<any> } = {
+        IconChill,
+        IconJazzy,
+        IconSleep
+    };
     const categorizedMusics = useSelector((state: RootState) => state.playerMusic.categorizedMusics);
     const dispatch = useDispatch();
-
     const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-    const [loadedIcons, setLoadedIcons] = useState<{
-        [key: string]: React.LazyExoticComponent<React.FC<IconProps>>
-    }>({});
-
     const currentSong = useSelector((state: RootState) => state.playerMusic.currentSong);
 
     const handleMouseEnter = useCallback((categoryName: string) => {
@@ -39,22 +28,19 @@ const ControlMusicList: React.FC = () => {
         setHoveredCategory(null);
     }, []);
 
-    const getIconComponent = useMemo(() => (src: string) => {
-        if (loadedIcons[src]) {
-            return loadedIcons[src];
+    const getIconComponent = (src: number | string) => {
+        if (typeof src === 'number') {
+            return IconArray[src];
+        } else if (typeof src === 'string') {
+            return IconMap[src] || IconChill; // Default to IconChill if not found
         }
-
-        const IconComponent = loadIcon(src);
-        setLoadedIcons(prevState => ({...prevState, [src]: IconComponent}));
-
-        return IconComponent;
-    }, [loadedIcons]);
+        return IconChill; // Default icon
+    };
 
     return (
         <div className="flex gap-4 justify-between">
             {categories.map((category, index) => {
                 const IconComponent = getIconComponent(category.src);
-
                 return (
                     <div
                         key={index}
