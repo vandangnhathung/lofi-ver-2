@@ -26,7 +26,8 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
 
     useEffect(() => {
         if (noiseAudioRef.current && soundSrc) {
-            const fullSrcPath = `assets/sounds/${soundSrc}`;
+            console.log("not working", soundSrc)
+            const fullSrcPath = `@/assets/sounds/${soundSrc}`;
             noiseAudioRef.current.src = ""; // Clear the src first
             noiseAudioRef.current.load(); // Reset the audio element
             noiseAudioRef.current.src = fullSrcPath;
@@ -65,7 +66,7 @@ const AudioNoiseSound: React.FC<AudioNoiseSoundProps> = ({
 
     return (
         <audio controls ref={noiseAudioRef} loop>
-            <source src={`assets/sounds/${soundSrc}`} type="audio/mpeg"/>
+            <source src={`@/assets/sounds/${soundSrc}`} type="audio/mpeg"/>
         </audio>
     );
 };
