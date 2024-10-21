@@ -14,7 +14,7 @@ interface IconProps {
 // Utility function to dynamically import icons
 const loadIcon = (iconName: string) =>
     lazy(() =>
-        import(`./assets/icons/${iconName}`).then(module => {
+        import(`./icons/${iconName}`).then(module => {
             const IconComponent = module.default as React.FC<IconProps>;
             return {default: IconComponent};
         })
