@@ -30,7 +30,7 @@ const Loading: React.FC = () => {
 
             // scene 1
             timeline.to(circleWrapperRef.current, {y: 0})
-                .to(circleRef.current, {scale: 55, duration: animationDuration})
+                .to(circleRef.current, {scale: 100, duration: animationDuration})
                 .to(animationWrapper.current, {backgroundColor: "transparent", duration: 0});
 
             // scene 2
@@ -75,7 +75,7 @@ const Loading: React.FC = () => {
                                 <img className="w-full h-full object-contain" src={lofiLogo} alt="Lofi Logo"/>
                             </div>
                             <div ref={logoTextRef}
-                                 className="-translate-y-[120%] opacity-0 absolute bottom-[20%] left-0 w-full">
+                                 className="-translate-y-[120%] opacity-0 absolute bottom-[20%] px-4 left-0 w-full">
                                 <span>"{quote}"</span>
                             </div>
                         </div>

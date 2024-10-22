@@ -8,7 +8,7 @@ interface panelProps {
 
 const initialState: panelProps = {
     panelScene: false,
-    controlBar: false,
+    controlBar: true,
 };
 
 const panelSlice = createSlice({

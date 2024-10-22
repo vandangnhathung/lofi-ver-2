@@ -14,7 +14,7 @@ const ControlBarMenu = () => {
 
     return (
         <div
-            className={`${controlBar ? "open-effect opacity" : "close-effect opacity-0"}  transition-all slow-effect-duration absolute z-20 top-gap-container right-gap-container md:right-auto left-gap-container capitalize font-medium`}
+            className={`${controlBar ? "open-effect opacity" : "close-effect opacity-0"}  transition-all slow-effect-duration absolute z-30 top-gap-container right-gap-container md:right-auto left-gap-container capitalize font-medium`}
         >
             <div className={` max-h-[88vh] scrollbar-hidden ${mixMore ? "overflow-y-auto " : ""}`}>
 

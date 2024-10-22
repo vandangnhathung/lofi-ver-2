@@ -16,7 +16,7 @@ const useBreakpoint = () => {
             const width = window.innerWidth;
             setIsMobile(width <= breakpoints.mobile);
             setIsTablet(width > breakpoints.mobile && width <= breakpoints.tablet);
-            setIsDesktop(width > breakpoints.tablet && width <= breakpoints.desktop);
+            setIsDesktop(width > breakpoints.tablet);
         };
 
         handleResize(); // Call once on mount to set the initial value

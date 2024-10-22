@@ -25,7 +25,7 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", 
         }
     };
 
-    const {isMobile} = useBreakpoint(); // Use the custom hook
+    const {isDesktop, isMobile} = useBreakpoint(); // Use the custom hook
     const {innerWidth, innerHeight} = window;
     const blockSize = innerWidth * 0.05;
     const amountOfBlocks = Math.ceil(innerHeight / blockSize);
@@ -60,22 +60,26 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", 
         });
     }, [status]);
 
-
     return (
-        <div ref={layerWrapperRef}
-             className={`absolute opacity-0 inset-0 flex z-30 ${loadingScene ? '' : 'pointer-events-none'}`}>
-            {[...Array(20)].map((_, i) => (
-                <div key={i} className={`${isMobile ? 'w-[40vh]' : 'w-[5vw]'} h-full`}>
-                    {[...Array(amountOfBlocks)].map((_, j) => (
-                        <div
-                            key={j}
-                            ref={addToBlockRefs}
-                            className={`w-full ${isMobile ? 'h-[5vh]' : 'h-[5vw]'} bg-transparent`}
-                        ></div>
+        <>
+            {/* todo: check the rerender of this component since this element is not showing when the first load page is executed */}
+            {isDesktop && (
+                <div ref={layerWrapperRef}
+                     className={`absolute opacity-0 inset-0 flex z-30 ${loadingScene ? '' : 'pointer-events-none'}`}>
+                    {[...Array(20)].map((_, i) => (
+                        <div key={i} className={`${isMobile ? 'w-[40vh]' : 'w-[5vw]'} h-full`}>
+                            {[...Array(amountOfBlocks)].map((_, j) => (
+                                <div
+                                    key={j}
+                                    ref={addToBlockRefs}
+                                    className={`w-full ${isMobile ? 'h-[5vh]' : 'h-[5vw]'} bg-transparent`}
+                                ></div>
+                            ))}
+                        </div>
                     ))}
                 </div>
-            ))}
-        </div>
+            )}
+        </>
     );
 };
 
