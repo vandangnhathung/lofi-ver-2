@@ -18,7 +18,7 @@ const initialState: SpotifyState = {
     currentTrack: null,
     isPlaying: false,
     error: null,
-    isOpenSpotify: false,
+    isOpenSpotify: true,
 };
 
 export const fetchUserPlaylists = createAsyncThunk(

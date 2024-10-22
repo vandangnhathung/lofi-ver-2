@@ -4,7 +4,6 @@ import {Volume, Volume2} from "lucide-react";
 import {useDispatch, useSelector} from "react-redux";
 import {setVolume} from "@/redux/reducers/playerMusicSlice"; // Adjust path as needed
 import {RootState} from "@/redux/store";
-import SpotifyMenu from "@/components/SpotifyMenu/SpotifyMenu"; // Adjust path as needed
 
 const LofiSlider = styled(Slider)(({}) => ({
     height: 8,
@@ -42,8 +41,6 @@ const ControlBarMenuMiddle = () => {
                     />
                 </div>
             </div>
-
-            <SpotifyMenu/>
         </div>
     );
 };
