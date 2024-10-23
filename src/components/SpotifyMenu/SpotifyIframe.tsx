@@ -11,13 +11,11 @@ const SpotifyIframe = () => {
                 <iframe
                     title="Spotify Playlist Embed"
                     className="rounded-xl w-full h-full"
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DWVGqd3X7g31u?utm_source=generator&theme=0"
-                    width="100%"
-                    height="352"
-                    frameBorder="0"
+                    src="https://open.spotify.com/embed/playlist/10M75TUt3X1qbBhpuEw6el?utm_source=generator"
+                    width="100%" height="352" frameBorder="0"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                />
+                    loading="lazy">
+                </iframe>
             </div>
         </div>
     );
