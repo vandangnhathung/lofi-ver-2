@@ -11,12 +11,15 @@ import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
 import MenuBar from "@/components/MenuBar/MenuBar";
 import SpotifyIframe from "@/components/SpotifyMenu/SpotifyIframe";
 import WeatherTracking from "@/components/WeatherTracking/WeatherTracking";
+import {DndContext} from "@dnd-kit/core";
+import {useState} from "react";
 
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
+    const [position, setPosition] = useState({x: 0, y: 0});
+    const [isDropped, setIsDropped] = useState<boolean>(false);
 
-    // Function to get CSS variable
     const getCssVariable = (name: string): string => {
         return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
@@ -25,10 +28,9 @@ function App() {
         palette: {
             primary: {
                 main: getCssVariable('--primary-color'),
-            }
+            },
         },
         components: {
-            // Override Slider styles
             MuiSlider: {
                 styleOverrides: {
                     root: {
@@ -39,24 +41,46 @@ function App() {
         }
     });
 
+    function handleDragEnd(event: any) {
+        if (event.over && event.over.id === 'droppable') {
+            const {x, y} = event.delta;
+            setPosition(prevPosition => ({
+                x: prevPosition.x + x,
+                y: prevPosition.y + y
+            }));
+            setIsDropped(true);
+        }
+    }
+
+
+    const draggableMarkup = (
+        <div style={{
+            position: 'absolute',
+            left: position.x,
+            top: position.y,
+        }}>
+            <WeatherTracking/>
+        </div>
+    );
+
     return (
         <ThemeProvider theme={theme}>
             <AudioPlayer/>
             <AudioNoiseSoundList/>
-            {/*<Loading/>*/}
-
             <div className="relative overflow-hidden">
-                <PixelLoading duration={0.0000001} status={animation}/>
-                <HomePage/>
-                <ControlBarMenu/>
-                <MenuBar/>
-                <SpotifyIframe/>
-                <WeatherTracking/>
+                <DndContext onDragEnd={handleDragEnd}>
+                    <PixelLoading duration={0.0000001} status={animation}/>
+                    {!isDropped ? draggableMarkup : null}
+                    <HomePage>
+                        {isDropped ? draggableMarkup : 'Drop here'}
+                    </HomePage>
+                    <ControlBarMenu/>
+                    <MenuBar/>
+                    <SpotifyIframe/>
+                </DndContext>
             </div>
-
-            {/*<UserComponent></UserComponent>*/}
         </ThemeProvider>
-    )
+    );
 }
 
 export default App

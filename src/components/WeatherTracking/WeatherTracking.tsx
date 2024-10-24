@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setNightMode} from "@/redux/reducers/modeSlice";
 import {Clock, Cloud, Droplets, Loader, MapPin, Thermometer, Wind} from "lucide-react";
+import {useDraggable} from "@dnd-kit/core";
+import {RootState} from "@/redux/store";
+import {CSS} from '@dnd-kit/utilities';
 
 interface Location {
     name: string;
@@ -38,14 +41,30 @@ interface WeatherData {
     current: Current;
 }
 
-const WeatherTracking: React.FC = () => {
+interface WeatherTrackingProps {
+    className?: string;
+    style?: React.CSSProperties;
+}
+
+const WeatherTracking: React.FC<WeatherTrackingProps> = ({className, style}) => {
     const [astronomy, setAstronomy] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const nightMode = useSelector((state: RootState) => state.mode.nightMode);
     const dispatch = useDispatch();
 
     const base_weather_url: string = 'http://api.weatherapi.com/v1';
     const apiKey = 'e1884132e32d42198b7154625242410';
+
+    const {attributes, listeners, setNodeRef, transform} = useDraggable({
+        id: 'draggable',
+    });
+
+    const dragStyle = {
+        ...style,
+        transform: CSS.Translate.toString(transform),
+    };
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -100,7 +119,7 @@ const WeatherTracking: React.FC = () => {
 
     useEffect(() => {
         astronomy?.current.is_day ? dispatch(setNightMode(false)) : dispatch(setNightMode(true));
-    }, [astronomy, dispatch]);
+    }, [nightMode]);
 
     if (isLoading) {
         return (
@@ -124,7 +143,11 @@ const WeatherTracking: React.FC = () => {
 
     return (
         <div
-            className="fixed z-10 pointer-events-none bottom-[10vh] left-gap-container transform glass-card p-6 rounded-lg text-white min-w-[320px]">
+            ref={setNodeRef}
+            style={dragStyle}
+            {...attributes}
+            {...listeners}
+            className={`absolute z-20 pointer-events-auto top-0 left-0 glass-card p-6 rounded-lg text-white min-w-[320px] ${className || ''}`}>
             {astronomy && (
                 <div className="space-y-2">
                     {/* Location Header */}
