@@ -13,12 +13,14 @@ import SpotifyIframe from "@/components/SpotifyMenu/SpotifyIframe";
 import WeatherTracking from "@/components/WeatherTracking/WeatherTracking";
 import {DndContext} from "@dnd-kit/core";
 import {useState} from "react";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 
 function App() {
     const animation = useSelector((state: RootState) => state.scene.animation);
     const [position, setPosition] = useState({x: 0, y: 0});
     const [isDropped, setIsDropped] = useState<boolean>(false);
+    const {isDesktop} = useBreakpoint();
 
     const getCssVariable = (name: string): string => {
         return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -67,6 +69,8 @@ function App() {
         <ThemeProvider theme={theme}>
             <AudioPlayer/>
             <AudioNoiseSoundList/>
+            {isDesktop && <Loading></Loading>}
+
             <div className="relative overflow-hidden">
                 <DndContext onDragEnd={handleDragEnd}>
                     <PixelLoading duration={0.0000001} status={animation}/>
