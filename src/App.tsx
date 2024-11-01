@@ -14,6 +14,7 @@ import WeatherTracking from "@/components/WeatherTracking/WeatherTracking";
 import {DndContext} from "@dnd-kit/core";
 import {useState} from "react";
 import useBreakpoint from "@/hooks/useBreakpoint";
+import Loading from "@/components/Loading/Loading";
 
 
 function App() {
@@ -58,8 +59,8 @@ function App() {
     const draggableMarkup = (
         <div style={{
             position: 'absolute',
-            left: position.x,
-            top: position.y,
+            left: position.x || '50%',
+            top: position.y || '50%',
         }}>
             <WeatherTracking/>
         </div>

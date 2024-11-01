@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setNightMode} from "@/redux/reducers/modeSlice";
 import {Clock, Cloud, Droplets, Loader, MapPin, Thermometer, Wind} from "lucide-react";
 import {useDraggable} from "@dnd-kit/core";
-import {RootState} from "@/redux/store";
 import {CSS} from '@dnd-kit/utilities';
 
 interface Location {
@@ -50,7 +49,6 @@ const WeatherTracking: React.FC<WeatherTrackingProps> = ({className, style}) => 
     const [astronomy, setAstronomy] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const nightMode = useSelector((state: RootState) => state.mode.nightMode);
     const dispatch = useDispatch();
 
     const base_weather_url: string = 'http://api.weatherapi.com/v1';
@@ -119,7 +117,7 @@ const WeatherTracking: React.FC<WeatherTrackingProps> = ({className, style}) => 
 
     useEffect(() => {
         astronomy?.current.is_day ? dispatch(setNightMode(false)) : dispatch(setNightMode(true));
-    }, [nightMode]);
+    }, [astronomy]);
 
     if (isLoading) {
         return (

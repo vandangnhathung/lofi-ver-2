@@ -11,6 +11,7 @@ const ToggleDayNight = () => {
 
     const toggleNightMode = () => {
         if (isClickableRef.current) {
+            console.log("toggleNightMode", !nightMode);
             dispatch(setNightMode(!nightMode));
             isClickableRef.current = false;
         }
