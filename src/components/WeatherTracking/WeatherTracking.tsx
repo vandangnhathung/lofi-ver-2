@@ -51,7 +51,7 @@ const WeatherTracking: React.FC<WeatherTrackingProps> = ({className, style}) => 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const dispatch = useDispatch();
 
-    const base_weather_url: string = 'http://api.weatherapi.com/v1';
+    const base_weather_url: string = 'https://api.weatherapi.com/v1';
     const apiKey = 'e1884132e32d42198b7154625242410';
 
     const {attributes, listeners, setNodeRef, transform} = useDraggable({
