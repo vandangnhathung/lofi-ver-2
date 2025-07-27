@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css';
 import './styles/variables.scss';
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "@/redux/store";
 import {createTheme, ThemeProvider} from "@mui/material";
@@ -33,11 +33,11 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
     <Provider store={store}>
-    <HashRouter basename="/lofi-ver-2"> 
+    <BrowserRouter basename="/lofi-ver-2"> 
     <ThemeProvider theme={theme}>
                 <App/>
             </ThemeProvider>
-            </HashRouter>
+            </BrowserRouter>
             </Provider>
     </StrictMode>
 )
