@@ -9,10 +9,13 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<HomePageWrapper/>}/>
+            <Route path="/lofi-ver-2" element={<HomePageWrapper/>}/>
 
             {/* Authentication */}
             <Route path="/sign-in" element={<Auth/>}/>
             <Route path="/sign-up" element={<Auth/>}/>
+            <Route path="/lofi-ver-2/sign-in" element={<Auth/>}/>
+            <Route path="/lofi-ver-2/sign-up" element={<Auth/>}/>
         </Routes>
     );
 }
