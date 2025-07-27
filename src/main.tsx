@@ -33,7 +33,7 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
     <Provider store={store}>
-    <HashRouter>
+    <HashRouter basename="/lofi-ver-2"> 
     <ThemeProvider theme={theme}>
                 <App/>
             </ThemeProvider>
