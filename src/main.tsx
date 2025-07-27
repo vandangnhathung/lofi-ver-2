@@ -1,9 +1,9 @@
-import React, {StrictMode} from 'react'
+import {StrictMode} from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css';
 import './styles/variables.scss';
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "@/redux/store";
 import {createTheme, ThemeProvider} from "@mui/material";
@@ -32,15 +32,12 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <HashRouter>
     <Provider store={store}>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
+    <HashRouter>
+    <ThemeProvider theme={theme}>
                 <App/>
             </ThemeProvider>
-
-        </BrowserRouter>
-    </Provider>
-    </HashRouter>
+            </HashRouter>
+            </Provider>
     </StrictMode>
 )
