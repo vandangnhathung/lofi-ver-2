@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
 import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
-import {DndContext} from "@dnd-kit/core";
+import {DndContext, DragEndEvent} from "@dnd-kit/core";
 import PixelLoading from "@/components/Loading/PixelLoading";
 import HomePage from "@/pages/HomePage/HomePage";
 import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMenu";
@@ -21,7 +21,7 @@ const HomePageWrapper = () => {
     // const {isDesktop} = useBreakpoint();
 
 
-    function handleDragEnd(event: any) {
+    function handleDragEnd(event: DragEndEvent) {
         if (event.over && event.over.id === 'droppable') {
             const {x, y} = event.delta;
             setPosition(prevPosition => ({

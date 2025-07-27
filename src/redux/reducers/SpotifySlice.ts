@@ -1,11 +1,30 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+interface SpotifyPlaylist {
+    id: string;
+    name: string;
+    description?: string;
+    images?: Array<{ url: string; width?: number; height?: number }>;
+}
+
+interface SpotifyTrack {
+    id: string;
+    name: string;
+    artists: Array<{ name: string; id: string }>;
+    album: {
+        name: string;
+        images?: Array<{ url: string; width?: number; height?: number }>;
+    };
+    duration_ms: number;
+    uri: string;
+}
+
 interface SpotifyState {
     token: string | null;
     isLoggedIn: boolean;
-    userPlaylists: any[];
-    currentTrack: any | null;
+    userPlaylists: SpotifyPlaylist[];
+    currentTrack: SpotifyTrack | null;
     isPlaying: boolean;
     error: string | null;
     isOpenSpotify: boolean,
@@ -24,14 +43,17 @@ const initialState: SpotifyState = {
 export const fetchUserPlaylists = createAsyncThunk(
     'spotify/fetchUserPlaylists',
     async (_, {getState, rejectWithValue}) => {
-        const {token} = (getState() as any).spotify;
+        const {token} = (getState() as { spotify: SpotifyState }).spotify;
         try {
             const response = await axios.get('https://api.spotify.com/v1/me/playlists', {
                 headers: {'Authorization': `Bearer ${token}`}
             });
             return response.data.items;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data);
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue('An error occurred');
         }
     }
 );
@@ -39,14 +61,17 @@ export const fetchUserPlaylists = createAsyncThunk(
 export const getCurrentPlayback = createAsyncThunk(
     'spotify/getCurrentPlayback',
     async (_, {getState, rejectWithValue}) => {
-        const {token} = (getState() as any).spotify;
+        const {token} = (getState() as { spotify: SpotifyState }).spotify;
         try {
             const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
                 headers: {'Authorization': `Bearer ${token}`}
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data);
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue('An error occurred');
         }
     }
 );

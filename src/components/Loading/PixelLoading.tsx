@@ -47,16 +47,18 @@ const PixelLoading = ({status, duration}: { status?: "in" | "out" | "complete", 
         const uniqueRandomIndices = gsap.utils.shuffle(Array.from({length: shuffledBlockRefs.length}, (_, i) => i));
 
         timeline.to(layerWrapperRef.current, {opacity: 1, duration: 0});
-        shuffledBlockRefs.forEach((block, index) => {
+        shuffledBlockRefs.forEach((block: HTMLDivElement | null, index: number) => {
             const randomPosition = uniqueRandomIndices[index];
-            timeline.fromTo(block, {
-                opacity: status === 'out' ? 0 : 1,
-                backgroundColor: status === 'out' ? "" : "black"
-            }, {
-                opacity: status === 'out' ? 1 : 0,
-                duration,
-                backgroundColor: status === 'out' ? "black" : ""
-            }, `+=${isMobile ? randomPosition * 0.000009 : randomPosition * 0.00004}`);
+            if (block) {
+                timeline.fromTo(block, {
+                    opacity: status === 'out' ? 0 : 1,
+                    backgroundColor: status === 'out' ? "" : "black"
+                }, {
+                    opacity: status === 'out' ? 1 : 0,
+                    duration,
+                    backgroundColor: status === 'out' ? "black" : ""
+                }, `+=${isMobile ? randomPosition * 0.000009 : randomPosition * 0.00004}`);
+            }
         });
     }, [status]);
 

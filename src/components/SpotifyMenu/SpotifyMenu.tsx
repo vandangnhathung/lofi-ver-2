@@ -35,8 +35,27 @@ interface SpotifyPlayerOptions {
     volume: number;
 }
 
+interface SpotifyPlayerState {
+    track_window?: {
+        current_track?: {
+            id: string;
+            name: string;
+            uri: string;
+        };
+    };
+    paused: boolean;
+    duration?: number;
+    position?: number;
+    timestamp?: number;
+}
+
+interface SpotifyReadyState {
+    device_id: string;
+}
+
 interface SpotifyPlayer {
-    addListener: (eventName: string, callback: (state: any) => void) => void;
+    addListener(eventName: 'ready' | 'not_ready', callback: (state: SpotifyReadyState) => void): void;
+    addListener(eventName: 'player_state_changed', callback: (state: SpotifyPlayerState) => void): void;
     connect: () => Promise<boolean>;
     togglePlay: () => Promise<void>;
     seek: (positionMs: number) => Promise<void>;
@@ -63,7 +82,7 @@ const SpotifyMenu: React.FC = () => {
     const [trackDuration, setTrackDuration] = useState<number>(0);
     const [trackPosition, setTrackPosition] = useState<number>(0);
 
-    const playerStateRef = useRef<any>(null);
+    const playerStateRef = useRef<SpotifyPlayerState | null>(null);
     const lastUpdateTimeRef = useRef<number>(Date.now());
 
     const isOpenSpotify = useSelector((state: RootState) => state.spotify.isOpenSpotify);
@@ -125,7 +144,7 @@ const SpotifyMenu: React.FC = () => {
                 setIsPlayerReady(false);
             });
 
-            player.addListener('player_state_changed', (state: any) => {
+            player.addListener('player_state_changed', (state: SpotifyPlayerState) => {
                 if (!state) {
                     console.log('Received empty state, ignoring...');
                     return;
@@ -335,7 +354,9 @@ const SpotifyMenu: React.FC = () => {
 
     useEffect(() => {
         const updatePosition = () => {
-            if (playerStateRef.current && !playerStateRef.current.paused) {
+            if (playerStateRef.current && !playerStateRef.current.paused && 
+                playerStateRef.current.position !== undefined && 
+                playerStateRef.current.duration !== undefined) {
                 const now = Date.now();
                 const timePassed = now - lastUpdateTimeRef.current;
                 const newPosition = Math.min(
@@ -354,7 +375,10 @@ const SpotifyMenu: React.FC = () => {
 
     useEffect(() => {
         const updateInterval = setInterval(() => {
-            if (playerStateRef.current && !playerStateRef.current.paused) {
+            if (playerStateRef.current && !playerStateRef.current.paused && 
+                playerStateRef.current.position !== undefined && 
+                playerStateRef.current.duration !== undefined &&
+                playerStateRef.current.timestamp !== undefined) {
                 const now = Date.now();
                 const timePassed = now - playerStateRef.current.timestamp;
                 const newPosition = Math.min(playerStateRef.current.position + timePassed, playerStateRef.current.duration);

@@ -10,7 +10,7 @@ import IconSleep from "@/components/ControlBar/assets/icons/IconSleep";
 
 const ControlMusicList: React.FC = () => {
     const IconArray = [IconChill, IconJazzy, IconSleep];
-    const IconMap: { [key: string]: React.ComponentType<any> } = {
+    const IconMap: { [key: string]: React.ComponentType<{ color?: string; className?: string }> } = {
         IconChill,
         IconJazzy,
         IconSleep

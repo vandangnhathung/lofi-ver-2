@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setVolume} from "@/redux/reducers/playerMusicSlice"; // Adjust path as needed
 import {RootState} from "@/redux/store";
 
-const LofiSlider = styled(Slider)(({}) => ({
+const LofiSlider = styled(Slider)(() => ({
     height: 8,
 }));
 
