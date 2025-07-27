@@ -33,15 +33,15 @@ const HomePageWrapper = () => {
     }
 
 
-    const draggableMarkup = (
-        <div style={{
-            position: 'absolute',
-            left: position.x || '50%',
-            top: position.y || '50%',
-        }}>
-            <WeatherTracking/>
-        </div>
-    );
+    // const draggableMarkup = (
+    //     <div style={{
+    //         position: 'absolute',
+    //         left: position.x || '50%',
+    //         top: position.y || '50%',
+    //     }}>
+    //         <WeatherTracking/>
+    //     </div>
+    // );
 
     return (
         <>
@@ -49,12 +49,12 @@ const HomePageWrapper = () => {
             <AudioNoiseSoundList/>
             {/*{isDesktop && <Loading></Loading>}*/}
 
-            <div className="relative overflow-hidden">
+            <div className="overflow-hidden relative">
                 <DndContext onDragEnd={handleDragEnd}>
                     <PixelLoading duration={0.0000001} status={animation}/>
-                    {!isDropped ? draggableMarkup : null}
+                    {/* {!isDropped ? draggableMarkup : null} */}
                     <HomePage>
-                        {isDropped ? draggableMarkup : 'Drop here'}
+                        {/* {isDropped ? draggableMarkup : 'Drop here'} */}
                     </HomePage>
                     <ControlBarMenu/>
                     <MenuBar/>

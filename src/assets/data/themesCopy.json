@@ -1,12 +1,12 @@
 [
   {
     "title": "Book cafe",
-    "thumbnail": "bookCafeOutside.png",
+    "thumbnail": "bookCafeOutside.webp",
     "scenes": [
       {
         "id": "bookCafeOutside",
         "name": "Book cafe outside",
-        "thumbnail": "bookCafeOutside.png",
+        "thumbnail": "bookCafeOutside.webp",
         "sources": {
           "day": {
             "normal": {
@@ -58,7 +58,7 @@
       {
         "id": "bookCafeInside",
         "name": "Book cafe inside",
-        "thumbnail": "bookCafeInside.png",
+        "thumbnail": "bookCafeInside.webp",
         "sources": {
           "day": {
             "normal": {
@@ -120,12 +120,12 @@
   },
   {
     "title": "Honolulu",
-    "thumbnail": "Honolulu.png",
+    "thumbnail": "Honolulu.webp",
     "scenes": [
       {
         "id": "honoluluBalcony",
         "name": "Honolulu Balcony",
-        "thumbnail": "HonoluluBalcony.png",
+        "thumbnail": "HonoluluBalcony.webp",
         "sources": {
           "day": {
             "normal": {
@@ -177,7 +177,7 @@
       {
         "id": "honoluluBeach",
         "name": "Honolulu Beach",
-        "thumbnail": "HonoluluBeach.png",
+        "thumbnail": "HonoluluBeach.webp",
         "sources": {
           "day": {
             "normal": {
@@ -230,12 +230,12 @@
   },
   {
     "title": "Traveling",
-    "thumbnail": "traveling.png",
+    "thumbnail": "traveling.webp",
     "scenes": [
       {
         "id": "travelingScene",
         "name": "Traveling",
-        "thumbnail": "traveling.png",
+        "thumbnail": "traveling.webp",
         "sources": {
           "day": {
             "normal": {
@@ -267,7 +267,7 @@
       {
         "id": "mountainScene",
         "name": "Mountain",
-        "thumbnail": "traveling.png",
+        "thumbnail": "traveling.webp",
         "sources": {
           "day": {
             "normal": {
@@ -281,12 +281,12 @@
   },
   {
     "title": "Train",
-    "thumbnail": "train-night.jpg",
+    "thumbnail": "train-night.webp",
     "scenes": [
       {
         "id": "trainScene",
         "name": "train",
-        "thumbnail": "train-night.jpg",
+        "thumbnail": "train-night.webp",
         "sources": {
           "day": {
             "normal": {
