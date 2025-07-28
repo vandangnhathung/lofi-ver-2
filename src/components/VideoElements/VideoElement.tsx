@@ -54,12 +54,21 @@ const VideoElement: React.FC<VideoElementProps> = ({src}) => {
             autoPlay
             loop
             muted
-            className="object-cover transition-all w-full h-full inset-0 absolute object-center pointer-events-none"
+            playsInline
+            disablePictureInPicture
+            controls={false}
+            className="object-cover object-center absolute inset-0 w-full h-full transition-all pointer-events-none select-none"
             style={{
                 transitionDuration: animation === 'in' && !openPanel ? '0.5s' : 'unset',
                 zIndex: activeSceneSrc === src ? 2 : 0,
                 opacity: activeSceneSrc === src ? 1 : 0,
-            }}
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
+                touchAction: 'none',
+                WebkitTouchCallout: 'none',
+            } as React.CSSProperties}
         />
     );
 };
