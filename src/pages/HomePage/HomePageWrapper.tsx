@@ -22,14 +22,12 @@ const HomePageWrapper = () => {
             {isDesktop && <Loading/>}
 
             <div className="overflow-hidden relative">
-                <DndContext>
                     <PixelLoading duration={0.0000001} status={animation}/>
                     <HomePage>
                     </HomePage>
                     <ControlBarMenu/>
                     <MenuBar/>
                     <SpotifyIframe/>
-                </DndContext>
             </div>
         </>
     );
