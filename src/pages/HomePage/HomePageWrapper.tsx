@@ -1,6 +1,5 @@
 import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
 import AudioNoiseSoundList from "@/components/AudioPlayer/AudioNoiseSoundList";
-import {DndContext} from "@dnd-kit/core";
 import PixelLoading from "@/components/Loading/PixelLoading";
 import HomePage from "@/pages/HomePage/HomePage";
 import ControlBarMenu from "@/components/ControlBar/ControlBarMenu/ControlBarMenu";
