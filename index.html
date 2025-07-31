@@ -5,6 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/lofi-ver-2/assets/lofi-logo-iCDiH1qX.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lofi</title>
+    
+    <!-- Performance Optimization: Resource Hints -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS and JS preloading -->
+    <link rel="preload" href="data:application/octet-stream;base64,aW1wb3J0IHtTdHJpY3RNb2RlfSBmcm9tICdyZWFjdCcKaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnCi8vIEltcG9ydCBFYXN5IFBvcHVwIHN0eWxlcwppbXBvcnQgIkB2aWl2dWUvZWFzeS1wb3B1cC9kaXN0L2Vhc3ktcG9wdXAubWluLmNzcyIKaW1wb3J0IEFwcCBmcm9tICcuL0FwcCcKaW1wb3J0ICcuL2luZGV4LmNzcyc7CmltcG9ydCAiLi9zdHlsZXMvdmFyaWFibGVzLnNjc3MiOwppbXBvcnQge0Jyb3dzZXJSb3V0ZXJ9IGZyb20gInJlYWN0LXJvdXRlci1kb20iOwppbXBvcnQge1Byb3ZpZGVyfSBmcm9tICJyZWFjdC1yZWR1eCI7CmltcG9ydCB7c3RvcmV9IGZyb20gIkAvcmVkdXgvc3RvcmUiOwppbXBvcnQge2NyZWF0ZVRoZW1lLCBUaGVtZVByb3ZpZGVyfSBmcm9tICJAbXVpL21hdGVyaWFsIjsKCmNvbnN0IGdldENzc1ZhcmlhYmxlID0gKG5hbWU6IHN0cmluZyk6IHN0cmluZyA9PiB7CiAgICByZXR1cm4gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpLmdldFByb3BlcnR5VmFsdWUobmFtZSkudHJpbSgpOwp9Cgpjb25zdCB0aGVtZSA9IGNyZWF0ZVRoZW1lKHsKICAgIHBhbGV0dGU6IHsKICAgICAgICBwcmltYXJ5OiB7CiAgICAgICAgICAgIG1haW46IGdldENzc1ZhcmlhYmxlKCctLXByaW1hcnktY29sb3InKSwKICAgICAgICB9LAogICAgfSwKICAgIGNvbXBvbmVudHM6IHsKICAgICAgICBNdWlTbGlkZXI6IHsKICAgICAgICAgICAgc3R5bGVPdmVycmlkZXM6IHsKICAgICAgICAgICAgICAgIHJvb3Q6IHsKICAgICAgICAgICAgICAgICAgICBoZWlnaHQ6IDgsCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9Cn0pOwoKUmVhY3RET00uY3JlYXRlUm9vdChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpISkucmVuZGVyKAogICAgPFN0cmljdE1vZGU+CiAgICA8UHJvdmlkZXIgc3RvcmU9e3N0b3JlfT4KICAgIDxCcm93c2VyUm91dGVyPiAKICAgIDxUaGVtZVByb3ZpZGVyIHRoZW1lPXt0aGVtZX0+CiAgICAgICAgICAgICAgICA8QXBwLz4KICAgICAgICAgICAgPC9UaGVtZVByb3ZpZGVyPgogICAgICAgICAgICA8L0Jyb3dzZXJSb3V0ZXI+CiAgICAgICAgICAgIDwvUHJvdmlkZXI+CiAgICA8L1N0cmljdE1vZGU+CikK" as="script" type="module">
+    
+    <!-- Preload critical UI assets -->
+    <link rel="preload" href="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20class='w-8%20h-8%20text-[%23363636]%20flex%20items-center%20justify-center'%20fill='none'%20viewBox='0%200%2024%2024'%20stroke='currentColor'%3e%3cpath%20strokeLinecap='round'%20strokeLinejoin='round'%20strokeWidth='2'%20d='M12%206V4m0%202a2%202%200%20100%204m0-4a2%202%200%20110%204m-6%208a2%202%200%20100-4m0%204a2%202%200%20110-4m0%204v2m0-6V4m6%206v10m6-2a2%202%200%20100-4m0%204a2%202%200%20110-4m0%204v2m0-6V4'%3e%3c/path%3e%3c/svg%3e" as="image">
+    <link rel="preload" href="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='%23c3c3c3'%20stroke='%23c3c3c3'%20strokeWidth='2'%20strokeLinecap='round'%20strokeLinejoin='round'%20class='lucide%20lucide-coffee'%3e%3cpath%20d='M10%202v2'/%3e%3cpath%20d='M14%202v2'/%3e%3cpath%20d='M16%208a1%201%200%200%201%201%201v8a4%204%200%200%201-4%204H7a4%204%200%200%201-4-4V9a1%201%200%200%201%201-1h14a4%204%200%201%201%200%208h-1'/%3e%3cpath%20d='M6%202v2'/%3e%3c/svg%3e" as="image">
+    
+    <!-- Preload first audio file for faster audio startup -->
+    <link rel="preload" href="/lofi-ver-2/assets/lofi_compressed-B3LVVIZZ.aac" as="audio" crossorigin>
+    <link rel="preload" href="/lofi-ver-2/assets/jazzy_1_compressed-lTruPMNi.aac" as="audio" crossorigin>
+    
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
       // MIT License
@@ -27,8 +44,8 @@
         }
       }(window.location))
     </script>
-    <script type="module" crossorigin src="/lofi-ver-2/assets/index-B6PMqnYf.js"></script>
-    <link rel="stylesheet" crossorigin href="/lofi-ver-2/assets/index-BqNGbVd9.css">
+    <script type="module" crossorigin src="/lofi-ver-2/assets/index-kXpbWBtm.js"></script>
+    <link rel="stylesheet" crossorigin href="/lofi-ver-2/assets/index-CkvgmMb8.css">
   </head>
   <body>
     <div id="root"></div>
