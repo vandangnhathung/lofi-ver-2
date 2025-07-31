@@ -4,7 +4,7 @@ const GitHubButton = () => {
             className="p-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] transition-all"
                >
                 <img 
-                    src="/assets/icons/github-mark.svg" 
+                    src="/public/assets/icons/github-mark.svg" 
                     className="w-6 h-6 invert"
                     alt="GitHub" 
                 />
