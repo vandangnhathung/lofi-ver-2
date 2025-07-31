@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import Auth from "@/pages/Auth/Auth";
 import HomePageWrapper from "@/pages/HomePage/HomePageWrapper";
 import { PopupManager } from "@/components/PopupManager/PopupManager";
+import PerformanceMonitor from "@/components/PerformanceMonitor/PerformanceMonitor";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/lofi-ver-2/sign-up" element={<Auth/>}/>
             </Routes>
             <PopupManager />
+            <PerformanceMonitor />
         </>
     );
 }
