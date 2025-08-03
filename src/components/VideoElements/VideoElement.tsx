@@ -54,11 +54,11 @@ const VideoElement: React.FC<VideoElementProps> = ({src, isActive = false, shoul
 
     // Handle video load events
     const handleLoadStart = () => {
-        console.log(`🎬 Loading video: ${src}`);
+        // console.log(`🎬 Loading video: ${src}`);
     };
 
     const handleCanPlay = () => {
-        console.log(`✅ Video loaded: ${src}`);
+        // console.log(`✅ Video loaded: ${src}`);
         setIsLoaded(true);
     };
 
