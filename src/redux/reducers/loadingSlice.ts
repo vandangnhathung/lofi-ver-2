@@ -6,6 +6,7 @@ interface LoadingState {
     loadingScene: boolean;
     animationComplete: boolean;
     isButtonClicked: boolean;
+    transitionEnd: boolean;
 }
 
 const initialState: LoadingState = {
@@ -13,6 +14,7 @@ const initialState: LoadingState = {
     loadingScene: false,
     animationComplete: false,
     isButtonClicked: true,
+    transitionEnd: false,
 };
 
 const loadingSlice = createSlice({
@@ -29,7 +31,7 @@ const loadingSlice = createSlice({
             state.animationComplete = action.payload;
         },
         setTransitionEnd: (state, action: PayloadAction<boolean>) => {
-            state.isButtonClicked = action.payload;
+            state.transitionEnd = action.payload;
         }
     },
 });

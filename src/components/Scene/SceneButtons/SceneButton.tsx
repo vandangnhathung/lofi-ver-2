@@ -27,6 +27,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     ) ?? 0;
 
     const handleSceneButton = () => {
+        console.log("isButtonClicked", isButtonClicked);
         if (isButtonClicked) {
             let transitionShouldEnd = false;
 
@@ -66,13 +67,13 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
     };
 
     return (
-        <div className={`group absolute`}
+        <div className={`absolute group`}
              style={{top: button.position.top, left: button.position.left}}>
             <button
                 onClick={handleSceneButton}
                 className={``}
             >
-                <div className={`w-12 h-12 p-3 relative`}>
+                <div className={`relative p-3 w-12 h-12`}>
                     <div
                         className={`h-full after:transition-all after:duration-500 after:rounded-full group-hover:after:bg-primary after:absolute after:inset-0 after:opacity-30`}
                     >
@@ -88,7 +89,7 @@ const SceneButton = ({button}: { button: SceneButtonProps }) => {
             </button>
 
             <div
-                className={`text-center group-hover:visible group-hover:opacity-100 opacity-0 invisible relative transition-all duration-2000 flex flex-col gap-y-2`}>
+                className={`flex relative invisible flex-col gap-y-2 text-center opacity-0 transition-all group-hover:visible group-hover:opacity-100 duration-2000`}>
                 <div
                     className={`min-w-[180px] py-2 px-8 bg-[rgba(0,0,0,0.6)] 
                     absolute left-1/2 -translate-x-1/2 top-full translate-y-1 rounded-md`}>
