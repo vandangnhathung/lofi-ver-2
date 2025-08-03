@@ -82,14 +82,14 @@ class PerformanceOptimizer {
         const src = videoElement.src;
         
         videoElement.addEventListener('loadstart', () => {
-            console.log(`🎬 Video loading started: ${src}`);
+            // console.log(`🎬 Video loading started: ${src}`);
             window.dispatchEvent(new CustomEvent('mediaLoadStart'));
         });
 
         videoElement.addEventListener('canplay', () => {
             const loadTime = performance.now() - startTime;
             this.metrics.loadTimes[src] = loadTime;
-            console.log(`✅ Video loaded: ${src} (${loadTime.toFixed(0)}ms)`);
+            // console.log(`✅ Video loaded: ${src} (${loadTime.toFixed(0)}ms)`);
             
             if (src.includes('compressed')) {
                 this.metrics.compressedFilesUsed++;
